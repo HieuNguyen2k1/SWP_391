@@ -1,9 +1,9 @@
 package Filter;
 
 import Model.User;
-import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
@@ -19,5 +19,19 @@ public class LoginFilter implements Filter {
             request.getSession().setAttribute("login_mess", "Vui lòng đăng nhập.");
             response.sendRedirect(request.getContextPath() + "/login");
         }
+    }
+ 
+    /**
+     *
+     * @param fc
+     * @throws ServletException
+     */
+    @Override 
+    public void init(FilterConfig fc) throws  ServletException{
+        // Khoi tao cac tai nguyen cua filter
+    }
+    @Override
+    public void destroy(){
+        //giai phong tai nguyen cua filter
     }
 }

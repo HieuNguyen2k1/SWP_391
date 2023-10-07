@@ -1,6 +1,6 @@
 package Control.Auth;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

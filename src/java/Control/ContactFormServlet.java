@@ -6,11 +6,11 @@ package Control;
 
 import Control.Auth.Mail;
 import java.io.IOException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/contactEmail")
 public class ContactFormServlet extends HttpServlet {
@@ -28,12 +28,12 @@ public class ContactFormServlet extends HttpServlet {
         boolean emailSent = Mail.sendContactEmail(fullName, phoneNumber, email, address, question);
 
         if (emailSent) {
-            request.setAttribute("Message", "Yêu cầu của bạn đã được gửi thành công.");
+            request.setAttribute("Message", "Your inquiry has been sent successfully.");
             // Email sent successfully, you can redirect to a confirmation page
             request.getRequestDispatcher("/WEB-INF/views/confirmContact.jsp").forward(request, response);
         } else {
             // Handle email sending failure, e.g., show an error message
-            request.setAttribute("errorMessage", "Gửi email không thành công. Vui lòng thử lại.");
+            request.setAttribute("errorMessage", "Email sending failed. Please try again.");
             request.getRequestDispatcher("/WEB-INF/views/errorContact.jsp").forward(request, response);
         }
     }

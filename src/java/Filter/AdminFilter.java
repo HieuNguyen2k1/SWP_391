@@ -1,9 +1,9 @@
 package Filter;
 
 import Model.User;
-import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
@@ -18,5 +18,13 @@ public class AdminFilter implements Filter {
             request.getSession().setAttribute("login_mess", "Vui lòng đăng nhập bằng tài khoản admin.");
             response.sendRedirect(request.getContextPath() + "/login");
         }
+    }
+    @Override 
+    public void init(FilterConfig fc) throws  ServletException{
+        
+    }
+    @Override
+    public void destroy(){
+        
     }
 }

@@ -3,8 +3,8 @@ package Control.Auth;
 import Dao.AuthDao;
 import Model.Doctor;
 import Model.User;
-import jakarta.servlet.http.*;
-import jakarta.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.*;
 
 import java.io.IOException;
 public class LoginServlet extends HttpServlet {
