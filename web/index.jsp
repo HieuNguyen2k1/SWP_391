@@ -23,7 +23,7 @@
             }
         </script>
     </head>
-    
+
     <body>
 
         <!-- Hero Start -->
@@ -35,7 +35,9 @@
                         <h1 class="display-1 text-white mb-md-4">Chuyên nghiệp – Tận tâm – Thân thiện</h1>
                         <div class="pt-2">
                             <a href="" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Tìm kiếm bác sĩ</a>
-                            <a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
+                            <!--<a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>-->
+                            <a href="${pageContext.request.contextPath}/search-doctor" class="btn" data-animation="fadeInLeft" data-delay=".3s">Đặt Khám</a>
+
                         </div>
                     </div>
                 </div>

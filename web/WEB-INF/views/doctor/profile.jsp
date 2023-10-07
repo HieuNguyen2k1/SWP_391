@@ -12,15 +12,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script>
-        if (window.performance && window.performance.navigation.type === 2) {
-            // Trang được chuyển hướng từ servlet LogoutServlet
-            history.replaceState(null, '', 'login.jsp');
-            window.addEventListener('popstate', function (event) {
-                window.location.href = 'login.jsp';
-            });
-        }
-    </script>
+   
+</head>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">

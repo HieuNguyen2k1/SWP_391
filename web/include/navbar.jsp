@@ -106,7 +106,7 @@
                                     <li><a href="${pageContext.request.contextPath}/logout">Đăng Xuất</a></li>
                                     <li><a href="${pageContext.request.contextPath}/patient/profile">Trang Cá Nhân</a></li>
                                         <% if (session.getAttribute("acc") != null) { %>
-                                    <li><a href="${pageContext.request.contextPath}/patient/view-appointments">Danh sách lịch Khám</a>
+                                    <li><a href="${pageContext.request.contextPath}/patient/view-appointments">Lịch sử đặt lịch</a>
 
                                     </li>
                                     <li><a href="${pageContext.request.contextPath}/patient/patient-change-pass">Đổi mật khẩu</a></li>
@@ -125,7 +125,7 @@
                                 <ul class="submenu">
                                     <li><a href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
                                     <li><a href="${pageContext.request.contextPath}/doctor/profile">Trang Cá Nhân</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/doctor/view-appointments">Danh Sách Lịch Khám</a>
+                                    <li><a href="${pageContext.request.contextPath}/doctor/view-appointments">Lịch sử đặt lịch</a>
                                     <li><a href="${pageContext.request.contextPath}/doctor-view-rating">Xem Đánh Giá</a></li>
 
                                 </ul>
