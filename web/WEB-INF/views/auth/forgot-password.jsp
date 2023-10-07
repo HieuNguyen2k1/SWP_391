@@ -30,7 +30,7 @@
                 <div class="switch__circle switch__circle--t"></div>
                 <div class="switch__container" id="switch-c1">
                     <h2 class="switch__title title">Chào bạn!</h2>
-                    <p class="switch__description description">Để giữ kết nối với chúng tôi, vui lòng đăng nhập bằng thông tin cá nhân của bạn</p>
+                    <p class="switch__description description">Đăng nhập - Sức khỏe của bạn, chúng tôi lo</p>
                     <button class="button-login "><a href="${pageContext.request.contextPath}/login" style="text-decoration: none; color: #f9f9f9;">ĐĂNG NHẬP</a></button>
                 </div>
             </div>

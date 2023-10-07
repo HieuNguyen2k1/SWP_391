@@ -28,12 +28,12 @@ public class ContactFormServlet extends HttpServlet {
         boolean emailSent = Mail.sendContactEmail(fullName, phoneNumber, email, address, question);
 
         if (emailSent) {
-            request.setAttribute("Message", "Your inquiry has been sent successfully.");
+            request.setAttribute("Message", "Yêu cầu của bạn đã được gửi thành công.");
             // Email sent successfully, you can redirect to a confirmation page
             request.getRequestDispatcher("/WEB-INF/views/confirmContact.jsp").forward(request, response);
         } else {
             // Handle email sending failure, e.g., show an error message
-            request.setAttribute("errorMessage", "Email sending failed. Please try again.");
+            request.setAttribute("errorMessage", "Gửi email không thành công. Vui lòng thử lại.");
             request.getRequestDispatcher("/WEB-INF/views/errorContact.jsp").forward(request, response);
         }
     }

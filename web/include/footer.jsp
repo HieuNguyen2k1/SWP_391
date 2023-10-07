@@ -9,7 +9,7 @@
                         <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Get In Touch</h4>
                         <p class="mb-4">Mọi thông tin xin liên hệ: </p>
                         <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>Đường 123, Hòa Hải, Ngũ Hành Sơn, Đà Nẵng</p>
-                        <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>medinova@gmail.com</p>
+                        <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>benhvienmedinova@gmail.com</p>
                         <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>+012 345 67890</p>
                     </div>
                     <div class="col-lg-3 col-md-6">
@@ -58,9 +58,6 @@
                 <div class="row g-5">
                     <div class="col-md-6 text-center text-md-start">
                         <p class="mb-md-0">&copy; <a class="text-primary" href="#">Medinova</a>. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <p class="mb-0">Designed by <a class="text-primary" href="https://www.youtube.com/watch?v=ygDqzoY0CKI&ab_channel=Senh"> Admindeptrai </a></p>
                     </div>
                 </div>
             </div>

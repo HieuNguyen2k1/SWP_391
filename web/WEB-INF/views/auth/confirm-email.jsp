@@ -18,15 +18,15 @@
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            border-radius: 10px; /*Thêm viền bo tròn cho container*/
+            border-radius: 10px; 
         }
 
         .animated-heading {
             text-align: center;
             animation: fadeInDown 1s ease-in-out;
-            color: #333; /*Thay đổi màu chữ của tiêu đề*/
-            font-size: 32px; /*Thay đổi kích thước chữ của tiêu đề*/
-            margin-top: 40px; /*Tạo khoảng cách giữa tiêu đề và container*/
+            color: #333; 
+            font-size: 32px; 
+            margin-top: 40px; 
         }
 
         @keyframes fadeInDown {

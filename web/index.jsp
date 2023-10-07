@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <%@page contentType="text/html" pageEncoding="UTF-8"%>
         <%@include file="/include/navbar.jsp" %>
