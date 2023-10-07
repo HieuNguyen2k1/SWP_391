@@ -17,13 +17,6 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/management.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <script >
-            function doDelete(pId) {
-                if (confirm("are U sure to delete with pId= " + pId)) {
-                    window.location = "delete_pat?pId=" + pId;
-                }
-            }
-        </script>
     </head>
     <body>
 
@@ -69,8 +62,7 @@
                                                 <button type="button" class="btn btn-primary" data-pate-id="${p.pId}" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                                                     Update
                                                 </button>
-                                                <!--<a class="btn btn-danger" href="delete_pat?pId=${p.pId}">Delete</a>-->
-                                                <a class="btn btn-danger" href="#" onclick="doDelete('${p.pId}')">Delete</a>
+                                                <a class="btn btn-danger" href="delete_pat?pId=${p.pId}">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -137,18 +129,18 @@
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
                     <script>
-                                                    const modal = document.getElementById('exampleModal1');
+                        const modal = document.getElementById('exampleModal1');
 
-                                                    // Khi modal hiển thị, lấy giá trị empID từ button và thực hiện các thao tác cần thiết
-                                                    modal.addEventListener('show.bs.modal', function (event) {
-                                                        const button = event.relatedTarget; // Button được nhấn để mở modal
-                                                        const pId = button.getAttribute('data-pate-id'); // Lấy giá trị empID từ thuộc tính data-empid
+                        // Khi modal hiển thị, lấy giá trị empID từ button và thực hiện các thao tác cần thiết
+                        modal.addEventListener('show.bs.modal', function (event) {
+                            const button = event.relatedTarget; // Button được nhấn để mở modal
+                            const pId = button.getAttribute('data-pate-id'); // Lấy giá trị empID từ thuộc tính data-empid
 
-                                                        // Thực hiện các thay đổi cần thiết với empId
-                                                        // Ví dụ: gán giá trị empId vào một trường input trong modal
-                                                        const patIdInput = document.getElementById('patIdInput');
-                                                        patIdInput.value = pId;
-                                                    });
+                            // Thực hiện các thay đổi cần thiết với empId
+                            // Ví dụ: gán giá trị empId vào một trường input trong modal
+                            const patIdInput = document.getElementById('patIdInput');
+                            patIdInput.value = pId;
+                        });
                     </script>
                 </div>
             </div>
