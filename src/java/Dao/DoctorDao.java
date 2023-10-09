@@ -2,6 +2,7 @@ package Dao;
 
 import Contact.ContactDB;
 import Model.Doctor;
+import Model.Review;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -212,26 +213,26 @@ public class DoctorDao {
         }
     }
 
-//    public ArrayList<Review> getReviewByIdDoctor(int doctorid) throws ClassNotFoundException, SQLException {
-//        ArrayList<Review> reviewArray = new ArrayList<>();
-//        String sql = "select r.* , p.name from review r, patients p \n"
-//                + "where r.patientid = p.id and r.doctorid = ?";
-//        connection = new ContactDB().makeConnection();
-//        preparedStatement = connection.prepareStatement(sql);
-//        preparedStatement.setInt(1, doctorid);
-//        resultSet = preparedStatement.executeQuery();
-//        while (resultSet.next()) {
-//            reviewArray.add(new Review(
-//                    resultSet.getInt(1),
-//                    resultSet.getString(2),
-//                    resultSet.getInt(3),
-//                    resultSet.getString(4),
-//                    resultSet.getInt(5),
-//                    resultSet.getInt(6),
-//                    resultSet.getString(7)));
-//        }
-//        return reviewArray;
-//    }
+    public ArrayList<Review> getReviewByIdDoctor(int doctorid) throws ClassNotFoundException, SQLException {
+        ArrayList<Review> reviewArray = new ArrayList<>();
+        String sql = "select r.* , p.name from review r, patients p \n"
+                + "where r.patientid = p.id and r.doctorid = ?";
+        connection = new ContactDB().makeConnection();
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, doctorid);
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            reviewArray.add(new Review(
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getInt(3),
+                    resultSet.getString(4),
+                    resultSet.getInt(5),
+                    resultSet.getInt(6),
+                    resultSet.getString(7)));
+        }
+        return reviewArray;
+    }
 
     public boolean updateDoctor(String name, String degree, int experience,
             int speciality_id, String phone, String dob, boolean gender, String address, int id) {
