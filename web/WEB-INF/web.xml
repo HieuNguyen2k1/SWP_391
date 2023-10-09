@@ -44,6 +44,10 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/patient/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
     <!--   Forget Pass-->
     <servlet>
         <servlet-name>ForgotPassword</servlet-name>
@@ -88,18 +92,97 @@
         <filter-name>DoctorFilter</filter-name>
         <url-pattern>/doctor/*</url-pattern>
     </filter-mapping>
+    <servlet>
+        <servlet-name>DoctorControl</servlet-name>
+        <servlet-class>Control.Admin.DoctorControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorControl</servlet-name>
+        <url-pattern>/admin/doctor-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdatePatients</servlet-name>
+        <servlet-class>Control.Admin.UpdatePatients</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdatePatients</servlet-name>
+        <url-pattern>/admin/update-patients</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoadPatients</servlet-name>
+        <servlet-class>Control.Admin.LoadPatients</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoadPatients</servlet-name>
+        <url-pattern>/admin/patients-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SpecialityControl</servlet-name>
+        <servlet-class>Control.Admin.SpecialityControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SpecialityControl</servlet-name>
+        <url-pattern>/admin/speciality-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ControlDoctorSchedule</servlet-name>
+        <servlet-class>Control.Admin.ControlDoctorSchedule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControlDoctorSchedule</servlet-name>
+        <url-pattern>/admin/doctor-schedule-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminviewAppointment</servlet-name>
+        <servlet-class>Control.Admin.AdminviewAppointment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminviewAppointment</servlet-name>
+        <url-pattern>/admin/appointment-detail</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteDoctorSchedule</servlet-name>
+        <servlet-class>Control.Admin.DeleteDoctorSchedule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteDoctorSchedule</servlet-name>
+        <url-pattern>/admin/delete-doctor-schedule</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ControlPatientAppointment</servlet-name>
+        <servlet-class>Control.Admin.ControlPatientAppointment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControlPatientAppointment</servlet-name>
+        <url-pattern>/admin/patient-appointment-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewPatientAppointment</servlet-name>
+        <servlet-class>Control.Admin.ViewPatientAppointment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewPatientAppointment</servlet-name>
+        <url-pattern>/admin/patient-appointment</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateDoctor</servlet-name>
+        <servlet-class>Control.Admin.UpdateDoctor</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateDoctor</servlet-name>
+        <url-pattern>/admin/update-doctor</url-pattern>
+    </servlet-mapping>
+    <!--admin-->
     <filter>
         <filter-name>AdminFilter</filter-name>
         <filter-class>Filter.AdminFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
-        <url-pattern>/admin/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
         <filter-name>AdminFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
+    
+    
     <!--Update Profile-->
     <servlet>
         <servlet-name>UserEditProfile</servlet-name>
@@ -125,6 +208,14 @@
     <servlet-mapping>
         <servlet-name>AdminLogin</servlet-name>
         <url-pattern>/admin/login</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminControlPage</servlet-name>
+        <servlet-class>Control.Admin.AdminControlPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminControlPage</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>

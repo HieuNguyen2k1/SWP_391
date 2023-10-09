@@ -54,7 +54,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="index.jsp" class="nav-item nav-link active">Trang Chủ</a>
+                    <a href="${pageContext.request.contextPath}" class="nav-item nav-link">Trang chủ</a>
                     <a href="about.jsp" class="nav-item nav-link">Chúng tôi</a>
                     <a href="service.jsp" class="nav-item nav-link">Dịch vụ</a>
 
@@ -67,35 +67,24 @@
                         </div>
                     </div>
                     <a href="contact.jsp" class="nav-item nav-link">Liên Hệ</a>
-                    <!--<a class="btn btn-primary ml-lg-3 nav-item nav-link small-btn" href="login.jsp">ÄÄng nháº­p/ÄÄng kÃ­</a>-->
                     <div class="main-menu f-right d-none d-lg-block">
                         <nav>
-                            <ul id="navigation">
-                                <% if (session.getAttribute("admin") != null) { %>
-                                <li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
-                                    <% } else {
+                                            <ul id="navigation">
+                                                <% if (session.getAttribute("admin") != null) { %>
+                                                <li><a href="${pageContext.request.contextPath}/admin">Quản Lý</a></li>
+                                                    <% } else {
                                         } %>
 
-                                <% if (session.getAttribute("doctor") != null) { %>
-                                <li><a href="${pageContext.request.contextPath}/doctor/schedule">Lịch Làm Việc</a>
-                                </li>
-                                <% } else {
-                                    } %>
-                                <% User user = (User) session.getAttribute("acc"); %>
-                                <% Doctor doctor = (Doctor) session.getAttribute("doctor"); %>
-                                <!--<li><a href="${pageContext.request.contextPath}">Trang chá»§</a></li>-->                                  
-                                <!--                                                <li><a>ThÃ´ng tin</a>
-                                -->                                                    <ul class="submenu">
-                                <!--                                                        <li><a href="${pageContext.request.contextPath}/about">PhÃ²ng khÃ¡m</a></li>
-                                                                                        <li><a href="${pageContext.request.contextPath}/search-doctor">BÃ¡c sÄ©</a></li>-->
-                                    <% if (doctor != null) {%>
-                                    <li><a href="${pageContext.request.contextPath}/doctor/view-finished-appointment">Xem các cuộc hẹn đã khám</a></li>
-                                        <% } %>
-                                </ul><!--
-                            </li>-->
-                            <!--<li><a href="${pageContext.request.contextPath}/show-blog">Cáº©m nang</a></li>-->
-                            </ul>
-                        </nav>
+                                                <% if (session.getAttribute("doctor") != null) { %>
+                                                <li><a href="${pageContext.request.contextPath}/doctor/schedule">Lịch làm việc</a>
+                                                </li>
+                                                <% } else {
+                                        } %>
+                                                <% User user = (User) session.getAttribute("acc"); %>
+                                                <% Doctor doctor = (Doctor) session.getAttribute("doctor"); %>
+
+                                            </ul>
+                                        </nav>
                     </div>
                     <% if (user != null) {%>
                     <div class="main-menu f-right d-none d-lg-block">
@@ -103,14 +92,14 @@
                             <li><a> <i class="fa fa-user" aria-hidden="true"> <%= user.getName()%>
                                     </i> </a>
                                 <ul class="submenu">
-                                    <li><a href="${pageContext.request.contextPath}/logout">Đăng Xuất</a></li>
                                     <li><a href="${pageContext.request.contextPath}/patient/profile">Trang Cá Nhân</a></li>
                                         <% if (session.getAttribute("acc") != null) { %>
                                     <li><a href="${pageContext.request.contextPath}/patient/view-appointments">Lịch sử đặt lịch</a>
-
                                     </li>
                                     <li><a href="${pageContext.request.contextPath}/patient/patient-change-pass">Đổi mật khẩu</a></li>
-                                        <% } else {
+                                    <li><a href="${pageContext.request.contextPath}/logout">Đăng Xuất</a></li>
+
+                                    <% } else {
                                             } %>
                                 </ul>
                             </li>
@@ -123,10 +112,10 @@
                                         <%= doctor.getName()%>
                                     </i> </a>
                                 <ul class="submenu">
-                                    <li><a href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
                                     <li><a href="${pageContext.request.contextPath}/doctor/profile">Trang Cá Nhân</a></li>
                                     <li><a href="${pageContext.request.contextPath}/doctor/view-appointments">Lịch sử đặt lịch</a>
                                     <li><a href="${pageContext.request.contextPath}/doctor-view-rating">Xem Đánh Giá</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
 
                                 </ul>
                             </li>
