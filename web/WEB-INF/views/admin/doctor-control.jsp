@@ -14,6 +14,7 @@
 </head>
 
 <div class="container rounded bg-white mt-5 mb-5">
+
     <div class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -33,7 +34,7 @@
             </div>
         </div>
 
-        <div class="col-md-8 border-right">
+        <div id="doctorFormContainer" class="col-md-8 border-right " style="display: none;">
             <c:if test="${status == \"error\"}"><p class="text-danger">${message}</p><br></c:if>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="row">
@@ -104,8 +105,13 @@
 
                 <button class="button-style" type="submit">Xác nhận</button>
             </form>
+            <button id="showOtherBlockButton">Hiển thị danh sách bác sĩ</button>
+
         </div>
-        <div class="col-md-4">
+        <!--        <div class="col-md-4">-->
+        <div id="otherBlockContainer" class="col-md-8 border-right">
+            <button id="showDoctorFormButton">Tạo mới bác sĩ</button>
+
             <div class="p-3 py-5">
                 <table class="table" border="1">
                     <tr>
@@ -153,7 +159,7 @@
     </div>
 </div>
 
-
+<script src="../../../assets/js/crudDoctor.js" type="text/javascript"></script>
 
 <style>
     .button-style{
@@ -167,4 +173,30 @@
         cursor: pointer;
     }
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get references to the containers and buttons
+        const doctorFormContainer = document.getElementById("doctorFormContainer");
+        const otherBlockContainer = document.getElementById("otherBlockContainer");
+        const showDoctorFormButton = document.getElementById("showDoctorFormButton");
+        const showOtherBlockButton = document.getElementById("showOtherBlockButton");
+
+        // Add a click event listener to the "Create New Doctor" button
+        showDoctorFormButton.addEventListener("click", function () {
+            // Show the doctor form container and hide the other block container
+            doctorFormContainer.style.display = "block";
+            otherBlockContainer.style.display = "none";
+        });
+
+        // Add a click event listener to the "Show Other Block" button
+        showOtherBlockButton.addEventListener("click", function () {
+            // Show the other block container and hide the doctor form container
+            otherBlockContainer.style.display = "block";
+            doctorFormContainer.style.display = "none";
+        });
+    });
+</script>
+
+
+
 <%@ include file="/include/footer.jsp" %>

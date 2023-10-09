@@ -2,7 +2,29 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.ParseException" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
+
+ <head>
+        <%@page contentType="text/html" pageEncoding="UTF-8"%>
+        <%@include file="/include/navbar.jsp" %>
+        <title>MEDINOVA - Hospital Website</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/home.css">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script>
+            if (window.performance && window.performance.navigation.type === 2) {
+                // Trang được chuyển hướng từ servlet LogoutServlet
+                history.replaceState(null, '', 'login.jsp');
+                window.addEventListener('popstate', function (event) {
+                    window.location.href = 'login.jsp';
+                });
+            }
+        </script>
+    </head>
 <style>
     .custom-container {
         width: 80%;
@@ -10,21 +32,52 @@
         margin-right: auto;
         font-size: 16px;
     }
+    
+    /* Loại bỏ gạch chân cho các liên kết */
+    a {
+        text-decoration: none;
+    }
+
+    /* Định dạng nút */
+    .button-style {
+        background-color: #234821;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none; /* Loại bỏ gạch chân cho nút */
+    }
+
+    /* Định dạng bảng */
+    .table-bordered td,
+    .table-bordered th {
+        border: 2px solid #dee2e6;
+    }
+
+    .table-sm td,
+    .table-sm th {
+        padding: 10px; /* Đặt khoảng cách lớn hơn giữa các ô */
+    }
 </style>
-<div class="custom-container">
+
+<div class="custom-container" style="background-image: url('/img/heart-health.jpg'); margin-bottom: 100px; margin-top: 100px ">
     <div class="row">        
         <form class="ml-5 mr-5" action="" method="post">
             <input type="hidden" name="_method" value="get_date">
             <div class="row">
                 <input value="${current_week}" required class="form-control m-2" name="week" style="width: 200px; height: 30px"
                        type="week">
-                <button class="button-style">Hiển thị</button>
+                <button class="button-style" style="background-color:#007BFF">Hiển thị</button>
             </div>
         </form>
-        <button class="ml-5mr-5 button-style" data-toggle="modal" data-target="#addModel">Thêm lịch</button>
+        <button style="background-color:#007BFF" class="ml-5mr-5 button-style" data-toggle="modal" data-target="#addModel">Thêm lịch</button>
         <p class="text-danger ml-5">${error}</p> <p class="text-success">${success}</p>
     </div>
     <br>
+    
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -127,6 +180,7 @@
         <td><span style="color: #FFA500; font-size: 70px">&#9632;</span></td>
         <td>Chưa có lịch hẹn</td>
     </tr>
+    
     <div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-labelledby="addModel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -146,7 +200,7 @@
                         <div class="custom-container form-group mt-1 mb-1">
                             <label for="to_date">Đến ngày</label>
                             <input class="form-control" type="date" name="to_date" id="to_date">
-                            <p><em>Để trống phần này nếu muốn chọn 1 ngày!</em></p>
+<!--                            <p><em>Để trống phần này nếu muốn chọn 1 ngày!</em></p>-->
 
                         </div>
                         <div class="custom-container form-group mt-1 mb-1">
@@ -154,13 +208,13 @@
                             <input class="form-control" min="8" max="17" step="0.5" required type="number" name="from" id="from">
                         </div>
                         <div class="custom-container form-group mt-1">
-                            <label for="to">Đến (8h-17h, phải lớn hơn thời gian bắt đầu)</label>
+                            <label for="to">Đến (8h-17h)</label>
                             <input class="form-control" min="8" max="17" step="0.5" required type="number" name="to" id="to">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="button-style" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="button-style">Lưu</button>
+                        <button type="button" style="background-color:#007BFF" class="button-style" data-dismiss="modal">Đóng</button>
+                        <button type="submit" style="background-color:#007BFF" class="button-style">Lưu</button>
                     </div>
                 </form>
             </div>
@@ -168,7 +222,7 @@
     </div>
 </div>
 
-<style>
+<!--<style>
     .button-style {
         background-color: #234821;
         color: #ffffff;
@@ -179,4 +233,4 @@
         font-weight: bold;
         cursor: pointer;
     }
-</style>
+</style>-->

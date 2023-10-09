@@ -102,7 +102,7 @@
     }
 
     .custom-menu a:hover {
-        background-color: #5aac4e;
+        background-color: #13C5DD;
     }
     .form-control{
         font-size: 12px;
