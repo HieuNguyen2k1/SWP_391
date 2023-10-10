@@ -7,7 +7,7 @@
 <jsp:useBean class="model.service.AppointmentService" id="getApp"></jsp:useBean>
 <% Patient patientObj = (Patient) session.getAttribute("patientObj");%>
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <%@ include file="include/logout.jsp" %>
 <html>
     <head>

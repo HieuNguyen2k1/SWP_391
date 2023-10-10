@@ -1,4 +1,8 @@
-
+<%-- 
+    Document   : view_doctor
+    Created on : Jun 28, 2023, 3:39:29 PM
+    Author     : ASUS
+--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean class="model.service.AppointmentService" id="show"></jsp:useBean>
 <jsp:useBean class="model.service.DoctorService" id="getDoc"></jsp:useBean>
@@ -9,6 +13,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <title>MEDINOVA - Hospital Management</title>
@@ -21,13 +26,6 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/management.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <script >
-            function doDelete(aId) {
-                if (confirm("are U sure to delete with aId= " + aId)) {
-                    window.location = "delete_appointment?aId=" + aId;
-                }
-            }
-        </script>
     </head>
     <body>
         <div class="container-fluid">
@@ -74,8 +72,7 @@
                                                 <button type="button" class="btn btn-primary" data-app-id="${a.aId}" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                                     Update
                                                 </button>
-                                                <!--<a class="btn btn-danger" href="delete_appointment?aId=${a.aId}">Delete</a>-->
-                                                <a class="btn btn-danger" href="#" onclick="doDelete('${a.aId}')">Delete</a>
+                                                <a class="btn btn-danger" href="delete_appointment?aId=${a.aId}">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -117,9 +114,9 @@
                                             </div>
                                             <div class="form-floating mb-3 ms-auto">
                                                 <select name="status" class="form-control w-100" id="status" placeholder="jhondoe" autocomplete="off" >
-                                                    <option value="Đang hoàn thành">Đang hoàn thành</option>
-                                                    <option value="Chưa hoàn thành">Chưa hoàn thành</option>
-                                                    <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                                        <option value="Đang hoàn thành">Đang hoàn thành</option>
+                                                        <option value="Chưa hoàn thành">Chưa hoàn thành</option>
+                                                        <option value="Đã hoàn thành">Đã hoàn thành</option>
                                                 </select>
                                                 <label for="floatingText">Status</label>
                                             </div>
@@ -131,8 +128,8 @@
                                             </div>
                                             <div class="form-floating mb-3 ms-auto">
                                                 <select name="result" class="form-control w-100" id="result" placeholder="jhondoe" autocomplete="off" >
-                                                    <option value="Kết quả xét nghiệm bình thường">Kết quả xét nghiệm bình thường</option>
-                                                    <option value="Kết quả xét nghiệm bất thường">Kết quả xét nghiệm bất thường</option>
+                                                        <option value="Kết quả xét nghiệm bình thường">Kết quả xét nghiệm bình thường</option>
+                                                        <option value="Kết quả xét nghiệm bất thường">Kết quả xét nghiệm bất thường</option>
                                                 </select>
                                                 <label for="floatingText">Result</label>
                                             </div>
@@ -167,18 +164,18 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script>
-            const modal = document.getElementById('exampleModal2');
+                                                    const modal = document.getElementById('exampleModal2');
 
-            // Khi modal hiển thị, lấy giá trị empID từ button và thực hiện các thao tác cần thiết
-            modal.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget; // Button được nhấn để mở modal
-                const aId = button.getAttribute('data-app-id'); // Lấy giá trị empID từ thuộc tính data-empid
+                                                    // Khi modal hiển thị, lấy giá trị empID từ button và thực hiện các thao tác cần thiết
+                                                    modal.addEventListener('show.bs.modal', function (event) {
+                                                        const button = event.relatedTarget; // Button được nhấn để mở modal
+                                                        const aId = button.getAttribute('data-app-id'); // Lấy giá trị empID từ thuộc tính data-empid
 
-                // Thực hiện các thay đổi cần thiết với empId
-                // Ví dụ: gán giá trị empId vào một trường input trong modal
-                const appIdInput = document.getElementById('appIdInput');
-                appIdInput.value = aId;
-            });
+                                                        // Thực hiện các thay đổi cần thiết với empId
+                                                        // Ví dụ: gán giá trị empId vào một trường input trong modal
+                                                        const appIdInput = document.getElementById('appIdInput');
+                                                        appIdInput.value = aId;
+                                                    });
         </script>
     </body>
 

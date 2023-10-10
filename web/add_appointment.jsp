@@ -1,6 +1,5 @@
 
 
-<%@ include file="include/logout.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:useBean class="model.service.DoctorService" id="getDoc"></jsp:useBean>
