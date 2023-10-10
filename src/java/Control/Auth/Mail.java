@@ -25,6 +25,7 @@ public class Mail {
         properties.put("mail.smtp.auth", "true"); // if authentication is required
         properties.put("mail.smtp.starttls.enable", "true"); // if using TLS
         Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("benhvienmedinova@gmail.com", "pquxzejdaltnmobl");
             }
@@ -42,7 +43,7 @@ public class Mail {
             System.out.println("mail sent");
             return true;
         } catch (MessagingException e) {
-            e.printStackTrace();
+           System.out.println(e);
             return false;
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -56,6 +57,7 @@ public class Mail {
         properties.put("mail.smtp.auth", "true"); // if authentication is required
         properties.put("mail.smtp.starttls.enable", "true"); // if using TLS
         Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("benhvienmedinova@gmail.com", "pquxzejdaltnmobl");
             }
@@ -73,7 +75,7 @@ public class Mail {
             System.out.println("mail sent");
             return true;
         } catch (MessagingException e) {
-            e.printStackTrace();
+            System.out.println(e);
             return false;
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -85,8 +87,10 @@ public class Mail {
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
         Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("benhvienmedinova@gmail.com", "pquxzejdaltnmobl");
             }
@@ -95,7 +99,7 @@ public class Mail {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("benhvienmedinova@gmail.com", "Phòng khám Medinova"));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("benhvienmedinova@gmail.com"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("hieunguyen12920012001@gmail.com"));
             message.setSubject("Contact ");
 
             // Create the email content with the contact information
@@ -112,7 +116,7 @@ public class Mail {
             System.out.println("Contact email sent");
             return true;
         } catch (MessagingException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+            System.out.println(e);
             return false;
         }
     }
