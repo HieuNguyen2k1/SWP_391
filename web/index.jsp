@@ -34,8 +34,8 @@
                         <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Xin chào đã đến với Medinova</h5>
                         <h1 class="display-1 text-white mb-md-4">Chuyên nghiệp – Tận tâm – Thân thiện</h1>
                         <div class="pt-2">
-                              <a  href="${pageContext.request.contextPath}/search-doctor" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2" data-animation="fadeInLeft" data-delay=".3s">Đặt Khám</a>
-                            <a href="" ">Tìm kiếm bác sĩ</a>
+                              <a  href="${pageContext.request.contextPath}/search-doctor" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2" data-animation="fadeInLeft" data-delay=".3s">Đặt Khám Ngay</a>
+                            <!--<a href="" ">Tìm kiếm bác sĩ</a>-->
                             <!--<a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>-->
                         
 

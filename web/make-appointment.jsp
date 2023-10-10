@@ -1,33 +1,10 @@
-
+<%@ page contentType="text/html; charset=UTF-8" %>
+<jsp:include page="master/head.jsp"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
-<head>
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-    <%@include file="/include/navbar.jsp" %>
-    <title>MEDINOVA - Hospital Website</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script>
-        if (window.performance && window.performance.navigation.type === 2) {
-            // Trang được chuyển hướng từ servlet LogoutServlet
-            history.replaceState(null, '', 'login.jsp');
-            window.addEventListener('popstate', function (event) {
-                window.location.href = 'login.jsp';
-            });
-        }
-    </script>
-    
-</head>
-<div class="parent">
-<div class="son container"
-     >
+<div class="custom-container">
     <div class="alert alert-warning d-none" id="myAlert">
         Bạn chưa chọn thời gian.
     </div>
@@ -42,8 +19,8 @@
         </div>
     </c:if>
     <form action="" method="post" id="form">
-        <div class="row" style="margin-top:60px">
-            <div class="col-md-5" >
+        <div class="row">
+            <div style="width: 50%">
                 <div class="row">
                     <div class="col-md-4" style="position: relative;">
                         <img style="border-radius: 50%;width: 200px; height: 200px; object-fit: cover"
@@ -53,29 +30,16 @@
                         <div class="row">
                             <div class="col-md-12 mt-3">
                                 <h2 class="font-weight-bold">${doctor.name}</h2>
-                                <h4>Chuyên khoa: ${doctor.speciality_name}</h4>
-                                <h4>Trình độ : ${doctor.degree}</h4>
-                                <h4>Kinh nghiệm : ${doctor.experience} năm</h4>
-                                <h4>Liên hệ : ${doctor.phone}</h4>
+                                <h3>Chuyên khoa: ${doctor.speciality_name}</h3>
+                                <h3>Trình độ : ${doctor.degree}</h3>
+                                <h3>Kinh nghiệm : ${doctor.experience} năm</h3>
+                                <h3>Liên hệ : ${doctor.phone}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
                             <br><br>
-                    <div >
-                        <c:forEach items="${review}" var="item">
-                            <c:forEach begin="1" end="${item.rating}">
-                                <i class="bi bi-star-fill" style="color: #ffcc00"></i>
-                            </c:forEach><br>
-                            <label><strong>${item.namePatient}</strong></label>
-                            <label>${item.dateUp}</label><br>
-                            <label style="word-wrap: break-word;">${item.comment}</label><br>
-                        </c:forEach>
-                    </div>
-            </div>
-            <div class="col-md-7" >
                 <div class="row">
-                                    
                     <div class="col-md-10 text-left">
                         <label for="note">Lời nhắn</label><br>
                         <textarea required class="form-control" name="note" id="note" rows="5" style="resize: none; border-radius: 16px; outline: none; font-size: 18px; padding: 12px; height: 150px;"></textarea>
@@ -93,9 +57,12 @@
 
 
                         <input type="hidden" name="doctor_schedule_id" id="doctor_schedule_id">
-                       
+                        <button class="btn btn-block mt-2" style="background-color: #5aac4e">Xác nhận</button>
                     </div>
                 </div>
+            </div>
+            <div style="width: 50%">
+                <div class="row">
                     <div style="width: 40%" class="m-2">
                         <div class="form-group ">
                             <label for="dateInput">Chọn ngày</label>
@@ -105,14 +72,21 @@
 
                         </div>
                     </div>
-                 <button class="btn btn-primary btn-block mt-2" style="max-width: 650px;">Xác nhận</button>
-
-
+                    <div style="width: 50%">
+                        <c:forEach items="${review}" var="item">
+                            <c:forEach begin="1" end="${item.rating}">
+                                <i class="bi bi-star-fill" style="color: #ffcc00"></i>
+                            </c:forEach><br>
+                            <label><strong>${item.namePatient}</strong></label>
+                            <label>${item.dateUp}</label><br>
+                            <label style="word-wrap: break-word;">${item.comment}</label><br>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
-    <%--<button class="btn btn-info" data-toggle="modal" data-target="#addModel">Thêm lịch</button>
+    <button class="btn btn-info" data-toggle="modal" data-target="#addModel">Thêm lịch</button>
     <div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-labelledby="addModel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -146,9 +120,9 @@
                 </form>
             </div>
         </div>
-    </div>--%>
+    </div>
 </div>
-</div>
+<%--<jsp:include page="master/foot.jsp"/>--%>
 <script>
     function getTimeString(dateString) {
         let timeString = dateString.split(' ')[1];
@@ -173,7 +147,7 @@
         buttons = "";
         for (let i = 0; i < filteredList.length; i++) {
             buttons += "<style>.custom-button:active, .custom-button:focus { font-weight: bold; }</style>";
-            buttons += "<button type='button' onclick=\"changeTime('" + filteredList[i].id + "', '" + filteredList[i].start + "', '" + filteredList[i].end + "')\" class='custom-button' style='padding: 13px 16px ; font-size: 15px; border-radius: 7px; transition: none; background-color: #13C5DD; margin-bottom: 5px; margin-left:23px; border: none; display: inline-flex; justify-content: center; align-items: center;'>"
+            buttons += "<button type='button' onclick=\"changeTime('" + filteredList[i].id + "', '" + filteredList[i].start + "', '" + filteredList[i].end + "')\" class='custom-button' style='padding: 13px 16px ; font-size: 15px; border-radius: 7px; transition: none; background-color: #5aac4e; margin-bottom: 5px; margin-left:23px; border: none; display: inline-flex; justify-content: center; align-items: center;'>"
                     + getTimeString(filteredList[i].start) + " - " + getTimeString(filteredList[i].end) + "</button>";
 
 
@@ -200,21 +174,3 @@
         }
     });
 </script>
-<style>
- 
-.parent {
-    height: 100%; /* Chiếm toàn bộ chiều cao của màn hình */
-}
-
-.son {
-/*    height: 100%;  Chiếm toàn bộ chiều cao của phần tử cha (parent) 
-    text-align: center;
-
-    padding: 20px;*/}
-.son {
-    max-width: 90%; /* Đặt chiều rộng tối đa bạn mong muốn */
-    margin: 0 auto; /* Để căng giữa theo chiều ngang */
-}
-    </style>
-    
-    <%@ include file="/include/footer.jsp" %>

@@ -200,8 +200,11 @@
                 <div class="doctor-card">
                     <div class="blog-img-cap">
                         <div class="blog-img">
-                            <img style="border-radius: 50%;width: 100%; height: 100%; object-fit: cover"
-                                 src="${pageContext.request.contextPath}/${item.getImage()}" alt="">
+<!--                            <img style="border-radius: 50%;width: 100%; height: 100%; object-fit: cover"
+                                 src="${pageContext.request.contextPath}/${item.getImage()}" alt="">-->
+                            
+                                             <img class="rounded-circle" width="150px" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png">
+
                             <div class="ratings">
                                 <span class="rating"></span>
                                 <i class="fas fa-star"></i>

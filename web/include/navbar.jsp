@@ -73,14 +73,14 @@
                         <nav>
                             <ul  id="navigation">
                                 <% if (session.getAttribute("admin") != null) { %>
-                                <li ><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
+                                <li ><a href="${pageContext.request.contextPath}/admin">Quản Lý</a></li>
                                     <% } else {
                                         } %>
 
                                 <% if (session.getAttribute("doctor") != null) { %>
-<!--                                <li class="dropdown-item" >
-                                    <a  href="${pageContext.request.contextPath}/doctor/schedule">Lịch Làm Việc</a>
-                                </li>-->
+                                <!--                                <li class="dropdown-item" >
+                                                                    <a  href="${pageContext.request.contextPath}/doctor/schedule">Lịch Làm Việc</a>
+                                                                </li>-->
                                 <% } else {
                                     } %>
                                 <% User user = (User) session.getAttribute("acc"); %>
@@ -94,7 +94,7 @@
                                     <li><a href="${pageContext.request.contextPath}/doctor/view-finished-appointment">Xem các cuộc hẹn đã khám</a>
                                   
                                     </li>
-   <% } %>-->
+                                    <% } %>-->
                                 </ul><!--
                             </li>-->
                             <!--<li><a href="${pageContext.request.contextPath}/show-blog">Cáº©m nang</a></li>-->
@@ -121,7 +121,7 @@
                 <li><a href="${pageContext.request.contextPath}/logout">Đăng Xuất</a></li>
 
                     <% } else {
-                                            }%>
+                        }%>
             </ul>
         </li>
     </ul>
@@ -129,21 +129,21 @@
                     -->
 
 
- <div class="main-menu f-right d-none d-lg-block">
-    <ul class="nav">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user" aria-hidden="true"></i> Xin chào <%= user.getName()%>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/patient/profile">Trang Cá Nhân</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/patient/view-appointments">Danh sách lịch Khám</a>
-<!--                <a class="dropdown-item" href="${pageContext.request.contextPath}/patient/make-appointment">Đặt lịch</a>-->
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng Xuất</a>
-            </div>
-        </li>
-    </ul>
-</div>
+                    <div class="main-menu f-right d-none d-lg-block">
+                        <ul class="nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user" aria-hidden="true"></i> Xin chào <%= user.getName()%>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/patient/profile">Trang Cá Nhân</a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/patient/view-appointments">Danh sách lịch Khám</a>
+                    <!--                <a class="dropdown-item" href="${pageContext.request.contextPath}/patient/make-appointment">Đặt lịch</a>-->
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng Xuất</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
 
 
                     <% } else if (doctor != null) {%>
@@ -153,15 +153,17 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-user" aria-hidden="true"></i> Dr. <%= doctor.getName()%>
                                 </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">                 
-                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/doctor/profile">Trang Cá Nhân</a>
-                                        <a  class="dropdown-item" href="${pageContext.request.contextPath}/doctor/schedule">Lịch Làm Việc</a>
-                                   
-                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/doctor/view-appointments">Danh Sách Lịch Khám</a>
-                                        <a  class="dropdown-item" href="${pageContext.request.contextPath}/doctor/view-finished-appointment">Xem các cuộc hẹn đã khám</a>
-                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/doctor-view-rating">Xem Đánh Giá</a>
-                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
-                                    </div>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">                 
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/doctor/profile">Trang Cá Nhân</a>
+                                    <a  class="dropdown-item" href="${pageContext.request.contextPath}/doctor/schedule">Lịch Làm Việc</a>
+
+     <!--<a class="dropdown-item" href="${pageContext.request.contextPath}/doctor/view-appointments">Danh Sách Lịch Khám</a>-->
+                                    <a  class="dropdown-item" href="${pageContext.request.contextPath}/doctor/view-finished-appointment">Lịch sử cuộc hẹn</a>
+                                    <!--<a class="dropdown-item" href="${pageContext.request.contextPath}/doctor-view-rating">Xem Đánh Giá</a>-->
+                                    <a class="dropdown-item" href="#">Xem Đánh Giá</a>
+
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
+                                </div>
                             </li>
                         </ul>
                     </div>
