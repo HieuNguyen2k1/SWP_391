@@ -2,6 +2,7 @@ package Dao;
 
 import Contact.ContactDB;
 import Model.Doctor;
+import Model.Review;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,6 +55,28 @@ public class DoctorDao {
             preparedStatement.setString(9, dob);
             preparedStatement.setBoolean(10, gender);
             preparedStatement.setString(11, address);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    public boolean createDoctornoImage(String name, String email, String password, String degree, int experience, int speciality_id, String phone, String dob, boolean gender, String address) {
+        String sql = "insert into doctors(name,email, password,degree,experience,speciality_id,phone, dob, gender,address ) values(?, ?, ?, ?, ?,?, ?, ?, ?, ?)";
+        try {
+            this.connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, password);
+            preparedStatement.setString(4, degree);
+            preparedStatement.setInt(5, experience);
+            preparedStatement.setInt(6, speciality_id);
+            preparedStatement.setString(7, phone);
+            preparedStatement.setString(8, dob);
+            preparedStatement.setBoolean(9, gender);
+            preparedStatement.setString(10, address);
             preparedStatement.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -212,26 +235,26 @@ public class DoctorDao {
         }
     }
 
-//    public ArrayList<Review> getReviewByIdDoctor(int doctorid) throws ClassNotFoundException, SQLException {
-//        ArrayList<Review> reviewArray = new ArrayList<>();
-//        String sql = "select r.* , p.name from review r, patients p \n"
-//                + "where r.patientid = p.id and r.doctorid = ?";
-//        connection = new ContactDB().makeConnection();
-//        preparedStatement = connection.prepareStatement(sql);
-//        preparedStatement.setInt(1, doctorid);
-//        resultSet = preparedStatement.executeQuery();
-//        while (resultSet.next()) {
-//            reviewArray.add(new Review(
-//                    resultSet.getInt(1),
-//                    resultSet.getString(2),
-//                    resultSet.getInt(3),
-//                    resultSet.getString(4),
-//                    resultSet.getInt(5),
-//                    resultSet.getInt(6),
-//                    resultSet.getString(7)));
-//        }
-//        return reviewArray;
-//    }
+    public ArrayList<Review> getReviewByIdDoctor(int doctorid) throws ClassNotFoundException, SQLException {
+        ArrayList<Review> reviewArray = new ArrayList<>();
+        String sql = "select r.* , p.name from review r, patients p \n"
+                + "where r.patientid = p.id and r.doctorid = ?";
+        connection = new ContactDB().makeConnection();
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, doctorid);
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            reviewArray.add(new Review(
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getInt(3),
+                    resultSet.getString(4),
+                    resultSet.getInt(5),
+                    resultSet.getInt(6),
+                    resultSet.getString(7)));
+        }
+        return reviewArray;
+    }
 
     public boolean updateDoctor(String name, String degree, int experience,
             int speciality_id, String phone, String dob, boolean gender, String address, int id) {
