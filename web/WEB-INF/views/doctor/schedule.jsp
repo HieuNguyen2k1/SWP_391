@@ -82,7 +82,6 @@
 //                                        out.print("<td " + style + "><a href=''></a>chưa có hẹn</td>");
                                 out.print("<td title='nhấn để xoá'" + style + "><a href='"+request.getContextPath()+"/doctor/delete-schedule?id="+table[i][j].split("\\|")[1]+"'>chưa có hẹn</a></td>");
 //                                        out.print("<td " + style + "><a href='"+request.getContextPath()+"/doctor/delete-schedule?id="+ table[i][j].split("\\|")[3] +"'></a>chưa có hẹn</td>");
-
                             } else if (table[i][j].startsWith("patient app|")){ // có hẹn
                                 String status = table[i][j].split("\\|")[2];
                                 if (status.equals("not_yet")){// chưa khám xanh dương

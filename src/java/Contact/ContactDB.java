@@ -10,7 +10,7 @@ import java.sql.SQLException;
         try {
 //            String serverName = "swpdata.database.windows.net";
             String serverName = "localhost";
-            String databaseName = "swpdata";
+            String databaseName = "swpdataFinal";
             String url = "jdbc:sqlserver://" + serverName + ";databaseName=" + databaseName + ";";
             String username = "sa";
             String password = "123";
