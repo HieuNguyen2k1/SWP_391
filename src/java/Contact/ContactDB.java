@@ -10,10 +10,10 @@ import java.sql.SQLException;
         try {
 //            String serverName = "swpdata.database.windows.net";
             String serverName = "localhost";
-            String databaseName = "swpdata";
+            String databaseName = "SWP391";
             String url = "jdbc:sqlserver://" + serverName + ";databaseName=" + databaseName + ";";
             String username = "sa";
-            String password = "123";
+            String password = "cuong2003";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = (Connection) DriverManager.getConnection(url, username, password);
             return con;

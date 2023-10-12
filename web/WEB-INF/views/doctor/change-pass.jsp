@@ -1,6 +1,26 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<jsp:include page="../master/head.jsp" />
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/include/navbar.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<head>
+        <title>MEDINOVA - Hospital Website</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/home.css">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script>
+            if (window.performance && window.performance.navigation.type === 2) {
+                // Trang được chuyển hướng từ servlet LogoutServlet
+                history.replaceState(null, '', 'login.jsp');
+                window.addEventListener('popstate', function (event) {
+                    window.location.href = 'login.jsp';
+                });
+            }
+        </script>
+    </head>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
@@ -60,7 +80,7 @@
             </div>
         </div>
     </div>
-<jsp:include page="../master/foot.jsp" />
+<%@ include file="/include/footer.jsp" %>
 <style>.custom-menu {
 
         padding: 10px;
@@ -74,7 +94,7 @@
     }
 
     .custom-menu a:hover {
-        background-color: #5aac4e;
+        background-color: #13C5DD;
     }
     .form-control{
         font-size: 12px;
