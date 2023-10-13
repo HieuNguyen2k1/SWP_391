@@ -72,10 +72,10 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-<!--                        <div class="form-group">
-                            <label for="file">Ảnh</label>
-                            <input class="form-control" type="file" id="file" name="image">
-                        </div>-->
+                        <!--                        <div class="form-group">
+                                                    <label for="file">Ảnh</label>
+                                                    <input class="form-control" type="file" id="file" name="image">
+                                                </div>-->
                         <div class="form-group">
                             <label for="phone">Số điện thoại</label>
                             <input class="form-control" type="tel" id="phone" name="phone" placeholder="phone">
@@ -121,7 +121,7 @@
                         <th>Bằng cấp</th>
                         <th>Năm kinh nghiệm</th>
                         <th>Chuyên khoa</th>
-                        <!--<th style="max-width: 700px">Ảnh</th>-->
+                        <th style="max-width: 700px">Ảnh</th>
                         <th>Điện thoại</th>
                         <th>Giới tính</th>
                         <th>Ngày sinh</th>
@@ -142,10 +142,14 @@
                             <td>${item.getDob()}</td>
                             <td>${item.getAddresses()}</td>
                             <th>
+                                                                    <button class="fa fa-toggle-on" title="StatusD" style="color:Green;margin-top: 60px;border:none;"> Trạng Thái</button>
+
                                 <form action="" method="post">
-                                    <input class="form-control" type="hidden" name="_method" value="DELETE">
+                                    <!--<input class="form-control" type="hidden" name="_method" value="DELETE">-->
+                                    <!--<input class="form-control" type="hidden" name="_method" value="STATUSD">-->
                                     <input class="form-control" type="hidden" name="id" value="${item.id}">
-                                    <button class="fas fa fa-trash" title="Xóa" style="color:red;margin-top: 60px;border:none;"> Xóa</button>
+                                    <!--<button class="fas fa fa-trash" title="Xóa" style="color:red;margin-top: 60px;border:none;"> Xóa</button>-->
+
                                 </form>
                                 <a href="${pageContext.request.contextPath}/admin/update-doctor?doc_id=${item.id}"><button class="fa fa-edit" title="Chỉnh sửa" 
                                                                                                                            style="color:black; margin-top: 10px; border:none;">
@@ -194,6 +198,11 @@
             otherBlockContainer.style.display = "block";
             doctorFormContainer.style.display = "none";
         });
+        const errorMessage = document.querySelector(".text-danger");
+        if (errorMessage) {
+            // Keep the doctor form container visible
+            doctorFormContainer.style.display = "block";
+        }
     });
 </script>
 

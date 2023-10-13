@@ -39,29 +39,29 @@ public class DoctorDao {
         return doctorArrayList;
     }
 
-    public boolean createDoctor(String name, String email, String password, String degree, int experience, int speciality_id, String image, String phone, String dob, boolean gender, String address) {
-        String sql = "insert into doctors(name,email, password,degree,experience,speciality_id,image,phone, dob, gender,address ) values(?, ?, ?, ?, ?,?,?, ?, ?, ?, ?)";
-        try {
-            this.connection = ContactDB.makeConnection();
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, email);
-            preparedStatement.setString(3, password);
-            preparedStatement.setString(4, degree);
-            preparedStatement.setInt(5, experience);
-            preparedStatement.setInt(6, speciality_id);
-            preparedStatement.setString(7, image);
-            preparedStatement.setString(8, phone);
-            preparedStatement.setString(9, dob);
-            preparedStatement.setBoolean(10, gender);
-            preparedStatement.setString(11, address);
-            preparedStatement.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
+//    public boolean createDoctor(String name, String email, String password, String degree, int experience, int speciality_id, String image, String phone, String dob, boolean gender, String address) {
+//        String sql = "insert into doctors(name,email, password,degree,experience,speciality_id,image,phone, dob, gender,address ) values(?, ?, ?, ?, ?,?,?, ?, ?, ?,?)";
+//        try {
+//            this.connection = ContactDB.makeConnection();
+//            preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setString(1, name);
+//            preparedStatement.setString(2, email);
+//            preparedStatement.setString(3, password);
+//            preparedStatement.setString(4, degree);
+//            preparedStatement.setInt(5, experience);
+//            preparedStatement.setInt(6, speciality_id);
+//            preparedStatement.setString(7, image);
+//            preparedStatement.setString(8, phone);
+//            preparedStatement.setString(9, dob);
+//            preparedStatement.setBoolean(10, gender);
+//            preparedStatement.setString(11, address);
+//            preparedStatement.execute();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//        return true;
+//    }
     public boolean createDoctornoImage(String name, String email, String password, String degree, int experience, int speciality_id, String phone, String dob, boolean gender, String address) {
         String sql = "insert into doctors(name,email, password,degree,experience,speciality_id,phone, dob, gender,address ) values(?, ?, ?, ?, ?,?, ?, ?, ?, ?)";
         try {

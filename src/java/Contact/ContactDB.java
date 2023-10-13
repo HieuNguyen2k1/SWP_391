@@ -20,9 +20,7 @@ import java.sql.SQLException;
         } catch (SQLException e) {
             e.getMessage();
             return null;
-
         }
-
     }   
      public static void main(String[] args) {
         try {

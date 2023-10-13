@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/home.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
     </head>
 
     <div class="container rounded bg-white mt-5 mb-5">
@@ -40,11 +39,11 @@
                         <div class="form-group col-md-6">
                             <div class="form-group ">
                                 <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" name="email" value="${x.email}" id="inputEmail4" placeholder="Email">
+                                <input type="email" class="form-control" name="email" value="${x.email}" id="inputEmail4" placeholder="Email" readonly="">
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Mật khẩu</label>
-                                <input type="password" class="form-control" name="password" value="${x.password}" id="inputPassword4" placeholder="Password">
+                                <input type="password" class="form-control" name="password" value="${x.password}" id="inputPassword4" placeholder="Password" readonly="">
                             </div>
 
                             <div class="form-group">

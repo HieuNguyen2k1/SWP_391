@@ -52,7 +52,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password">Mật khẩu</label>
-                                <input class="form-control" type="password" id="password" name="update_password" placeholder="password" value="${doctor.password}">
+                                <input class="form-control" type="password" id="password" name="update_password" placeholder="password" value="${doctor.password}" >
                             </div>
                             <div class="form-group">
                                 <label for="degree">Bằng cấp</label>
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <!--                <div class="form-group">
+<!--                                            <div class="form-group">
                                                 <label for="file">Ảnh</label>
                                                 <input class="form-control" type="file" id="file" name="update_image">
                                                 <img style="max-width: 100%; object-fit: cover" src="${pageContext.request.contextPath}/${doctor.image}" alt="">

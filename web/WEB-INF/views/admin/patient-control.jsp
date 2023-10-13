@@ -168,5 +168,10 @@
             otherBlockContainer.style.display = "block";
             doctorFormContainer.style.display = "none";
         });
+        const errorMessage = document.querySelector(".text-danger");
+        if (errorMessage) {
+            // Keep the doctor form container visible
+            doctorFormContainer.style.display = "block";
+        }
     });
 </script>

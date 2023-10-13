@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
     <head>
         <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -147,7 +147,7 @@
         }
 
         .custom-menu a:hover {
-            background-color: #5aac4e;
+            background-color: #007bff!important;
         }
         .form-control{
             font-size: 12px;

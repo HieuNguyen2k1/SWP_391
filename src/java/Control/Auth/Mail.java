@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class Mail {
+
     public static String getHost(HttpServletRequest request) {
         String domain = request.getServerName();
         String protocol = request.getScheme();
@@ -79,6 +80,7 @@ public class Mail {
             throw new RuntimeException(e);
         }
     }
+
     public static boolean sendContactEmail(String fullName, String phoneNumber, String email, String address, String question) {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -104,9 +106,8 @@ public class Mail {
             emailContent += "Email: " + email + "\n";
             emailContent += "Address: " + address + "\n";
             emailContent += "Question: " + question;
-
-            message.setText(emailContent);
-
+//            message.setText(emailContent);
+            message.setContent(emailContent, "text/html; charset=UTF-8");
             // Send the email
             Transport.send(message);
             System.out.println("Contact email sent");
