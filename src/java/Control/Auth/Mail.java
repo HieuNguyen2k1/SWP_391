@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class Mail {
+
     public static String getHost(HttpServletRequest request) {
         String domain = request.getServerName();
         String protocol = request.getScheme();
@@ -25,7 +26,6 @@ public class Mail {
         properties.put("mail.smtp.auth", "true"); // if authentication is required
         properties.put("mail.smtp.starttls.enable", "true"); // if using TLS
         Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("benhvienmedinova@gmail.com", "pquxzejdaltnmobl");
             }
@@ -43,7 +43,7 @@ public class Mail {
             System.out.println("mail sent");
             return true;
         } catch (MessagingException e) {
-           System.out.println(e);
+            e.printStackTrace();
             return false;
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -57,7 +57,6 @@ public class Mail {
         properties.put("mail.smtp.auth", "true"); // if authentication is required
         properties.put("mail.smtp.starttls.enable", "true"); // if using TLS
         Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("benhvienmedinova@gmail.com", "pquxzejdaltnmobl");
             }
@@ -75,22 +74,21 @@ public class Mail {
             System.out.println("mail sent");
             return true;
         } catch (MessagingException e) {
-            System.out.println(e);
+            e.printStackTrace();
             return false;
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
     }
+
     public static boolean sendContactEmail(String fullName, String phoneNumber, String email, String address, String question) {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
         Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("benhvienmedinova@gmail.com", "pquxzejdaltnmobl");
             }
@@ -99,7 +97,7 @@ public class Mail {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("benhvienmedinova@gmail.com", "Phòng khám Medinova"));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("hieunguyen12920012001@gmail.com"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("benhvienmedinova@gmail.com"));
             message.setSubject("Contact ");
 
             // Create the email content with the contact information
@@ -108,15 +106,14 @@ public class Mail {
             emailContent += "Email: " + email + "\n";
             emailContent += "Address: " + address + "\n";
             emailContent += "Question: " + question;
-
-            message.setText(emailContent);
-
+//            message.setText(emailContent);
+            message.setContent(emailContent, "text/html; charset=UTF-8");
             // Send the email
             Transport.send(message);
             System.out.println("Contact email sent");
             return true;
         } catch (MessagingException | UnsupportedEncodingException e) {
-            System.out.println(e);
+            e.printStackTrace();
             return false;
         }
     }

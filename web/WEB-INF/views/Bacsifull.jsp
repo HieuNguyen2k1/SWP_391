@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
             });
         }
     </script>
-
+    
 </head>
 <!--? Slider Area Start-->
 <!--<div class="slider-area slider-area2">
@@ -199,8 +200,11 @@
                 <div class="doctor-card">
                     <div class="blog-img-cap">
                         <div class="blog-img">
-                            <img style="border-radius: 50%;width: 100%; height: 100%; object-fit: cover"
-                                 src="${pageContext.request.contextPath}/${item.getImage()}" alt="">
+<!--                            <img style="border-radius: 50%;width: 100%; height: 100%; object-fit: cover"
+                                 src="${pageContext.request.contextPath}/${item.getImage()}" alt="">-->
+                            
+                                             <img class="rounded-circle" width="150px" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png">
+
                             <div class="ratings">
                                 <span class="rating"></span>
                                 <i class="fas fa-star"></i>
@@ -250,19 +254,24 @@
     .smaller-button {
     font-size: 80%; /* Hoặc bất kỳ giá trị phù hợp nào bạn muốn */
 }
+
 /* Định dạng cho flex container */
 .flex-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between; /* Để các phần tử sắp xếp theo chiều ngang */
 }
+
 /* Định dạng cho flex item (mỗi card bác sĩ) */
 .flex-item {
     flex: 0 1 calc(33.33% - 20px); /* Sử dụng 33.33% của width, với khoảng cách ngang giữa các item là 20px */
     margin-bottom: 20px; /* Khoảng cách dưới của mỗi item */
 }
+
 /* Thêm margin-top cho những flex-item từ thứ 4 trở đi */
 .flex-item:nth-child(n+4) {
     margin-top: 200px;
 }
+
+
     </style>

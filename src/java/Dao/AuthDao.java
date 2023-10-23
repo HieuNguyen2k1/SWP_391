@@ -129,7 +129,8 @@ public class AuthDao {
     }*/
 
     public User checkLoginUser(String email, String password){
-        String query = "select * from patients where email = ? and password = ?";
+        String query = "select id,name,email,password, phone,dob,gender,address,is_admin,verify_key,is_verified "
+                + "from patients where email = ? and password = ?";
         try{
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(query);
@@ -161,12 +162,12 @@ public class AuthDao {
                         resultSet.getString("email"),
                         resultSet.getString("degree"),
                         resultSet.getInt("experience"),
-                        resultSet.getInt("speciality_id"),
-                        resultSet.getString("image"),
                         resultSet.getString("phone"),
                         resultSet.getString("dob"),
                         resultSet.getBoolean("gender"),
-                        resultSet.getString("address"));
+                        resultSet.getString("address"),
+                        resultSet.getBoolean("status")
+                );
             }
         } catch (Exception e) {
             e.printStackTrace();

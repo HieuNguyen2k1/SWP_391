@@ -12,10 +12,25 @@ public class Speciality_doctor {
     int id;
     int doctor_id;
     int special_id;
+    String name_special;
+
+    public String getName_special() {
+        return name_special;
+    }
+
+    public void setName_special(String name_special) {
+        this.name_special = name_special;
+    }
 
    public Speciality_doctor() {
        
     }
+   
+   public Speciality_doctor( int doctor_id, String name_special) {
+        
+        this.doctor_id = doctor_id;
+        this.name_special = name_special;
+    } 
     public Speciality_doctor(int id, int doctor_id, int special_id) {
         this.id = id;
         this.doctor_id = doctor_id;

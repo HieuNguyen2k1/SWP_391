@@ -4,13 +4,19 @@
  */
 package Control.Admin;
 
+import Control.Auth.Mail;
 import Dao.DoctorDao;
+
 import Dao.SpecialityDao;
 import Model.Doctor;
 import Model.Speciality_doctor;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -79,48 +85,88 @@ public class AddDoctor extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String degree = request.getParameter("degree");
-        String phone1 = request.getParameter("phone");
+        String phone = request.getParameter("phone");
         int experience = Integer.parseInt(request.getParameter("experience"));
         String dob = request.getParameter("dob");
         String address = request.getParameter("address");
         boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
-        String[] selectedOptions = request.getParameterValues("options");
+        boolean status = true;
+        String[] selectedOptions = request.getParameterValues("myCheckbox");
         DoctorDao dd = new DoctorDao();
         ArrayList<Doctor> doctorArrayList = new ArrayList<>();
 
         SpecialityDao spDao = new SpecialityDao();
+        boolean checkMail = false;
+        boolean checkPhone = false;
 
         try {
-            dd.createDoctor(name, email, password, degree, phone1, experience, dob, address, gender);
-            doctorArrayList =dd.selectIdDoctor();
-            for (Doctor dt : doctorArrayList) {
-                if (dt.getEmail().equals(email)) {
-                    if (selectedOptions != null) {
-                        for (String option : selectedOptions) {
-                            spDao.createSpecialityDoctor(dt.getId(), Integer.parseInt(option));
-                        }
-                    }
-                    continue;
-                }
-
-            }
-
-            response.sendRedirect("doctor-control");
-
-        } catch (Exception ex) {
-            System.out.println(ex);
+            checkMail = dd.emailExist(email);
+            checkPhone = dd.phoneExist(phone);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
 
+        if (!checkMail) {
+            if (!checkPhone) {
+                // Kiểm tra số điện thoại
+                if (phone != null && phone.trim().matches("^0\\d{9}$")) {
+                    // Kiểm tra ngày tháng năm sinh
+                    LocalDate currentDate = LocalDate.now();
+                    LocalDate dobDate = LocalDate.parse(dob);
+
+                    if (dobDate.isAfter(currentDate)) {
+                        request.setAttribute("mess", "Ngày tháng năm sinh không hợp lệ!");
+                        request.setAttribute("status", "error");
+                        request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+                    } else {
+                        int age = currentDate.getYear() - dobDate.getYear();
+                        if (age < 1) {
+                            request.setAttribute("mess", "Số năm sinh không hợp lệ!");
+                            request.setAttribute("status", "error");
+                            request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+                        } else {
+                            try {
+                                dd.createDoctor(name, email, password, degree, experience, phone, dob, gender, address,status);
+                                doctorArrayList = dd.getAllDoctorID();
+                                for (Doctor dt : doctorArrayList) {
+                                    if (dt.getEmail().equals(email)) {
+                                        if (selectedOptions != null) {
+                                            for (String option : selectedOptions) {
+                                                spDao.createSpecialityDoctor(dt.getId(), Integer.parseInt(option));
+                                            }
+                                        }
+                                        continue;
+                                    }
+
+                                }
+                                response.sendRedirect("doctor-control");
+
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+                        }
+                    }
+                } else {
+                    request.setAttribute("mess", "Số tháng năm sinh không hợp lệ!");
+                    request.setAttribute("status", "error");
+                    request.getRequestDispatcher("/WEB-INF/views/admin/doctor-control.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("mess", "Số điện thoại đã tồn tại!");
+                request.setAttribute("status", "error");
+                request.getRequestDispatcher("/WEB-INF/views/admin/doctor-control.jsp").forward(request, response);
+            }
+        } else {
+            request.setAttribute("mess", "Email đã tồn tại!");
+            request.setAttribute("status", "error");
+            request.getRequestDispatcher("/WEB-INF/views/admin/doctor-control.jsp").forward(request, response);
+        }
+
+        
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
+
+
+

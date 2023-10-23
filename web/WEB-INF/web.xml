@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet-mapping>
+        <servlet-name>StatusDoctor</servlet-name>
+        <url-pattern>/admin/StatusDoctor</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-
-
+    <filter>
+        <filter-name>encoding-filter</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encoding-filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>AddDoctor</servlet-name>
+        <servlet-class>Control.Admin.AddDoctor</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddDoctor</servlet-name>
+        <url-pattern>/admin/addDoctor</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
         <servlet-class>HelloServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StatusDoctor</servlet-name>
+        <servlet-class>Control.Admin.StatusDoctor</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
@@ -44,6 +66,10 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/patient/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
     <!--   Forget Pass-->
     <servlet>
         <servlet-name>ForgotPassword</servlet-name>
@@ -70,7 +96,6 @@
         <servlet-name>PatientChangePass</servlet-name>
         <url-pattern>/patient/patient-change-pass</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>DoctorChangePass</servlet-name>
         <servlet-class>Control.DoctorChangePass</servlet-class>
@@ -79,7 +104,6 @@
         <servlet-name>DoctorChangePass</servlet-name>
         <url-pattern>/doctor-change-pass</url-pattern>
     </servlet-mapping>
-
     <filter>
         <filter-name>DoctorFilter</filter-name>
         <filter-class>Filter.DoctorFilter</filter-class>
@@ -88,14 +112,91 @@
         <filter-name>DoctorFilter</filter-name>
         <url-pattern>/doctor/*</url-pattern>
     </filter-mapping>
+    <servlet>
+        <servlet-name>DoctorControl</servlet-name>
+        <servlet-class>Control.Admin.DoctorControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorControl</servlet-name>
+        <url-pattern>/admin/doctor-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdatePatients</servlet-name>
+        <servlet-class>Control.Admin.UpdatePatients</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdatePatients</servlet-name>
+        <url-pattern>/admin/update-patients</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoadPatients</servlet-name>
+        <servlet-class>Control.Admin.LoadPatients</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoadPatients</servlet-name>
+        <url-pattern>/admin/patients-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SpecialityControl</servlet-name>
+        <servlet-class>Control.Admin.SpecialityControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SpecialityControl</servlet-name>
+        <url-pattern>/admin/speciality-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ControlDoctorSchedule</servlet-name>
+        <servlet-class>Control.Admin.ControlDoctorSchedule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControlDoctorSchedule</servlet-name>
+        <url-pattern>/admin/doctor-schedule-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminviewAppointment</servlet-name>
+        <servlet-class>Control.Admin.AdminviewAppointment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminviewAppointment</servlet-name>
+        <url-pattern>/admin/appointment-detail</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteDoctorSchedule</servlet-name>
+        <servlet-class>Control.Admin.DeleteDoctorSchedule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteDoctorSchedule</servlet-name>
+        <url-pattern>/admin/delete-doctor-schedule</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ControlPatientAppointment</servlet-name>
+        <servlet-class>Control.Admin.ControlPatientAppointment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControlPatientAppointment</servlet-name>
+        <url-pattern>/admin/patient-appointment-control</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewPatientAppointment</servlet-name>
+        <servlet-class>Control.Admin.ViewPatientAppointment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewPatientAppointment</servlet-name>
+        <url-pattern>/admin/patient-appointment</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateDoctor</servlet-name>
+        <servlet-class>Control.Admin.UpdateDoctor</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateDoctor</servlet-name>
+        <url-pattern>/admin/update-doctor</url-pattern>
+    </servlet-mapping>
+    <!--admin-->
     <filter>
         <filter-name>AdminFilter</filter-name>
         <filter-class>Filter.AdminFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
-        <url-pattern>/admin/*</url-pattern>
-    </filter-mapping>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
@@ -117,7 +218,6 @@
         <servlet-name>DoctorProfileServlet</servlet-name>
         <url-pattern>/doctor/profile</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>AdminLogin</servlet-name>
         <servlet-class>Control.AdminLogin</servlet-class>
@@ -125,6 +225,14 @@
     <servlet-mapping>
         <servlet-name>AdminLogin</servlet-name>
         <url-pattern>/admin/login</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminControlPage</servlet-name>
+        <servlet-class>Control.Admin.AdminControlPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminControlPage</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
@@ -231,11 +339,26 @@
         <servlet-name>SearchDoctor</servlet-name>
         <url-pattern>/search-doctor</url-pattern>
     </servlet-mapping>
-     
+    <!--Review-->
+    <servlet>
+        <servlet-name>ReviewServlet</servlet-name>
+        <servlet-class>Control.ReviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReviewServlet</servlet-name>
+        <url-pattern>/patient/review</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DoctorViewRating</servlet-name>
+        <servlet-class>Control.DoctorViewRating</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorViewRating</servlet-name>
+        <url-pattern>/doctor-view-rating</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>
             home
         </welcome-file>
     </welcome-file-list>
-
 </web-app>

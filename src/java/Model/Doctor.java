@@ -4,7 +4,7 @@ public class Doctor {
     public int id;
     public String name;
     public String email;
-
+    public boolean status;
     public String password;
     public String degree;
     public int experience;
@@ -25,9 +25,32 @@ public class Doctor {
 
     public Doctor() {
     }
-
+    
+ public Doctor(int id, String email) {
+        this.id = id;
+      
+        this.email = email;
+      
+    }
+    
     public Doctor(String password) {
         this.password = password;
+    }
+    
+    //get all doctor
+    
+     public Doctor(int id, String name, String email, String degree, int experience,  String phone, String dob, boolean gender, String address,boolean status) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.degree = degree;
+        this.experience = experience;
+        
+        this.status = status;
+        this.phone = phone;
+        this.dob = dob;
+        this.gender = gender;
+        this.address = address;
     }
 
     public Doctor(int id, String name, String email, String degree, int experience, String speciality_name, String image, String phone, String dob, boolean gender, String address) {
@@ -204,6 +227,14 @@ public class Doctor {
 
     public String getAddress() {
         return address;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setAddress(String address) {

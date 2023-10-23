@@ -22,6 +22,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.UUID;
 
+
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024, // 1 MB
         maxFileSize = 1024 * 1024 * 10, // 10 MB
@@ -29,42 +30,44 @@ import java.util.UUID;
 )
 public class DoctorControl extends HttpServlet {
 
-//    public String generateUniqueFileName(String originalFileName) {
-//        // Get the file extension from the original filename
-//        String extension = "";
-//        int dotIndex = originalFileName.lastIndexOf('.');
-//        if (dotIndex >= 0 && dotIndex < originalFileName.length() - 1) {
-//            extension = originalFileName.substring(dotIndex + 1);
-//        }
-//
-//        // Generate a random UUID as the unique part of the filename
-//        String uniquePart = UUID.randomUUID().toString();
-//
-//        // Combine the unique part and file extension to create the unique filename
-//        String uniqueFileName = uniquePart + "." + extension;
-//
-//        return uniqueFileName;
-//    }
+    public String generateUniqueFileName(String originalFileName) {
+        // Get the file extension from the original filename
+        String extension = "";
+        int dotIndex = originalFileName.lastIndexOf('.');
+        if (dotIndex >= 0 && dotIndex < originalFileName.length() - 1) {
+            extension = originalFileName.substring(dotIndex + 1);
+        }
 
-//    private String getFileName(Part part) {
-//        String contentDisposition = part.getHeader("content-disposition");
-//        String[] tokens = contentDisposition.split(";");
-//        for (String token : tokens) {
-//            if (token.trim().startsWith("filename")) {
-//                return token.substring(token.indexOf('=') + 1).trim()
-//                        .replace("\"", "");
-//            }
-//        }
-//        return null;
-//    }
+        // Generate a random UUID as the unique part of the filename
+        String uniquePart = UUID.randomUUID().toString();
+
+        // Combine the unique part and file extension to create the unique filename
+        String uniqueFileName = uniquePart + "." + extension;
+
+        return uniqueFileName;
+    }
+
+    private String getFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        String[] tokens = contentDisposition.split(";");
+        for (String token : tokens) {
+            if (token.trim().startsWith("filename")) {
+                return token.substring(token.indexOf('=') + 1).trim()
+                        .replace("\"", "");
+            }
+        }
+        return null;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setCharacterEncoding("UTF-8");
         DoctorDao doctorDao = new DoctorDao();
         SpecialityDao specialityDao = new SpecialityDao();
         ArrayList<Doctor> doctorArrayList;
         try {
             doctorArrayList = doctorDao.getAllDoctor();
+            
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -77,6 +80,7 @@ public class DoctorControl extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setCharacterEncoding("UTF-8");
         DoctorDao doctorDao = new DoctorDao();
         SpecialityDao specialityDao = new SpecialityDao();
         ArrayList<Doctor> doctorArrayList;
@@ -104,7 +108,7 @@ public class DoctorControl extends HttpServlet {
             String dob = req.getParameter("dob");
 
             String address = req.getParameter("address");
-
+//
 //            Part filePart = req.getPart("image");
 //            String fileName = getFileName(filePart);
 //            assert fileName != null;
@@ -156,8 +160,7 @@ public class DoctorControl extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/views/admin/doctor-control.jsp").forward(req, resp);
                 return;
             }
-            boolean check = doctorDao.createDoctornoImage(name, email, password, degree, experience, speciality_id, phone, dob, gender, address);
-
+            boolean check = doctorDao.createDoctornoImage(name, email, password, degree, experience, speciality_id,phone, dob, gender, address);
 //            boolean check = doctorDao.createDoctor(name, email, password, degree, experience, speciality_id, "uploads/" + newFileName, phone, dob, gender, address);
             if (check) {
                 resp.sendRedirect("doctor-control");
@@ -169,11 +172,11 @@ public class DoctorControl extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DoctorDao doctorDao = new DoctorDao();
-        if (doctorDao.deleteDoctor(Integer.parseInt(req.getParameter("id")))) {
-            resp.sendRedirect("doctor-control");
-        }
-    }
+//    @Override
+//    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        DoctorDao doctorDao = new DoctorDao();
+//        if (doctorDao.deleteDoctor(Integer.parseInt(req.getParameter("id")))) {
+//            resp.sendRedirect("doctor-control");
+//        }
+//    }
 }
