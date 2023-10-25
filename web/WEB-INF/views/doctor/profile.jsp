@@ -59,7 +59,7 @@
 
                             <div class="col-md-12">
                                 <label class="labels">Họ và tên</label>
-                                <input type="text" class="form-control" value="${doctor.name}" name="name">
+                                <input type="text" class="form-control" value="${doctor.name}" name="name" >
                             </div>
 
 

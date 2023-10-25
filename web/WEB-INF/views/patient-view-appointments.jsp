@@ -57,7 +57,7 @@
 
 </div>-->
     
-    <div class="custom-container" style="margin-bottom: 200px; margin-top: 200px">
+    <div class="container" style="margin-bottom: 200px; margin-top: 200px">
     ${message}
     <c:if test="${not empty error}">
         <p style="color: red">${error}</p>

@@ -118,7 +118,7 @@
 
 
 </style>
-<div class="custom-container">
+<div class="container">
 
     <ul>
         <li>Đây là cuộc hẹn với bệnh nhân <span class="patient-name">${patient.getName()}</span> với <span class="doctor-name">${doctor.getName()}</span></li>

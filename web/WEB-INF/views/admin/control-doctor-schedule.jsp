@@ -2,8 +2,69 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.ParseException" %>
 <%@ page import="Model.Doctor" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <head>
+        <%@page contentType="text/html" pageEncoding="UTF-8"%>
+        <%@include file="/include/navbar.jsp" %>
+        <title>MEDINOVA - Hospital Website</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/home.css">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script>
+            if (window.performance && window.performance.navigation.type === 2) {
+                // Trang được chuyển hướng từ servlet LogoutServlet
+                history.replaceState(null, '', 'login.jsp');
+                window.addEventListener('popstate', function (event) {
+                    window.location.href = 'login.jsp';
+                });
+            }
+        </script>
+    </head>
+        <style>
+    .custom-container {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 16px;
+    }
+    
+    /* Loại bỏ gạch chân cho các liên kết */
+    a {
+        text-decoration: none;
+    }
+
+    /* Định dạng nút */
+    .button-style {
+        background-color: #234821;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none; /* Loại bỏ gạch chân cho nút */
+    }
+
+    /* Định dạng bảng */
+    .table-bordered td,
+    .table-bordered th {
+        border: 2px solid #dee2e6;
+    }
+
+    .table-sm td,
+    .table-sm th {
+        padding: 10px; /* Đặt khoảng cách lớn hơn giữa các ô */
+    }
+</style>
+        
+  
 <div class="custom-container">
     <div class="row">
         <form action="">
@@ -19,11 +80,11 @@
                     </select>
                 </div>
             </div>
-            <button class="button-style">Xác nhận</button>
+            <button class="button-style" style="background-color:#007BFF">Xác nhận</button>
         </form>
     </div>
     <div class="row">
-        <% Doctor doctor = null;%>
+    
         <c:if test="${not empty doctor}" >
             <% doctor = (Doctor) request.getAttribute("doctor");%>
             <p>Bạn đang xem lịch của bác sĩ ${doctor.getName()}</p>
@@ -33,7 +94,7 @@
                 <div class="row">
                     <input value="${current_week}" required class="form-control m-2" name="week" style="width: 200px; height: 30px"
                            type="week">
-                    <button class="button-style">Hiển thị</button>
+                    <button class="button-style" style="background-color:#007BFF">Hiển thị</button>
                 </div>
             </form>
             <p class="text-danger ml-5">${error}</p> <p class="text-success">${success}</p>
@@ -149,7 +210,7 @@
 
 </div>
 
-<style>
+<!--<style>
     .button-style{
           background-color: #234821;
         color: #ffffff;
@@ -160,4 +221,4 @@
         font-weight: bold;
         cursor: pointer;
     }
-</style>
+</style>-->

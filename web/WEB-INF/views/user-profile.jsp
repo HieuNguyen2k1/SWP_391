@@ -105,7 +105,7 @@
 
                     <div class="d-flex justify-content-center">
                         <div class="mt-5 text-center">
-                            <button class=" button-style" type="submit">Lưu thay đổi</button>
+                            <button class=" button-style" type="submit" style="background-color:#007BFF">Lưu thay đổi</button>
                         </div>                      
                     </div>
 

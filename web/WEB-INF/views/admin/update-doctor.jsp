@@ -103,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="button-style">Cập nhật</button>
+                    <button type="submit" class="button-style"  >Cập nhật</button>
                 </form>
             </div>
         </div>
@@ -111,7 +111,7 @@
 
     <style>
         .button-style{
-            background-color: #234821;
+            background-color: #13C5DD;
             color: #ffffff;
             border: none;
             padding: 10px 20px;

@@ -71,9 +71,15 @@
                     <!--<a class="btn btn-primary ml-lg-3 nav-item nav-link small-btn" href="login.jsp">ÄÄng nháº­p/ÄÄng kÃ­</a>-->
                     <div class="main-menu f-right d-none d-lg-block">
                         <nav>
-                            <ul  id="navigation">
+                            <ul style=" margin-right:30px;  list-style-type: none;"  id="navigation">
+                                
+                                
+                                
+                                
+                                
+                                
                                 <% if (session.getAttribute("admin") != null) { %>
-                                <li ><a href="${pageContext.request.contextPath}/admin">Quản Lý</a></li>
+                        <li ><a class="nav-item nav-link" href="${pageContext.request.contextPath}/admin">Quản Lý</a></li>
                                     <% } else {
                                         } %>
 
@@ -113,6 +119,10 @@
                                                    <ul class="submenu">
                    
                                                        <li><a href="${pageContext.request.contextPath}/patient/profile">Trang Cá Nhân</a></li>
+                    
+                    
+                    
+                    
                     <% if (session.getAttribute("acc") != null) { %>
                 <li><a href="${pageContext.request.contextPath}/patient/view-appointments">Danh sách lịch Khám</a>
 
@@ -128,6 +138,14 @@
 </div>
                     -->
 
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
 
                     <div class="main-menu f-right d-none d-lg-block">
                         <ul class="nav">
@@ -136,6 +154,8 @@
                                     <i class="fa fa-user" aria-hidden="true"></i> Xin chào <%= user.getName()%>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+
+                                     </a>
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/patient/profile">Trang Cá Nhân</a>
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/patient/view-appointments">Danh sách lịch Khám</a>
                     <!--                <a class="dropdown-item" href="${pageContext.request.contextPath}/patient/make-appointment">Đặt lịch</a>-->

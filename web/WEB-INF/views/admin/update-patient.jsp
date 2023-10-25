@@ -34,7 +34,8 @@
             </select>
         </div>
     </div>
-    <a role="button" class="btn btn-primary text-white" type="submit">Xác nhận</a>
-    <a role="button" class="btn btn-warning text-white" type="reset">Hủy</a>
+<a role="button" class="btn btn-primary text-white" type="submit" style="background-color: #13C5DD; color: #fff;">Xác nhận</a>
+<a role="button" class="btn btn-warning text-white" type="reset" style="background-color: #13C5DD; color: #fff;">Hủy</a>
+
 </form>
 <jsp:include page="../master/foot.jsp"/>
