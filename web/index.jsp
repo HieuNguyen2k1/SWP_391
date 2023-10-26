@@ -21,30 +21,6 @@
                     window.location.href = 'login.jsp';
                 });
             }
-            //scroll
-            document.addEventListener("DOMContentLoaded", function () {
-                // Lấy thẻ <a> có liên kết đến "Appointment"
-                var appointmentLink = document.querySelector("a[href='#appointment']");
-
-                // Kiểm tra xem liên kết có tồn tại không
-                if (appointmentLink) {
-                    // Gán sự kiện click cho liên kết
-                    appointmentLink.addEventListener("click", function (event) {
-                        event.preventDefault(); // Ngăn chặn chuyển hướng trình duyệt mặc định
-                        scrollToAppointment(); // Gọi hàm cuộn màn hình xuống "Appointment"
-                    });
-                }
-
-                // Hàm cuộn màn hình xuống "Appointment"
-                function scrollToAppointment() {
-                    var appointmentSection = document.getElementById("appointment");
-                    if (appointmentSection) {
-                        // Sử dụng phương thức scrollIntoView để cuộn màn hình đến phần "Appointment" một cách mượt mà
-                        appointmentSection.scrollIntoView({behavior: "smooth"});
-                    }
-                }
-            });
-
         </script>
     </head>
 
@@ -58,8 +34,11 @@
                         <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Xin chào đã đến với Medinova</h5>
                         <h1 class="display-1 text-white mb-md-4">Chuyên nghiệp – Tận tâm – Thân thiện</h1>
                         <div class="pt-2">
-                            <a href="#appointment" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Tìm kiếm bác sĩ</a>
-                            <a href="#appointment" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
+                              <a  href="${pageContext.request.contextPath}/search-doctor" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2" data-animation="fadeInLeft" data-delay=".3s">Đặt Khám Ngay</a>
+                            <!--<a href="" ">Tìm kiếm bác sĩ</a>-->
+                            <!--<a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>-->
+                        
+
                         </div>
                     </div>
                 </div>
@@ -205,8 +184,8 @@
 
 
         <!-- Appointment Start -->
-        <div id="appointment" class="container-fluid bg-primary my-5 py-5">
-            <div  class="container py-5">
+        <div class="container-fluid bg-primary my-5 py-5">
+            <div class="container py-5">
                 <div class="row gx-5">
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <div class="mb-4">
@@ -217,10 +196,10 @@
                         <a class="btn btn-dark rounded-pill py-3 px-5 me-3" href="">Tìm kiếm bác sĩ</a>
                         <a class="btn btn-outline-dark rounded-pill py-3 px-5" href="">Đọc thêm</a>
                     </div>
-                    <div  class="col-lg-6">
-                        <div  class="bg-white text-center rounded p-5">
+                    <div class="col-lg-6">
+                        <div class="bg-white text-center rounded p-5">
                             <h1 class="mb-4">Đặt lịch khám</h1>
-                            <form >
+                            <form>
                                 <div class="row g-3">
                                     <div class="col-12 col-sm-6">
                                         <select class="form-select bg-light border-0" style="height: 55px;">
