@@ -161,4 +161,9 @@ public class NewsDao {
         }
     }
 
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        NewsDao a = new NewsDao();
+        a.deleteNews(1);
+    }
+
 }

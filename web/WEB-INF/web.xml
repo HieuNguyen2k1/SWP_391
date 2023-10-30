@@ -356,14 +356,24 @@
     </servlet-mapping>
     
     <!--News-->
+    <servlet>
+        <servlet-name>NewsControl</servlet-name>
+        <servlet-class>Control.Admin.NewsControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewsControl</servlet-name>
         <url-pattern>/admin/news-control</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateNews</servlet-name>
+        <servlet-class>Control.Admin.UpdateNews</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UpdateNews</servlet-name>
         <url-pattern>/admin/update-news</url-pattern>
     </servlet-mapping>
+ 
+    
     <welcome-file-list>
         <welcome-file>
             home
