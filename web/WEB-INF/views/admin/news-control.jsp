@@ -62,17 +62,17 @@
                 </div>
                
             </div>
+            
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="file">Ảnh</label>
                     <input class="form-control" type="file" id="file" name="image">
-                </div>               
-            </div>
+                </div>                  
+            </div>             
         </div>
-        <input class="form-control" type="hidden" name="_method" value="">
-
-
-        <button class="btn">submit</button>
+            <input class="form-control" type="hidden" name="_method" value="">
+            
+            <button class="button-style" type="submit">Xác nhận</button>
     </form>
     <br>
     <table class="table" border="1">
@@ -102,11 +102,13 @@
                     <form action="" method="post">
                         <input class="form-control" type="hidden" name="_method" value="DELETE">
                         <input class="form-control" type="hidden" name="id" value="${item.newsid}">
-                        <button class="fas fa fa-trash" title="Xóa" style="color:red;margin-top: 60px;border:none;"> Xóa </button>
+                        <button class="fas fa fa-trash" title="Xóa" style="color:red;margin-top: 60px;border:none;"> 
+                                Xóa
+                        </button>
                     </form>
                         <a href="${pageContext.request.contextPath}/admin/update-news?news_id=${item.newsid}">
                             <button class="fa fa-edit" title="Chỉnh sửa" 
-                                                              style="color:black; margin-top: 10px; border:none;"> Chỉnh sửa</button></a>
+                                   style="color:black; margin-top: 10px; border:none;"> Chỉnh sửa</button></a>
                 </th>
             </tr>
         </c:forEach>
@@ -125,4 +127,5 @@
         cursor: pointer;
     }
 </style>
+<jsp:include page="../master/foot.jsp"/>
 
