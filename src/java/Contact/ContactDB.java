@@ -8,9 +8,8 @@ import java.sql.SQLException;
     public static Connection makeConnection() throws ClassNotFoundException {
 
         try {
-//            String serverName = "swpdata.database.windows.net";
             String serverName = "localhost";
-            String databaseName = "swpdataFinal";
+            String databaseName = "Project_swp";
             String url = "jdbc:sqlserver://" + serverName + ";databaseName=" + databaseName + ";";
             String username = "sa";
             String password = "12345";
