@@ -30,7 +30,9 @@
             <div class="custom-menu">
                 <a href="${pageContext.request.contextPath}/admin/doctor-control"><i class="fas fa-users"></i> Quản lý bác sĩ</a><br>
                 <a href="${pageContext.request.contextPath}/admin/patients-control"><i class="fas fa-users"></i> Quản lý bệnh nhân</a><br>
+                <a href="${pageContext.request.contextPath}/admin/news-control"><i class="fas fa-users"></i> Quản lý tin tức</a><br>
                 <a href="${pageContext.request.contextPath}/admin/doctor-schedule-control"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý lịch của bác sĩ</a><br>
+
             </div>
         </div>
 
@@ -122,8 +124,8 @@
                                     <a role="button" class="fa fa-edit" title="Chỉnh sửa" 
                                        style="color:black; margin-top: 10px; border:none;" 
                                        href="${pageContext.request.contextPath}/admin/update-patients?pid=${x.id}"> Chỉnh sửa</a><br>
-<!--                                    <a role="button" class="fas fa fa-trash" title="Xóa"style="color:red; margin-top: 10px; border:none;" 
-                                       href="${pageContext.request.contextPath}/admin/delete-patients?pid=${x.id}">   Xóa</a>-->
+                                    <!--                                    <a role="button" class="fas fa fa-trash" title="Xóa"style="color:red; margin-top: 10px; border:none;" 
+                                                                           href="${pageContext.request.contextPath}/admin/delete-patients?pid=${x.id}">   Xóa</a>-->
                                 </td>
                             </tr>
                         </c:forEach>

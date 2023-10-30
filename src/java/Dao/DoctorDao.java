@@ -296,9 +296,5 @@ public class DoctorDao {
         }
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        DoctorDao a = new DoctorDao();
-        a.updateDoctor("son", "thac si", 10, 2, "099921232", "2012/12/30", true, "Quang nam", 1);
 
-    }
 }

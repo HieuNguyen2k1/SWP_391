@@ -135,7 +135,7 @@ public class UpdateNews extends HttpServlet {
 
                 try {
                     News newsArray = newsDao.getNewsByID(news_id);
-                    request.setAttribute("blog", newsArray);
+                    request.setAttribute("news", newsArray);
                 } catch (Exception e) {
                 }               
             }            
@@ -148,7 +148,7 @@ public class UpdateNews extends HttpServlet {
 
                 try {
                     News newsArray = newsDao.getNewsByID(news_id);
-                    request.setAttribute("blog", newsArray);
+                    request.setAttribute("news", newsArray);
                 } catch (Exception e) {
                 }               
             } 

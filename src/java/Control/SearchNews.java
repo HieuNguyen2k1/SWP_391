@@ -50,8 +50,7 @@ public class SearchNews extends HttpServlet {
                  
              } else {
                   request.setAttribute("SearchNews", searchNews);
-             }
-             
+             }             
               request.getRequestDispatcher("/WEB-INF/views/news.jsp").forward(request, response);
         } catch (Exception e) {
         }

@@ -17,7 +17,7 @@
                                 <div class="col-xl-7 col-lg-8 col-md-10 ">
                                     <div class="hero-wrapper">
                                         <div class="hero__caption">
-                                            <h1 data-animation="fadeInUp" data-delay=".3s">Cẩm Nang Y Tế</h1>
+                                            <h1 data-animation="fadeInUp" data-delay=".3s">Tin Tức</h1>
                                             <p data-animation="fadeInUp" data-delay=".6s">Kiến thức y tế - Kho báu <br> quý giá giúp bạn sống khỏe và hạnh phúc.</p>
                                         </div>
                                     </div>

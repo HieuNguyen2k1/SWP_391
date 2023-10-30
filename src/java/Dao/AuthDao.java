@@ -85,7 +85,7 @@ public class AuthDao {
         }
         return true;
     }
-/*
+
     public boolean createDoctor(String name,String email, String password, String degree, int experience, int speciality_id,String image, String phone, String dob, boolean gender, String address){
         String sql = "insert into doctors(name,email, password,degree,experience,speciality_id,image,phone, dob, gender,address ) values(?, ?, ?, ?, ?,?,?, ?, ?, ?, ?)";
         try {
@@ -109,7 +109,7 @@ public class AuthDao {
         }
         return true;
     }
-*/
+
 
     /*public boolean emailExist(String email) throws SQLException, ClassNotFoundException {
         String sql = "select count(id) from patients where email = ?";
@@ -129,7 +129,8 @@ public class AuthDao {
     }*/
 
     public User checkLoginUser(String email, String password){
-        String query = "select * from patients where email = ? and password = ?";
+        String query = "select id,name,email,password, phone,dob,gender,address,is_admin,verify_key,is_verified "
+                + "from patients where email = ? and password = ?";
         try{
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(query);
@@ -137,7 +138,10 @@ public class AuthDao {
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getBoolean(7), resultSet.getString(8), resultSet.getBoolean(9), resultSet.getString(10), resultSet.getBoolean(11));
+                User user = new User(resultSet.getInt(1), resultSet.getString(2), 
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getString(6), resultSet.getBoolean(7), resultSet.getString(8),
+                        resultSet.getBoolean(9), resultSet.getString(10), resultSet.getBoolean(11));
                 return user;
             }
         } catch (Exception e) {

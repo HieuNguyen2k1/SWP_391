@@ -55,28 +55,10 @@ public class NewsControl extends HttpServlet {
         String[] tokens = contentDisposition.split(";");
         for (String token : tokens) {
             if (token.trim().startsWith("filename")) {
-                return token.substring(token.indexOf('=') + 1).trim()
-                        .replace("\"", "");
+                return token.substring(token.indexOf('=') + 1).trim().replace("\"", "");
             }
         }
         return null;
-    }
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewsControl</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewsControl at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -101,7 +83,7 @@ public class NewsControl extends HttpServlet {
             throw new RuntimeException(e);
         }
         request.setAttribute("news_list", newsArrayList);
-        request.getRequestDispatcher("/WEB-INF/views/admin/blog-control.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/admin/news-control.jsp").forward(request, response);
     }
 
     /**
@@ -150,7 +132,7 @@ public class NewsControl extends HttpServlet {
         NewsDao newsDao = new NewsDao();
         int id = Integer.parseInt(request.getParameter("id"));
         newsDao.deleteNews(id);
-        response.sendRedirect("blog-control");
+        response.sendRedirect("news-control");
     }
 
     

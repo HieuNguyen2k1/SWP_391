@@ -21,22 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DetailNewsServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DetailNewsServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DetailNewsServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     @Override
@@ -44,18 +29,12 @@ public class DetailNewsServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             NewsDao newsDao = new NewsDao();
-            String newsid = request.getParameter("newsid");
-            News blogdetail = newsDao.getNewsByID(newsid);
-            request.setAttribute("detail", blogdetail);
+            String nid = request.getParameter("nid");
+            News newsdetail = newsDao.getNewsByID(nid);
+            request.setAttribute("detail", newsdetail);
             request.getRequestDispatcher("/WEB-INF/views/newsDetail.jsp").forward(request, response);
         } catch (Exception e) {
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     @Override

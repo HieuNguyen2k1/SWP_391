@@ -2,9 +2,9 @@
 <html>
     <%@ include file="include/logout.jsp" %>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <jsp:useBean class="model.service.PatientService" id="showPa"></jsp:useBean>
-    <jsp:useBean class="model.service.AppointmentService" id="showAp"></jsp:useBean>
-    <jsp:useBean class="model.service.DoctorService" id="showDoc"></jsp:useBean>
+    <jsp:useBean class="Model.service.PatientService" id="showPa"></jsp:useBean>
+    <jsp:useBean class="Model.service.AppointmentService" id="showAp"></jsp:useBean>
+    <jsp:useBean class="Model.service.DoctorService" id="showDoc"></jsp:useBean>
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

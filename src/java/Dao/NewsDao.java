@@ -65,7 +65,7 @@ public class NewsDao {
     }
 
     public News getNewsByID(String newsid) throws ClassNotFoundException, SQLException {
-        String sql = "SELECT * FROM news where   News_ID = ?";
+        String sql = "SELECT * FROM news where News_ID = ?";
         try {
             connection = new ContactDB().makeConnection();
             preparedStatement = connection.prepareStatement(sql);
@@ -74,7 +74,7 @@ public class NewsDao {
             News news = null;
             while (resultSet.next()) {
                 news = new News(
-                        resultSet.getInt("Blogid"),
+                        resultSet.getInt("Newsid"),
                         resultSet.getInt("day"),
                         resultSet.getString("month"),
                         resultSet.getString("title"),
@@ -90,7 +90,7 @@ public class NewsDao {
     }
 
     public boolean createNews(int day, String month, String title, String scriptshort, String scriptfull, String image) {
-        String sql = "insert into news(day, month, title, scriptshort, scriptfull, image) values(?, ?, ?, ?, ?,?)";
+        String sql = "Insert into news(day, month, title, scriptshort, scriptfull, image) values(?, ?, ?, ?, ?,?)";
         try {
             this.connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
