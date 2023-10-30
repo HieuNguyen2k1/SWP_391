@@ -63,7 +63,6 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
-
                             <a href="appointment.jsp" class="dropdown-item">Appointment</a>
                             <a href="search.jsp" class="dropdown-item">Tìm kiếm</a>
                         </div>

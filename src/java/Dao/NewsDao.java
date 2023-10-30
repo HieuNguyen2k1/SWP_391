@@ -30,7 +30,7 @@ public class NewsDao {
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             newsArrayList.add(new News(
-                    resultSet.getInt("NewsID"),
+                    resultSet.getInt("News_ID"),
                     resultSet.getInt("day"),
                     resultSet.getString("month"),
                     resultSet.getString("title"),
@@ -53,7 +53,7 @@ public class NewsDao {
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             newsArrayList.add(new News(
-                    resultSet.getInt("NewsID"),
+                    resultSet.getInt("News_ID"),
                     resultSet.getInt("day"),
                     resultSet.getString("month"),
                     resultSet.getString("title"),
@@ -74,7 +74,7 @@ public class NewsDao {
             News news = null;
             while (resultSet.next()) {
                 news = new News(
-                        resultSet.getInt("Newsid"),
+                        resultSet.getInt("News_ID"),
                         resultSet.getInt("day"),
                         resultSet.getString("month"),
                         resultSet.getString("title"),

@@ -58,22 +58,6 @@ public class UpdateNews extends HttpServlet {
         return null;
     }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateNews</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateNews at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -127,7 +111,7 @@ public class UpdateNews extends HttpServlet {
             try( InputStream fileContent = filePart.getInputStream()){
                 Files.copy(fileContent, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
-            if(newsDao.UpdateNewsImg(id, day, month, title, scriptS, scriptF, "uploadsNews/" + newFileName)){
+            if(newsDao.UpdateNewsImg(id, day, month, title, scriptS, scriptF, "/uploadsNews/" + newFileName)){
                 response.sendRedirect(request.getContextPath()+ "/admin/news-control");
             }else { // thay đổi lỗi
                 request.setAttribute("error", "đã có lỗi xảy ra");
@@ -155,14 +139,5 @@ public class UpdateNews extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

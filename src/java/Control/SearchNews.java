@@ -49,7 +49,7 @@ public class SearchNews extends HttpServlet {
                  request.setAttribute("none", none);
                  
              } else {
-                  request.setAttribute("SearchNews", searchNews);
+                  request.setAttribute("searchnews", searchNews);
              }             
               request.getRequestDispatcher("/WEB-INF/views/news.jsp").forward(request, response);
         } catch (Exception e) {

@@ -357,6 +357,30 @@
     
     <!--News-->
     <servlet>
+        <servlet-name>NewsServlet</servlet-name>
+        <servlet-class>Control.NewsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewsServlet</servlet-name>
+        <url-pattern>/show-news</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SearchNews</servlet-name>
+        <servlet-class>Control.SearchNews</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchNews</servlet-name>
+        <url-pattern>/search-news</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DetailNewsServlet</servlet-name>
+        <servlet-class>Control.DetailNewsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DetailNewsServlet</servlet-name>
+        <url-pattern>/news-Detail</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>NewsControl</servlet-name>
         <servlet-class>Control.Admin.NewsControl</servlet-class>
     </servlet>
