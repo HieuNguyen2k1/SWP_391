@@ -9,7 +9,7 @@ package Model;
  * @author Asus
  */
 public class News {
-    private int NewsID;
+    private int Newsid;
     private int day;
     private String month;
     private String title;
@@ -20,8 +20,8 @@ public class News {
     public News() {
     }
 
-    public News(int NewsID, int day, String month, String title, String scriptShort, String scriptFull, String image) {
-        this.NewsID = NewsID;
+    public News(int Newsid, int day, String month, String title, String scriptShort, String scriptFull, String image) {
+        this.Newsid = Newsid;
         this.day = day;
         this.month = month;
         this.title = title;
@@ -30,12 +30,12 @@ public class News {
         this.image = image;
     }
 
-    public int getNewsID() {
-        return NewsID;
+    public int getNewsid() {
+        return Newsid;
     }
 
-    public void setNewsID(int NewsID) {
-        this.NewsID = NewsID;
+    public void setNewsid(int Newsid) {
+        this.Newsid = Newsid;
     }
 
     public int getDay() {
@@ -88,7 +88,7 @@ public class News {
 
     @Override
     public String toString() {
-        return "News{" + "NewsID=" + NewsID + ", day=" + day + ", month=" + month + ", title=" + title + ", scriptShort=" + scriptShort + ", scriptFull=" + scriptFull + ", image=" + image + '}';
+        return "News{" + "NewsID=" + Newsid + ", day=" + day + ", month=" + month + ", title=" + title + ", scriptShort=" + scriptShort + ", scriptFull=" + scriptFull + ", image=" + image + '}';
     }
     
     

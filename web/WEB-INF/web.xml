@@ -378,7 +378,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DetailNewsServlet</servlet-name>
-        <url-pattern>/news-Detail</url-pattern>
+        <url-pattern>/detail-news</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>NewsControl</servlet-name>

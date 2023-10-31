@@ -8,7 +8,6 @@ import Dao.NewsDao;
 import Model.News;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,7 +57,6 @@ public class UpdateNews extends HttpServlet {
         return null;
     }
 
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -71,21 +69,21 @@ public class UpdateNews extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         String news_id = request.getParameter("news_id");
         NewsDao newsDao = new NewsDao();
-        try{
+        try {
             News newsid = newsDao.getNewsByID(news_id);
             request.setAttribute("news", newsid);
-        }catch(Exception e){            
+        } catch (Exception e) {
         }
         request.getRequestDispatcher("/WEB-INF/views/admin/update-news.jsp").forward(request, response);
-        
+
     }
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -102,31 +100,18 @@ public class UpdateNews extends HttpServlet {
         String scriptF = request.getParameter("update_scriptfull");
         Part filePart = request.getPart("update_image");
         NewsDao newsDao = new NewsDao();
-        if(filePart != null && filePart.getSize() >0){
+        if (filePart != null && filePart.getSize() > 0) {
             String fileName = getFileName(filePart);
             assert fileName != null;
             String newFileName = generateUniqueFileName(fileName);
-            String uploadDir = request.getServletContext().getRealPath("/") + "uploadsNews";
+            String uploadDir = request.getServletContext().getRealPath("/") + "uploadNews";
             Path filePath = Paths.get(uploadDir, newFileName);
-            try( InputStream fileContent = filePart.getInputStream()){
+            try ( InputStream fileContent = filePart.getInputStream()) {
                 Files.copy(fileContent, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
-            if(newsDao.UpdateNewsImg(id, day, month, title, scriptS, scriptF, "/uploadsNews/" + newFileName)){
-                response.sendRedirect(request.getContextPath()+ "/admin/news-control");
-            }else { // thay đổi lỗi
-                request.setAttribute("error", "đã có lỗi xảy ra");
-                String news_id = request.getParameter("news_id");
-
-                try {
-                    News newsArray = newsDao.getNewsByID(news_id);
-                    request.setAttribute("news", newsArray);
-                } catch (Exception e) {
-                }               
-            }            
-        }else{
-            if(newsDao.UpdateNewsNoImg(id, day, month, title, scriptS, scriptF)){
+            if (newsDao.UpdateNewsImg(id, day, month, title, scriptS, scriptF, "/uploadNews/" + newFileName)) {
                 response.sendRedirect(request.getContextPath() + "/admin/news-control");
-            }else { // thay đổi lỗi
+            } else { // thay đổi lỗi
                 request.setAttribute("error", "đã có lỗi xảy ra");
                 String news_id = request.getParameter("news_id");
 
@@ -134,10 +119,24 @@ public class UpdateNews extends HttpServlet {
                     News newsArray = newsDao.getNewsByID(news_id);
                     request.setAttribute("news", newsArray);
                 } catch (Exception e) {
-                }               
-            } 
+                }
+
+            }
+        } else {
+            if (newsDao.UpdateNewsNoImg(id, day, month, title, scriptS, scriptF)) {
+                response.sendRedirect(request.getContextPath() + "/admin/news-control");
+            } else { // thay đổi lỗi
+                request.setAttribute("error", "đã có lỗi xảy ra");
+                String news_id = request.getParameter("news_id");
+
+                try {
+                    News newsArray = newsDao.getNewsByID(news_id);
+                    request.setAttribute("news", newsArray);
+                } catch (Exception e) {
+                }
+
+            }
         }
     }
-
 
 }

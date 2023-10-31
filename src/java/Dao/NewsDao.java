@@ -43,7 +43,7 @@ public class NewsDao {
 
     public ArrayList<News> searchNews(String name) throws ClassNotFoundException, SQLException {
         ArrayList<News> newsArrayList = new ArrayList<>();
-        String sql = "SELECT * FROM News WHERE [Day] LIKE ? OR [Month] LIKE ? OR Title LIKE ? OR ScriptShort LIKE ?";
+        String sql = "SELECT * FROM news WHERE [Day] LIKE ? OR [Month] LIKE ? OR Title LIKE ? OR ScriptShort LIKE ?";
         connection = new ContactDB().makeConnection();
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, "%" + name + "%");
@@ -64,12 +64,12 @@ public class NewsDao {
         return newsArrayList;
     }
 
-    public News getNewsByID(String newsid) throws ClassNotFoundException, SQLException {
+    public News getNewsByID(String nid) throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM news where News_ID = ?";
         try {
             connection = new ContactDB().makeConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, newsid);
+            preparedStatement.setString(1, nid);
             resultSet = preparedStatement.executeQuery();
             News news = null;
             while (resultSet.next()) {
@@ -122,7 +122,7 @@ public class NewsDao {
         }
     }
 
-    public boolean UpdateNewsNoImg(int newsid, int day, String month, String title, String scriptshort, String scriptfull) {
+    public boolean UpdateNewsNoImg(int id, int day, String month, String title, String scriptshort, String scriptfull) {
         try {
             String sql = "UPDATE news set Day = ?, Month = ?, Title = ?, ScriptShort = ?, ScriptFull = ? where News_ID = ? ;";
             connection = ContactDB.makeConnection();
@@ -132,7 +132,7 @@ public class NewsDao {
             preparedStatement.setString(3, title);
             preparedStatement.setString(4, scriptshort);
             preparedStatement.setString(5, scriptfull);
-            preparedStatement.setInt(6, newsid);
+            preparedStatement.setInt(6, id);
             preparedStatement.execute();
             return true;
         } catch (Exception e) {
@@ -141,7 +141,7 @@ public class NewsDao {
         }
     }
 
-    public boolean UpdateNewsImg(int newsid, int day, String month, String title, String scriptshort, String scriptfull, String image) {
+    public boolean UpdateNewsImg(int id, int day, String month, String title, String scriptshort, String scriptfull, String image) {
         try {
             String sql = "update news set Day = ?, Month = ?, Title = ?, ScriptShort = ?, ScriptFull = ?, Image = ? where News_ID = ? ;";
             connection = ContactDB.makeConnection();
@@ -152,7 +152,7 @@ public class NewsDao {
             preparedStatement.setString(4, scriptshort);
             preparedStatement.setString(5, scriptfull);
             preparedStatement.setString(6, image);
-            preparedStatement.setInt(7, newsid);
+            preparedStatement.setInt(7, id);
             preparedStatement.execute();
             return true;
         } catch (Exception e) {

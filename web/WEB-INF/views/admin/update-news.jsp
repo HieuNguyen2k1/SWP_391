@@ -1,6 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
-<jsp:include page="../master/head.jsp"/>
+
+<head>     
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@ page import="Model.News" %> 
+    <title>MEDINOVA - Hospital Website</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+</head>
 <div class="custom-container">
     <c:if test="${not empty error}">
         <p class="text-danger">${error}</p>
@@ -21,6 +27,9 @@
                     <label for="password">Tiêu đề</label>
                     <input class="form-control" type="text" id="title" name="update_title" placeholder="Tiêu đề" value="${news.title}">
                 </div>
+
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="degree">Mô tả ngắn</label>
                     <input class="form-control" type="text" id="scriptshort" name="update_scriptshort" placeholder="Mô tả ngắn" value="${news.scriptShort}">
@@ -29,20 +38,15 @@
                     <label for="experience">Mô tả đầy đủ</label>
                     <input class="form-control" type="text" id="scriptfull" name="update_scriptfull" placeholder="Mô tả đầy đủ" value="${news.scriptFull}">
                 </div>
-            </div>
-            <div class="col-md-6">
                 <div class="form-group">
                     <label for="file">Ảnh</label>
                     <input class="form-control" type="file" id="file" name="update_image">
-                    <img style="max-width: 100%; object-fit: cover" src="${pageContext.request.contextPath}/${doctor.image}" alt="">
+                    <img style="max-width: 100%; object-fit: cover" src="${pageContext.request.contextPath}/${news.image}" alt="">
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn">submit</button>
+        <input class="form-control" type="hidden" name="_method" value="">
+        <button type="submit" class="btn">Cập Nhật</button>
     </form>
-    <%--    <form action="" method="post">--%>
-    <%--        <input type="text">--%>
-    <%--        <button>submit</button>--%>
-    <%--    </form>--%>
+
 </div>
-<jsp:include page="../master/foot.jsp"/>

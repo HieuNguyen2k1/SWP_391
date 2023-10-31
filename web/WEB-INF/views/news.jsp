@@ -45,7 +45,7 @@
                                             </a>
                                         </div>
                                         <div class="news_details">
-                                            <a class="d-inline-block" href="detail-news?bid=${news.getNewsid()}">
+                                            <a class="d-inline-block" href="detail-news?nid=${news.getNewsid()}">
                                                 <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
                                             </a>
                                             <p>${news.getScriptShort()}</p>
@@ -63,7 +63,7 @@
                                             </a>
                                         </div>
                                         <div class="news_details">
-                                            <a class="d-inline-block" href="detail-news?bid=${news.getNewsid()}">
+                                            <a class="d-inline-block" href="detail-news?nid=${news.getNewsid()}">
                                                 <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
                                             </a>
                                             <p>${news.getScriptShort()}</p>

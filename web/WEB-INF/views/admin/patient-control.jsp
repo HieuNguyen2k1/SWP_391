@@ -124,8 +124,8 @@
                                     <a role="button" class="fa fa-edit" title="Chỉnh sửa" 
                                        style="color:black; margin-top: 10px; border:none;" 
                                        href="${pageContext.request.contextPath}/admin/update-patients?pid=${x.id}"> Chỉnh sửa</a><br>
-                                    <!--                                    <a role="button" class="fas fa fa-trash" title="Xóa"style="color:red; margin-top: 10px; border:none;" 
-                                                                           href="${pageContext.request.contextPath}/admin/delete-patients?pid=${x.id}">   Xóa</a>-->
+                                    <a role="button" class="fas fa fa-trash" title="Xóa"style="color:red; margin-top: 10px; border:none;" 
+                                        href="${pageContext.request.contextPath}/admin/delete-patients?pid=${x.id}">   Xóa</a>
                                 </td>
                             </tr>
                         </c:forEach>
