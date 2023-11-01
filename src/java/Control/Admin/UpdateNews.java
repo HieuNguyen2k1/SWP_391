@@ -93,8 +93,7 @@ public class UpdateNews extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("newsid"));
-        int day = Integer.parseInt(request.getParameter("update_day"));
-        String month = request.getParameter("update_month");
+        String time = request.getParameter("update_time");
         String title = request.getParameter("update_title");
         String scriptS = request.getParameter("update_scriptshort");
         String scriptF = request.getParameter("update_scriptfull");
@@ -109,7 +108,7 @@ public class UpdateNews extends HttpServlet {
             try ( InputStream fileContent = filePart.getInputStream()) {
                 Files.copy(fileContent, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
-            if (newsDao.UpdateNewsImg(id, day, month, title, scriptS, scriptF, "/uploadNews/" + newFileName)) {
+            if (newsDao.UpdateNewsImg(id, time, title, scriptS, scriptF, "/uploadNews/" + newFileName)) {
                 response.sendRedirect(request.getContextPath() + "/admin/news-control");
             } else { // thay đổi lỗi
                 request.setAttribute("error", "đã có lỗi xảy ra");
@@ -123,7 +122,7 @@ public class UpdateNews extends HttpServlet {
 
             }
         } else {
-            if (newsDao.UpdateNewsNoImg(id, day, month, title, scriptS, scriptF)) {
+            if (newsDao.UpdateNewsNoImg(id, time, title, scriptS, scriptF)) {
                 response.sendRedirect(request.getContextPath() + "/admin/news-control");
             } else { // thay đổi lỗi
                 request.setAttribute("error", "đã có lỗi xảy ra");

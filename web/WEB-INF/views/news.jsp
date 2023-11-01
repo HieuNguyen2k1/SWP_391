@@ -40,8 +40,7 @@
                                         <div class="news_item_img">
                                             <img class="card-img rounded-0" src="${news.getImage()}" alt="">
                                             <a href="#" class="news_item_date">
-                                                <h3>${news.getDay()}</h3>
-                                                <p>${news.getMonth()}</p>
+                                                <p>${news.getTime()}</p>
                                             </a>
                                         </div>
                                         <div class="news_details">
@@ -58,8 +57,7 @@
                                         <div class="news_item_img">
                                             <img class="card-img rounded-0" src="${news.getImage()}" alt="">
                                             <a href="#" class="news_item_date">
-                                                <h3>${news.getDay()}</h3>
-                                                <p>${news.getMonth()}</p>
+                                                <p>${news.getTime()}</p>
                                             </a>
                                         </div>
                                         <div class="news_details">

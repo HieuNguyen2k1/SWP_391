@@ -9,9 +9,9 @@ package Model;
  * @author Asus
  */
 public class News {
+
     private int Newsid;
-    private int day;
-    private String month;
+    private String time;
     private String title;
     private String scriptShort;
     private String scriptFull;
@@ -20,10 +20,9 @@ public class News {
     public News() {
     }
 
-    public News(int Newsid, int day, String month, String title, String scriptShort, String scriptFull, String image) {
+    public News(int Newsid, String time, String title, String scriptShort, String scriptFull, String image) {
         this.Newsid = Newsid;
-        this.day = day;
-        this.month = month;
+        this.time = time;
         this.title = title;
         this.scriptShort = scriptShort;
         this.scriptFull = scriptFull;
@@ -38,20 +37,12 @@ public class News {
         this.Newsid = Newsid;
     }
 
-    public int getDay() {
-        return day;
+    public String getTime() {
+        return time;
     }
 
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getTitle() {
@@ -88,8 +79,7 @@ public class News {
 
     @Override
     public String toString() {
-        return "News{" + "NewsID=" + Newsid + ", day=" + day + ", month=" + month + ", title=" + title + ", scriptShort=" + scriptShort + ", scriptFull=" + scriptFull + ", image=" + image + '}';
+        return "News{" + "Newsid=" + Newsid + ", time=" + time + ", title=" + title + ", scriptShort=" + scriptShort + ", scriptFull=" + scriptFull + ", image=" + image + '}';
     }
-    
-    
+
 }

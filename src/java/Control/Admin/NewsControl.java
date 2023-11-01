@@ -99,8 +99,8 @@ public class NewsControl extends HttpServlet {
         if (request.getParameter("_method").equals("DELETE")) {
             this.doDelete(request, response);
         } else {
-            int day = Integer.parseInt(request.getParameter("day"));
-            String month = request.getParameter("month");
+            
+            String time = request.getParameter("month");
             String title = request.getParameter("title");
             String scriptshort = request.getParameter("scriptshort");
             String scriptfull = request.getParameter("scriptfull");
@@ -115,7 +115,7 @@ public class NewsControl extends HttpServlet {
                 Files.copy(fileContent, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
             NewsDao newsDao = new NewsDao();
-            boolean check = newsDao.createNews(day, month, title, scriptshort, scriptfull, "uploadNews/" + newFileName);
+            boolean check = newsDao.createNews(time, title, scriptshort, scriptfull, "uploadNews/" + newFileName);
             if (check) {
                 response.sendRedirect("news-control");
             } else {
