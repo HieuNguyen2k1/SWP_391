@@ -100,7 +100,7 @@ public class NewsControl extends HttpServlet {
             this.doDelete(request, response);
         } else {
             
-            String time = request.getParameter("month");
+            String time = request.getParameter("time");
             String title = request.getParameter("title");
             String scriptshort = request.getParameter("scriptshort");
             String scriptfull = request.getParameter("scriptfull");
