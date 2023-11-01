@@ -54,8 +54,7 @@
                                 </div>
                                 <div class="news_details">
                                     <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
-                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="" >       
-                                        
+                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="" >    
                                     </a>                                    
                                     <p>${news.getScriptShort()}</p>                                   
                                 </div>
@@ -69,8 +68,7 @@
                                     
                                 </div>
                                 <div class="news_detail">
-                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">
-                                        
+                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
                                     </a>
                                     <p>${news.getScriptShort()}</p>
                                    <%-- <p>${news.getScriptFull()}</p>  --%>
