@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +26,7 @@ public class NewsDao {
     ResultSet resultSet = null;
 
     public ArrayList<News> getAllNews() throws ClassNotFoundException, SQLException {
+
         ArrayList<News> newsArrayList = new ArrayList<>();
         String sql = "select * from news order by News_ID desc;";
         connection = new ContactDB().makeConnection();
@@ -86,11 +90,17 @@ public class NewsDao {
     }
 
     public boolean createNews(String time, String title, String scriptshort, String scriptfull, String image) {
+
+        LocalDateTime currentDate = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = currentDate.format(formatter);
+        
         String sql = "Insert into news(time, title, scriptshort, scriptfull, image) values(?, ?, ?, ?, ?)";
+
         try {
             this.connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, time);
+            preparedStatement.setString(1, formattedDate);
             preparedStatement.setString(2, title);
             preparedStatement.setString(3, scriptshort);
             preparedStatement.setString(4, scriptfull);
@@ -100,6 +110,7 @@ public class NewsDao {
             e.printStackTrace();
             return false;
         }
+
         return true;
     }
 
@@ -118,6 +129,7 @@ public class NewsDao {
     }
 
     public boolean UpdateNewsNoImg(int id, String time, String title, String scriptshort, String scriptfull) {
+        
         try {
             String sql = "UPDATE news set Time = ?, Title = ?, ScriptShort = ?, ScriptFull = ? where News_ID = ? ;";
             connection = ContactDB.makeConnection();
@@ -136,6 +148,7 @@ public class NewsDao {
     }
 
     public boolean UpdateNewsImg(int id, String time, String title, String scriptshort, String scriptfull, String image) {
+        
         try {
             String sql = "UPDATE news set Time = ?, Title = ?, ScriptShort = ?, ScriptFull = ?, Image = ? where News_ID = ? ;";
             connection = ContactDB.makeConnection();

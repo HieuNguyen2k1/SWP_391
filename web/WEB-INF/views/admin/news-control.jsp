@@ -43,7 +43,7 @@
                     <div class="col-md-5">
                         <div class="form-group">
                             <label for="name">Thời gian đăng</label>
-                            <input class="form-control" type="text" id="time" name="time" placeholder="Nhập thời gian đăng">
+                            <input class="form-control" type="date" id="time" name="time" placeholder="Nhập thời gian đăng" ">
                         </div>                        
                         <div class="form-group">
                             <label for="password">Tiêu đề</label>
@@ -129,5 +129,6 @@
         cursor: pointer;
     }
 </style>
+
 
 

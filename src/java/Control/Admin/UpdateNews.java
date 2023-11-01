@@ -18,6 +18,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @MultipartConfig(
@@ -70,11 +71,11 @@ public class UpdateNews extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String news_id = request.getParameter("news_id");
+        String id = request.getParameter("newsid");
         NewsDao newsDao = new NewsDao();
         try {
-            News newsid = newsDao.getNewsByID(news_id);
-            request.setAttribute("news", newsid);
+            News updatenews = newsDao.getNewsByID(id);
+            request.setAttribute("upda", updatenews);
         } catch (Exception e) {
         }
         request.getRequestDispatcher("/WEB-INF/views/admin/update-news.jsp").forward(request, response);
@@ -92,6 +93,7 @@ public class UpdateNews extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            
         int id = Integer.parseInt(request.getParameter("newsid"));
         String time = request.getParameter("update_time");
         String title = request.getParameter("update_title");

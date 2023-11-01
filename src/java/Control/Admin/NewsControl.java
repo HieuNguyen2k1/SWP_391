@@ -20,6 +20,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @MultipartConfig(
@@ -99,13 +100,18 @@ public class NewsControl extends HttpServlet {
         if (request.getParameter("_method").equals("DELETE")) {
             this.doDelete(request, response);
         } else {
-            
+
             String time = request.getParameter("time");
             String title = request.getParameter("title");
             String scriptshort = request.getParameter("scriptshort");
             String scriptfull = request.getParameter("scriptfull");
             Part filePart = request.getPart("image");
-
+            HttpSession session = request.getSession();
+            session.setAttribute("time", time);
+            session.setAttribute("title", title);
+            session.setAttribute("scriptS", scriptshort);
+            session.setAttribute("scriptF", scriptfull);
+            session.setAttribute("filePart", filePart);
             String fileName = getFileName(filePart);
             assert fileName != null;
             String newFileName = generateUniqueFileName(fileName);
