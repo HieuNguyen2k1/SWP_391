@@ -62,9 +62,7 @@
                         <c:forEach items="${news}" var="news">
                             <div class="news_item_img">
                                 <img class="card-img rounded-0" src="${news.getImage()}" alt="" width="500" height="400">
-                                <a href="#" class="news_item_date">
-                                    <p>${news.getTime()}</p>
-                                </a>
+
                             </div>
                             <div class="news_details">
                                 <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">
@@ -109,6 +107,6 @@
     p{
         margin-top: 5px;
     }
-    
+
 </style>
 

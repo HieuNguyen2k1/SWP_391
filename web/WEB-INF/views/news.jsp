@@ -47,30 +47,30 @@
                             <c:forEach items="${news}" var="news">
                                 <div class="news_item_img">
                                     <%--<img class="card-img rounded-0" src="${news.getImage()}" alt="">--%>
-                                    <a href="#" class="news_item_date">
+                                    <a href="news-detail?nid=${news.getNewsid()}" class="news_item_date">
+                                        <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
                                         <p>${news.getTime()}</p>
                                     </a>
                                 </div>
                                 <div class="news_details">
                                     <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
                                         <img class="card-img rounded-0" src="${news.getImage()}" alt="" >       
-                                        <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
+                                        
                                     </a>                                    
-                                    <p>${news.getScriptShort()}</p>                                    
+                                    <p>${news.getScriptShort()}</p>                                   
                                 </div>
                             </c:forEach>
                         </article>
                         <article class="news_item">
                             <c:forEach items="${SearchNews}" var="news">
                                 <div class="news_item_img">
+                                    <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
                                     <img class="card-img rounded-0" src="${news.getImage()}" alt="">
-                                    <a href="#" class="news_item_date">
-                                        <p>${news.getTime()}</p>
-                                    </a>
+                                    
                                 </div>
                                 <div class="news_detail">
                                     <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">
-                                        <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
+                                        
                                     </a>
                                     <p>${news.getScriptShort()}</p>
                                    <%-- <p>${news.getScriptFull()}</p>  --%>
