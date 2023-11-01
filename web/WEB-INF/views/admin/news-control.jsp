@@ -74,7 +74,6 @@
             <table class="table" border="1">
 
                 <tr>
-
                     <th>Thời gian đăng</th>
                     <th>Tiêu đề</th>
                     <th>Mô tả ngắn</th>
