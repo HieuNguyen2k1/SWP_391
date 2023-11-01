@@ -26,7 +26,7 @@
                             <div class="hero-wrapper">
                                 <div class="hero__caption">
                                     <h1 data-animation="fadeInUp" data-delay=".3s">Tin Tức</h1>
-                                    <p data-animation="fadeInUp" data-delay=".6s">Kiến thức y tế - Kho báu <br> quý giá giúp bạn sống khỏe và hạnh phúc.</p>
+                                    <p data-animation="fadeInUp" data-delay=".6s">Trang tin tức Medinova</p>
                                 </div>
                             </div>
                         </div>
@@ -46,17 +46,17 @@
                         <article class="news_item">
                             <c:forEach items="${news}" var="news">
                                 <div class="news_item_img">
-                                    <img class="card-img rounded-0" src="${news.getImage()}" alt="">
+                                    <%--<img class="card-img rounded-0" src="${news.getImage()}" alt="">--%>
                                     <a href="#" class="news_item_date">
                                         <p>${news.getTime()}</p>
                                     </a>
                                 </div>
                                 <div class="news_details">
-                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">
+                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
+                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="" >       
                                         <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
-                                    </a>
-                                    <p>${news.getScriptShort()}</p  >
-                                    
+                                    </a>                                    
+                                    <p>${news.getScriptShort()}</p>                                    
                                 </div>
                             </c:forEach>
                         </article>
@@ -73,7 +73,7 @@
                                         <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
                                     </a>
                                     <p>${news.getScriptShort()}</p>
-                                    <p>${news.getScriptFull()}</p>  
+                                   <%-- <p>${news.getScriptFull()}</p>  --%>
 
                                 </div>
                             </c:forEach>
@@ -91,15 +91,11 @@
                                         <%--<input type="text" class="form-control" placeholder='Search Keyword'
                                                onfocus="this.placeholder = ''
                                                "onblur="this.placeholder = 'Search Keyword'" name="txt">--%>
-
                                     </div>
                                 </div>
                                 <button class="button-style" type="submit">Search</button>
                             </form>
                         </aside>
-
-
-
                     </div>
                 </div>
             </div>
@@ -127,9 +123,6 @@
         font-size: 15px;
         font-weight: bold;
         cursor: pointer;
-    }
-    .card-img{
-        max-width: 50%;
     }
 </style>
 

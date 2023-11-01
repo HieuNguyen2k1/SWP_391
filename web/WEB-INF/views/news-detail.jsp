@@ -44,23 +44,24 @@
             <div class="row">
                 <div class="col-lg-8 posts-list">
                     <div class="single-post">
-                        <div class="feature-img">
-                            <img class="img-fluid" src="${detail.image}" alt="">
-                        </div>
+
                         <div class="news-detail">
                             <h2 style="color: #2d2d2d;">${detail.title}
                             </h2>
-
                             <p class="excert">
                                 ${detail.scriptShort}
                             </p>
+                            <div class="feature-img">
+                                <img class="img-fluid" src="${detail.image}" alt="" width="500" height="400">
+                            </div>
+
                             <p class="excert">
                                 ${detail.scriptFull}
                             </p>
                         </div>
                         <c:forEach items="${news}" var="news">
                             <div class="news_item_img">
-                                <img class="card-img rounded-0" src="${news.getImage()}" alt="">
+                                <img class="card-img rounded-0" src="${news.getImage()}" alt="" width="500" height="400">
                                 <a href="#" class="news_item_date">
                                     <p>${news.getTime()}</p>
                                 </a>
@@ -78,8 +79,36 @@
             </div>
         </div>
     </section>
-    
+
 </body>
 <%@include file="/include/footer.jsp" %>
 </html>
+<style>
+    body {
+        font-size: 19px; /* Set the desired font size */
+    }
+    .custom-container {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+    .button-style{
+        background-color: #234821;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 7px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    h2, .h2{
+        margin-top: 30px;
+    }
+    p{
+        margin-top: 5px;
+    }
+    
+</style>
 
