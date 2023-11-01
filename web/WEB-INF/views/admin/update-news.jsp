@@ -24,7 +24,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="name">Thời gian đăng</label><br>
-                    <input class="form-control" value="${upda.time}" type="text" id="time" name="update_time"  placeholder="Thời gian đăng">                    
+                    <input class="form-control" value="${upda.time}" type="text" id="time" name="update_time"  placeholder="Thời gian đăng" readonly="">                    
                 </div>
 
                 <div class="form-group">
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label for="file">Ảnh</label>
                     <input class="form-control" type="file" id="file" name="update_image">
-                    <img style="max-width: 100%; object-fit: cover" src="${pageContext.request.contextPath}/${upda.image}" alt="">
+                    <img src="${pageContext.request.contextPath}/${upda.image}" alt="">
                 </div>
                 
             </div>
@@ -78,5 +78,10 @@
     }
     .row{
         margin-top: 25px;
+    }
+    img{    
+        margin-top: 10px;
+        width:490px;
+        height: 120px;
     }
 </style>

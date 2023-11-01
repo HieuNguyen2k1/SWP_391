@@ -92,7 +92,7 @@ public class NewsDao {
     public boolean createNews(String time, String title, String scriptshort, String scriptfull, String image) {
 
         LocalDateTime currentDate = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = currentDate.format(formatter);
         
         String sql = "Insert into news(time, title, scriptshort, scriptfull, image) values(?, ?, ?, ?, ?)";
