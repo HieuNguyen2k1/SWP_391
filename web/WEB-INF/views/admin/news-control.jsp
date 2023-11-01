@@ -78,7 +78,6 @@
                     <th>Thời gian đăng</th>
                     <th>Tiêu đề</th>
                     <th>Mô tả ngắn</th>
-                    <th>Mô tả đầy đủ</th>
                     <th style="max-width: 600px">Ảnh</th>
 
                 </tr>
@@ -87,7 +86,6 @@
                         <td>${item.getTime()}</td>
                         <td>${item.getTitle()}</td>
                         <td>${item.getScriptShort()}</td>
-                        <td>${item.getScriptFull()}</td>
                         <td><img src="${pageContext.request.contextPath}/${item.getImage()}" 
                                  style="width: 300px; object-fit: cover" alt="${item.getImage()}"/></td>
 

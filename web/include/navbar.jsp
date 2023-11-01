@@ -58,7 +58,7 @@
                 <div class="navbar-nav ms-auto py-0">
                     <a href="index.jsp" class="nav-item nav-link active">Trang Chủ</a>
                     <a href="about.jsp" class="nav-item nav-link">Chúng tôi</a>
-                    <a href="service.jsp" class="nav-item nav-link">Dịch vụ</a>
+                    <a href="${pageContext.request.contextPath}/news" class="nav-item nav-link">Tin Tức</a>
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>

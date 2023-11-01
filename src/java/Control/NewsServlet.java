@@ -8,6 +8,10 @@ import Dao.NewsDao;
 import Model.News;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Asus
  */
-public class DetailNewsServlet extends HttpServlet {
+public class NewsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +40,10 @@ public class DetailNewsServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DetailNewsServlet</title>");            
+            out.println("<title>Servlet ShowNews</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DetailNewsServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ShowNews at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,13 +61,16 @@ public class DetailNewsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nid = request.getParameter("nid");
-        NewsDao newsDao = new NewsDao();
-        try {
-            News newsdetail = newsDao.getNewsByID(nid);
-            request.setAttribute("detail", newsdetail);
-            request.getRequestDispatcher("/WEB-INF/views/news-detail.jsp").forward(request, response);
-        } catch (Exception e) {
+        try{
+            NewsDao newsDao = new NewsDao();
+            ArrayList<News> news = newsDao.getAllNews();
+            request.setAttribute("news", news);
+            
+            request.getRequestDispatcher("/WEB-INF/views/news.jsp").forward(request, response);
+        }catch(ClassNotFoundException e){
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(News.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

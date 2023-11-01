@@ -17,9 +17,8 @@
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Trang Chủ</a>
                             <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Về chúng tôi</a>
-                            <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Dịch vụ</a>
+                            <a class="text-light mb-2" href="${pageContext.request.contextPath}/news"><i class="fa fa-angle-right me-2"></i>Tin Tức</a>
                             <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Gặp gỡ chúng tôi</a>
-                            <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Tin mới</a>
                             <a class="text-light" href="#"><i class="fa fa-angle-right me-2"></i>Liên hệ chúng tôi</a>
                         </div>
                     </div>
@@ -28,9 +27,8 @@
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Trang Chủ</a>
                             <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Về chúng tôi</a>
-                            <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Dịch vụ</a>
+                            <a class="text-light mb-2" href="${pageContext.request.contextPath}/news"><i class="fa fa-angle-right me-2"></i>Tin Tức</a>
                             <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Gặp gỡ chúng tôi</a>
-                            <a class="text-light mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Tin mới</a>
                             <a class="text-light" href="#"><i class="fa fa-angle-right me-2"></i>Liên hệ chúng tôi</a>
                         </div>
                     </div>
