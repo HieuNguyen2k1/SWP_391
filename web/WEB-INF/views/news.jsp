@@ -46,41 +46,25 @@
                         <article class="news_item">
                             <c:forEach items="${news}" var="news">
                                 <div class="news_item_img">
-                                    <%--<img class="card-img rounded-0" src="${news.getImage()}" alt="">--%>
                                     <a href="news-detail?nid=${news.getNewsid()}" class="news_item_date">
-                                        <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
+                                        <h2 class="news-head" style="color: #ff0000d9;">${news.getTitle()}</h2>                                        
                                         <p>${news.getTime()}</p>
+                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="" > 
                                     </a>
-                                </div>
-                                <div class="news_details">
-                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
-                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="" >    
-                                    </a>                                    
-                                    <p>${news.getScriptShort()}</p>                                   
+                                    <p>${news.getScriptShort()}</p>
                                 </div>
                             </c:forEach>
                         </article>
                         <article class="news_item">
                             <c:forEach items="${SearchNews}" var="news">
                                 <div class="news_item_img">
-                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">
-                                        <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
-                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="">
+                                    <a href="news-detail?nid=${news.getNewsid()}" class="news_item_date">
+                                        <h2 class="news-head" style="color: #ff0000d9;">${news.getTitle()}</h2>                                        
+                                        <p>${news.getTime()}</p>
+                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="" > 
                                     </a>
                                     <p>${news.getScriptShort()}</p>
                                 </div>
-                                <%--<div class="news_detail">
-                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
-                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="" >    
-                                    </a>                                    
-                                    <p>${news.getScriptShort()}</p>
-                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
-                                    </a>
-                                    
-                                    <p>${news.getScriptShort()}</p>
-                                <%-- <p>${news.getScriptFull()}</p>  
-
-                                </div>--%>
                             </c:forEach>
                         </article>
                     </div>
@@ -93,9 +77,6 @@
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" placeholder='Search Keyword'
                                                onfocus="this.placeholder = ''" name="txt">
-                                        <%--<input type="text" class="form-control" placeholder='Search Keyword'
-                                               onfocus="this.placeholder = ''
-                                               "onblur="this.placeholder = 'Search Keyword'" name="txt">--%>
                                     </div>
                                 </div>
                                 <button class="button-style" type="submit">Search</button>
@@ -128,6 +109,9 @@
         font-size: 15px;
         font-weight: bold;
         cursor: pointer;
+    }
+    p{
+        color: #000000;
     }
 </style>
 
