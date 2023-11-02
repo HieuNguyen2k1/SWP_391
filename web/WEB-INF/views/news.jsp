@@ -63,17 +63,24 @@
                         <article class="news_item">
                             <c:forEach items="${SearchNews}" var="news">
                                 <div class="news_item_img">
-                                    <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
-                                    <img class="card-img rounded-0" src="${news.getImage()}" alt="">
-                                    
-                                </div>
-                                <div class="news_detail">
-                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
+                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">
+                                        <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
+                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="">
                                     </a>
                                     <p>${news.getScriptShort()}</p>
-                                   <%-- <p>${news.getScriptFull()}</p>  --%>
-
                                 </div>
+                                <%--<div class="news_detail">
+                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
+                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="" >    
+                                    </a>                                    
+                                    <p>${news.getScriptShort()}</p>
+                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
+                                    </a>
+                                    
+                                    <p>${news.getScriptShort()}</p>
+                                <%-- <p>${news.getScriptFull()}</p>  
+
+                                </div>--%>
                             </c:forEach>
                         </article>
                     </div>
