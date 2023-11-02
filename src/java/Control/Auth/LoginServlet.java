@@ -55,22 +55,36 @@ public class LoginServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             AuthDao dao = new AuthDao();
+            User user = dao.checkLoginUser(email, password);
             Doctor doctor = dao.checkLoginDoctor(email, password);
-            if (doctor != null) {
-                if (doctor.isStatus() == true) {
-                    request.getSession().setAttribute("doctor", doctor);
+            if (user != null) {
+                if (user.is_admin()) {
+                    request.getSession().setAttribute("acc", user);
                     request.getSession().setAttribute("login", true);
-                    //                    response.sendRedirect("home");
+                    request.getSession().setAttribute("admin", true);
                     response.sendRedirect("index.jsp");
-                }else{
-                     request.setAttribute("login_mess", "Tài khoản đã bị vô hiệu hóa!");
-                request.setAttribute("show_login", 1);
-                request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("login_mess", "Sai email hoặc mật khẩu!");
+                    request.setAttribute("show_login", 1);
+                    request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
                 }
             } else {
-                request.setAttribute("login_mess", "Sai email hoặc mật khẩu!");
-                request.setAttribute("show_login", 1);
-                request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+                if (doctor != null) {
+                    if (doctor.isStatus() == true) {
+                        request.getSession().setAttribute("doctor", doctor);
+                        request.getSession().setAttribute("login", true);
+                        //                    response.sendRedirect("home");
+                        response.sendRedirect("index.jsp");
+                    } else {
+                        request.setAttribute("login_mess", "Tài khoản đã bị vô hiệu hóa!");
+                        request.setAttribute("show_login", 1);
+                        request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("login_mess", "Sai email hoặc mật khẩu!");
+                    request.setAttribute("show_login", 1);
+                    request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+                }
             }
         }
     }

@@ -11,6 +11,15 @@ public class DoctorSchedule {
     public int app_id;
     public int patient_id;
     public String status;
+    public String status_app;
+
+    public String getStatus_app() {
+        return status_app;
+    }
+
+    public void setStatus_app(String status_app) {
+        this.status_app = status_app;
+    }
     public String note;
 
     public DoctorSchedule(int id, int doctor_id, String start, String end, int app_id, int patient_id, String status, String note) {
@@ -23,6 +32,20 @@ public class DoctorSchedule {
         this.status = status;
         this.note = note;
     }
+    
+      public DoctorSchedule(int id, int doctor_id, String start, String end, int app_id, int patient_id, String status_schedule,String status_app, String note) {
+        this.id = id;
+        this.doctor_id = doctor_id;
+        this.start = start;
+        this.end = end;
+        this.app_id = app_id;
+        this.patient_id = patient_id;
+        this.status = status_schedule;
+          this.status_app = status_app;
+        this.note = note;
+    }
+    
+   
 
     public int getApp_id() {
         return app_id;

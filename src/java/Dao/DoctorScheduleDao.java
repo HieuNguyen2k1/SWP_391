@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class DoctorScheduleDao {
+
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -37,23 +38,26 @@ public class DoctorScheduleDao {
         }
         return sql.toString();
     }
-//                                                                      9           10
+    
+    
+//  ===================================Đăng ký lịch làm   
     public boolean addScheduleOneDay(int doctor_id, String date, float start, float end) {
         String start_time = date + " " + generateTime(start);
         String end_time = date + " " + generateTime(end);
         String sql = "";
         for (float i = start; i < end; i += 0.5) {
-            sql += "insert into doctor_schedule(doctor_id, start, [end]) values (?, ?, ?);";
+            sql += "insert into doctor_schedule(doctor_id, start, [end],status_schedule) values (?, ?, ?,?);";
         }
         try {
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
             int paraNum = 1;
-            for (float i = start; i < end; i += 0.5){
+            for (float i = start; i < end; i += 0.5) {
                 preparedStatement.setInt(paraNum, doctor_id);
                 preparedStatement.setString(paraNum + 1, date + " " + generateTime(i));
                 preparedStatement.setString(paraNum + 2, date + " " + generateTime((float) (i + 0.5)));
-                paraNum += 3;
+                preparedStatement.setString(paraNum + 3, "yet");
+                paraNum += 4;
             }
             preparedStatement.execute();
             return true;
@@ -62,7 +66,8 @@ public class DoctorScheduleDao {
             return false;
         }
     }
-    public static boolean checkPast(ArrayList<String> arrayList){
+
+    public static boolean checkPast(ArrayList<String> arrayList) {
         Date current_date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -71,7 +76,7 @@ public class DoctorScheduleDao {
             System.out.println(first_date);
             System.out.println(current_date);
             System.out.println(compare);
-            if (compare>0){
+            if (compare > 0) {
                 return false;
             }
         } catch (ParseException e) {
@@ -79,8 +84,9 @@ public class DoctorScheduleDao {
         }
         return true;
     }
+
     public boolean checkValidTIme(ArrayList<String> arrayList, int doc_id) {
-        if (!checkPast(arrayList)){
+        if (!checkPast(arrayList)) {
             return false;
         }
         StringBuilder sql = new StringBuilder("SELECT * from doctor_schedule WHERE start IN (");
@@ -98,7 +104,7 @@ public class DoctorScheduleDao {
             resultSet = preparedStatement.executeQuery();
             boolean check = resultSet.next();
             return !check;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -117,13 +123,13 @@ public class DoctorScheduleDao {
         }
         return datesInRange;
     }
-
+            //========================= Đăng ký lịch làm
     public boolean addManyDays(int doctor_id, String start_date, String end_day, float start, float end) {
         List<LocalDate> datesInRange = getDatesInRange(start_date, end_day);
         String sql = "";
         for (LocalDate date : datesInRange) {
             for (float i = start; i < end; i += 0.5) {
-                sql += "insert into doctor_schedule(doctor_id, start, [end]) values (?, ?, ?);";
+                sql += "insert into doctor_schedule(doctor_id, start, [end],status_schedule) values (?, ?, ?,?);";
             }
         }
         try {
@@ -135,7 +141,8 @@ public class DoctorScheduleDao {
                     preparedStatement.setInt(paraNum, doctor_id);
                     preparedStatement.setString(paraNum + 1, date + " " + generateTime(i));
                     preparedStatement.setString(paraNum + 2, date + " " + generateTime((float) (i + 0.5)));
-                    paraNum += 3;
+                    preparedStatement.setString(paraNum + 3, "yet");
+                    paraNum += 4;
                 }
             }
             preparedStatement.execute();
@@ -149,7 +156,7 @@ public class DoctorScheduleDao {
     public boolean addSchedule(int doctor_id, String date, int start, int end) {
         String time_start = date + " " + start + ":00:00";
         String time_end = date + " " + end + ":00:00";
-        String sql = "insert into doctor_schedule(doctor_id, start, [end]) values(?, ?, ?)";
+        String sql = "insert into doctor_schedule(doctor_id, start, [end],) values(?, ?, ?)";
         try {
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
@@ -164,11 +171,14 @@ public class DoctorScheduleDao {
         }
     }
 
+    // lấy status lịch bác sĩ
     public ArrayList<DoctorSchedule> getScheduleOfWeek(int doctor_id, String first_date_week, String last_date_week) {
         ArrayList<DoctorSchedule> doctorScheduleArrayList = new ArrayList<DoctorSchedule>();
         first_date_week = first_date_week + " 07:00:00";
         last_date_week = last_date_week + " 18:00:00";
-        String sql = "SELECT doctor_schedule.*, appointments.id as app_id, appointments.* from doctor_schedule left join appointments on doctor_schedule.id = appointments.doctor_schedule_id where doctor_id = ? and start > ? and [end] < ?;";
+        String sql = "  SELECT doctor_schedule.*, appointments.id as app_id,"
+                + " appointments.* from doctor_schedule left join appointments on doctor_schedule.id = appointments.doctor_schedule_id"
+                + " where doctor_id = ? and start > ? and [end] < ?;";
         try {
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
@@ -184,9 +194,44 @@ public class DoctorScheduleDao {
                         resultSet.getString("end"),
                         resultSet.getInt("app_id"),
                         resultSet.getInt("patient_id"),
+                        resultSet.getString("status_schedule"),
                         resultSet.getString("status"),
                         resultSet.getString("note")
-                        )
+                )
+                );
+            }
+            return doctorScheduleArrayList;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList<DoctorSchedule> getScheduleOfWeek1(int doctor_id, String first_date_week, String last_date_week) {
+        ArrayList<DoctorSchedule> doctorScheduleArrayList = new ArrayList<DoctorSchedule>();
+        first_date_week = first_date_week + " 07:00:00";
+        last_date_week = last_date_week + " 18:00:00";
+        String sql = "SELECT doctor_schedule.*, appointments.id as app_id, appointments.* from doctor_schedule left "
+                + "join appointments on doctor_schedule.id = appointments.doctor_schedule_id where doctor_id = ? and start > ? and [end] < ?;";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, doctor_id);
+            preparedStatement.setString(2, first_date_week);
+            preparedStatement.setString(3, last_date_week);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                doctorScheduleArrayList.add(new DoctorSchedule(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("doctor_id"),
+                        resultSet.getString("start"),
+                        resultSet.getString("end"),
+                        resultSet.getInt("app_id"),
+                        resultSet.getInt("patient_id"),
+                        resultSet.getString("status_schedule"),
+                        resultSet.getString("status"),
+                        resultSet.getString("note")
+                )
                 );
             }
             return doctorScheduleArrayList;
@@ -201,11 +246,42 @@ public class DoctorScheduleDao {
         arrayList.add("2023-6-19 11:00:00");
         System.out.println(checkPast(arrayList));
     }
-    public boolean deleteSchedule(int id){
+
+    public boolean deleteSchedule(int id) {
         String sql = "delete from doctor_schedule where id = ?";
         try {
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    
+     public boolean YetSchedule(int id) {
+        String sql = "UPDATE doctor_schedule SET status_schedule = 'yet' WHERE id = ?;";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+          
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean ApproveSchedule(int id) {
+        String sql = "UPDATE doctor_schedule SET status_schedule = 'approve' WHERE id = ?;";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+          
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             return true;

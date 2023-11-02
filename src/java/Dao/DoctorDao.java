@@ -16,8 +16,17 @@ public class DoctorDao {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    /*
+  SELECT doctors.*,specialities.speciality_name
+FROM doctors 
+JOIN speciality_doctor  ON doctors.id = speciality_doctor.doctor_id
+JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_id */
     public ArrayList<Doctor> getTop3() throws SQLException, ClassNotFoundException {
-        String sql = "select top 3 doctors.*,speciality.id as speciality_name from doctors JOIN speciality on doctors.speciality_id = speciality.id ORDER by experience DESC;";
+        String sql = " SELECT doctors.*,specialities.speciality_name\n"
+                + "FROM doctors \n"
+                + "JOIN speciality_doctor  ON doctors.id = speciality_doctor.doctor_id\n"
+                + "JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_id \n"
+                + "ORDER by experience DESC;";
         this.connection = ContactDB.makeConnection();
         preparedStatement = connection.prepareStatement(sql);
         resultSet = preparedStatement.executeQuery();
@@ -53,7 +62,7 @@ public class DoctorDao {
             preparedStatement.setString(7, dob);
             preparedStatement.setBoolean(8, gender);
             preparedStatement.setString(9, address);
-             preparedStatement.setBoolean(10, status);
+            preparedStatement.setBoolean(10, status);
             preparedStatement.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,6 +70,7 @@ public class DoctorDao {
         }
         return true;
     }
+
     public boolean createDoctornoImage(String name, String email, String password, String degree, int experience, int speciality_id, String phone, String dob, boolean gender, String address) {
         String sql = "insert into doctors(name,email, password,degree,experience,speciality_id,phone, dob, gender,address ) values(?, ?, ?, ?, ?,?, ?, ?, ?, ?)";
         try {
@@ -83,8 +93,8 @@ public class DoctorDao {
         }
         return true;
     }
-    
-     public ArrayList<Doctor> getAllDoctorID() throws ClassNotFoundException, SQLException {
+
+    public ArrayList<Doctor> getAllDoctorID() throws ClassNotFoundException, SQLException {
         ArrayList<Doctor> doctorArrayList = new ArrayList<>();
         String sql = "select id , email from doctors";
         connection = new ContactDB().makeConnection();
@@ -93,17 +103,38 @@ public class DoctorDao {
         while (resultSet.next()) {
             doctorArrayList.add(new Doctor(
                     resultSet.getInt("id"),
-                    
                     resultSet.getString("email")
-                    ));
+            ));
         }
         return doctorArrayList;
     }
 
+    public ArrayList<Doctor> getAllDoctorOn() throws ClassNotFoundException, SQLException {
+        ArrayList<Doctor> doctorArrayList = new ArrayList<>();
+        String sql = "select * from doctors where status = 1";
+        connection = new ContactDB().makeConnection();
+        preparedStatement = connection.prepareStatement(sql);
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            doctorArrayList.add(new Doctor(
+                    resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("email"),
+                    resultSet.getString("degree"),
+                    resultSet.getInt("experience"),
+                    resultSet.getString("phone"),
+                    resultSet.getString("dob"),
+                    resultSet.getBoolean("gender"),
+                    resultSet.getString("address"),
+                    resultSet.getBoolean("status")
+            ));
+        }
+        return doctorArrayList;
+    }
 
     public ArrayList<Doctor> getAllDoctor() throws ClassNotFoundException, SQLException {
         ArrayList<Doctor> doctorArrayList = new ArrayList<>();
-        String sql = "select * from doctors";
+        String sql = "select * from doctors ";
         connection = new ContactDB().makeConnection();
         preparedStatement = connection.prepareStatement(sql);
         resultSet = preparedStatement.executeQuery();
@@ -127,7 +158,7 @@ public class DoctorDao {
     public boolean deleteDoctor(int id) {
         String sql = " UPDATE doctors SET status = ? WHERE id = ?";
         try {
-            connection =  ContactDB.makeConnection();
+            connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, 0);
             preparedStatement.setInt(2, id);
@@ -138,11 +169,12 @@ public class DoctorDao {
             return false;
         }
     }
-    
-      public boolean onStatus(int id) {
+    //================================== Cập Nhật trạng thái hoạt động
+
+    public boolean onStatus(int id) {
         String sql = " UPDATE doctors SET status = ? WHERE id = ?";
         try {
-            connection =  ContactDB.makeConnection();
+            connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, 1);
             preparedStatement.setInt(2, id);
@@ -153,16 +185,21 @@ public class DoctorDao {
             return false;
         }
     }
+    //==================================Search Doctor 
 
     public ArrayList<Doctor> searchDoctor(String name, int spe_id) throws SQLException, ClassNotFoundException {
         ArrayList<Doctor> doctorArrayList = new ArrayList<>();
         connection = ContactDB.makeConnection();
         if (spe_id == 0) {
-            String sql = "select doctors.*, speciality.name as speciality_name from doctors JOIN speciality on doctors.speciality_id = speciality.id where doctors.name like ?;";
+            String sql = "SELECT doctors.* , specialities.speciality_name  FROM doctors JOIN speciality_doctor ON doctors.id = speciality_doctor.doctor_id JOIN specialities ON"
+                    + " speciality_doctor.speciality_id = specialities.speciality_id "
+                    + "where doctors.name like ? ;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, "%" + name + "%");
         } else {
-            String sql = "select doctors.*, speciality.name as speciality_name from doctors JOIN speciality on doctors.speciality_id = speciality.id where doctors.name like ? and speciality_id = ?;";
+            String sql = " SELECT doctors.* , specialities.speciality_name  FROM doctors JOIN speciality_doctor ON doctors.id = speciality_doctor.doctor_id	JOIN specialities ON"
+                    + " speciality_doctor.speciality_id = specialities.speciality_id"
+                    + " where doctors.name like ? and specialities.speciality_id = ?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, "%" + name + "%");
             preparedStatement.setInt(2, spe_id);
@@ -176,7 +213,6 @@ public class DoctorDao {
                     resultSet.getString("degree"),
                     resultSet.getInt("experience"),
                     resultSet.getString("speciality_name"),
-                    resultSet.getString("image"),
                     resultSet.getString("phone"),
                     resultSet.getString("dob"),
                     resultSet.getBoolean("gender"),
@@ -185,8 +221,41 @@ public class DoctorDao {
         return doctorArrayList;
     }
 
+    public Doctor findByIdSchedule(int id) {
+        // lấy
+        String sql = "SELECT * from doctors where id =?";
+        try {
+            connection = new ContactDB().makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            Doctor doctor = null;
+            while (resultSet.next()) {
+                doctor = new Doctor(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("email"),
+                        resultSet.getString("degree"),
+                        resultSet.getInt("experience"),
+                        resultSet.getString("phone"),
+                        resultSet.getString("dob"),
+                        resultSet.getBoolean("gender"),
+                        resultSet.getString("address"),
+                        resultSet.getBoolean("status"));
+            }
+            return doctor;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public Doctor findById(int id) {
-        String sql = "SELECT doctors.*, speciality.name as speciality_name FROM doctors inner join speciality on doctors.speciality_id = speciality.id where doctors.id = ?;";
+        // lấy
+        String sql = "SELECT doctors.* , specialities.speciality_name, specialities.speciality_id  FROM doctors "
+                + "JOIN speciality_doctor ON doctors.id = speciality_doctor.doctor_id	"
+                + "JOIN specialities ON speciality_doctor.speciality_id = specialities.speciality_id "
+                + "where doctors.id = ?;";
         try {
             connection = new ContactDB().makeConnection();
             preparedStatement = connection.prepareStatement(sql);
@@ -290,7 +359,7 @@ public class DoctorDao {
 
     public boolean updateDoctor(String name, String degree, int experience,
             int speciality_id, String phone, String dob, boolean gender, String address, int id) {
-        String sql = "update doctors set name = ?, degree = ?, experience = ?, speciality_id = ?,"
+        String sql = "update doctors set name = ?, degree = ?, experience = ?,"
                 + "phone = ?,  dob = ?, gender = ?, address = ? where id = ?";
         try {
             connection = ContactDB.makeConnection();
@@ -298,12 +367,12 @@ public class DoctorDao {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, degree);
             preparedStatement.setInt(3, experience);
-            preparedStatement.setInt(4, speciality_id);
-            preparedStatement.setString(5, phone);
-            preparedStatement.setString(6, dob);
-            preparedStatement.setBoolean(7, gender);
-            preparedStatement.setString(8, address);
-            preparedStatement.setInt(9, id);
+            
+            preparedStatement.setString(4, phone);
+            preparedStatement.setString(5, dob);
+            preparedStatement.setBoolean(6, gender);
+            preparedStatement.setString(7, address);
+            preparedStatement.setInt(8, id);
             preparedStatement.execute();
             return true;
         } catch (ClassNotFoundException | SQLException e) {
@@ -327,9 +396,8 @@ public class DoctorDao {
             return false;
         }
     }
-    
-    
-     public boolean emailExist(String email) throws SQLException, ClassNotFoundException {
+
+    public boolean emailExist(String email) throws SQLException, ClassNotFoundException {
         String sql = "select count(id) from doctors where email = ?";
         this.connection = ContactDB.makeConnection();
         preparedStatement = connection.prepareStatement(sql);
@@ -345,7 +413,8 @@ public class DoctorDao {
         }
         return false;
     }
-      public boolean phoneExist(String phone) throws SQLException, ClassNotFoundException {
+
+    public boolean phoneExist(String phone) throws SQLException, ClassNotFoundException {
         String sql = "select count(id) from doctors where phone = ?";
         this.connection = ContactDB.makeConnection();
         preparedStatement = connection.prepareStatement(sql);

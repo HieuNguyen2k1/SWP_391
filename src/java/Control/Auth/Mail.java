@@ -25,6 +25,7 @@ public class Mail {
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true"); // if authentication is required
         properties.put("mail.smtp.starttls.enable", "true"); // if using TLS
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("benhvienmedinova@gmail.com", "pquxzejdaltnmobl");
@@ -56,6 +57,7 @@ public class Mail {
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true"); // if authentication is required
         properties.put("mail.smtp.starttls.enable", "true"); // if using TLS
+       properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("benhvienmedinova@gmail.com", "pquxzejdaltnmobl");
@@ -87,6 +89,7 @@ public class Mail {
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
+       properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {

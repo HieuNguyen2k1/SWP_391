@@ -19,7 +19,8 @@ public class SearchDoctor extends HttpServlet {
         req.setAttribute("speciality_list", specialityDao.getAllSpeciality());
         DoctorDao doctordao = new DoctorDao();
         try {
-             ArrayList<Doctor> showall = doctordao.getAllDoctor();
+             ArrayList<Doctor> showall = doctordao.getAllDoctorOn();
+             
              req.setAttribute("showalldoctor", showall);
         } catch (Exception e) {
         }

@@ -68,7 +68,7 @@
 
 <div class="slider-area slider-area2 justify-content-center align-items-center"  style=" margin-top: 50px ">
     <div class="slider-active dot-style">
-        <!-- Slider Single -->
+<!--         Slider Single -->
         <div class="single-slider ">
             <div class="container">
                 <div class="row align-items-center">
@@ -85,6 +85,7 @@
         </div>
     </div>
 </div>
+
 <div class="header-search d-flex justify-content-center align-items-center">
     <form action="" method="post" class="d-flex">
         <input type="hidden" value="0" name="speciality">
@@ -129,11 +130,11 @@
         <form action="" method="post">
             <button style="border: none; background: none; color: transparent; outline: none; cursor: pointer;">
                 <input type="hidden" name="name" value="">
-                <input type="hidden" name="speciality" value="${item.id}">
+                <input type="hidden" name="speciality" value="${item.doctor_id}">
                 <div class="specialty-item">
-                    <a class="h3 ${current_spe_id == item.id ? "text-warning" : "text-dark"} text-decoration-none mr-3"
-                       id="${item.id}">
-                        ${item.getName()}
+                    <a class="h3 ${current_spe_id == item.doctor_id ? "text-warning" : "text-dark"} text-decoration-none mr-3"
+                       id="${item.doctor_id}">
+                        ${item.getName_special()}
                     </a>
                 </div>
             </button>
@@ -147,49 +148,7 @@
 </div>
 <br> <br> <br>
 
-<!--/////////////////////////////////////////////////////////////////////////////////-->
-<!--            <div class="cacbacsi">
-                <div class="row">
-                     Nội dung của cacbacsi 
-                    <c:forEach items="${showalldoctor}" var="item" varStatus="loop">
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <div class="doctor-card">
-                                <div class="blog-img-cap">
-                                    <div class="blog-img">
-                                        <img style="border-radius: 50%;width: 100%; height: 100%; object-fit: cover"
-                                             src="${pageContext.request.contextPath}/${item.getImage()}" alt="">
-                                        <div class="ratings">
-                                            <span class="rating"></span>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="blog-cap">
-                                        <h3 class="doctor-name">${item.name}</h3>
-                                        <div class="degree">${item.degree}</div>
-                                        <p class="specialization">
-                                            ${item.getSpeciality_name()}
-                                        </p>
-                                        <button class="btn appointment-button">
-                                            <i class="fas fa-calendar-alt" style="color: white;"></i>
-                                            <span>
-                                                <a href="${pageContext.request.contextPath}/patient/make-appointment?doc_id=${item.getId()}" 
-                                                   class="btn btn-primary rounded-pill py-md-3 px-md-5 mx-2"
-                                                    >
-                                                    Đặt khám
-                                                </a>
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      
-                    </c:forEach>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>        -->
+
 
 
 <div class="cacbacsi">

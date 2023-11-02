@@ -26,6 +26,7 @@ public class Speciality_doctor {
        
     }
    
+   
    public Speciality_doctor( int doctor_id, String name_special) {
         
         this.doctor_id = doctor_id;

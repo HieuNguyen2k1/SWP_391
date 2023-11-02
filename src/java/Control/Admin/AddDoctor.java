@@ -149,7 +149,7 @@ public class AddDoctor extends HttpServlet {
                         }
                     }
                 } else {
-                    request.setAttribute("mess", "Số tháng năm sinh không hợp lệ!");
+                    request.setAttribute("mess", "Số điện thoại không hợp lệ!");
                     request.setAttribute("status", "error");
                     request.getRequestDispatcher("/WEB-INF/views/admin/doctor-control.jsp").forward(request, response);
                 }

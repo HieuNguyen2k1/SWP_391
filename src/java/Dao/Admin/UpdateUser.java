@@ -18,7 +18,7 @@ public class UpdateUser {
     //=============ADMIN DAO=============
     public List<User> getPatientsList() {
         List<User> list = new ArrayList<>();
-        String query = "SELECT * from patients";
+        String query = "SELECT * from patients where is_admin = 0";
         try {
             conn =  ContactDB.makeConnection();
             ps = conn.prepareStatement(query);

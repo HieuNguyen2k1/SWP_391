@@ -33,7 +33,7 @@ public class Table {
 
     public static String[][] createScheduleTableForDoctor(int year, int week, int doctor_id) {
         String[][] table = new String[11][8];
-        table[0] = new String[]{"Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        table[0] = new String[]{"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ,"Sunday"};
         String[] dateArray = getDateOfWeek(year, week);
         table[1] = dateArray;
         String first_date_week = dateArray[1];
@@ -69,7 +69,7 @@ public class Table {
 
     public static String[][] createScheduleTableForDoctorTest(int year, int week, int doctor_id) throws ParseException {
         String[][] table = new String[20][8];
-        table[0] = new String[]{"Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        table[0] = new String[]{"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         String[] dateArray = getDateOfWeek(year, week);
         table[1] = dateArray;
         String first_date_week = dateArray[1];
@@ -99,10 +99,10 @@ public class Table {
                         Date doctor_schedule_end = simpleDateFormat.parse(doctorScheduleArrayList.get(k).end);
                         if (cell_time_start.compareTo(doctor_schedule_start) >=0 && cell_time_end.compareTo(doctor_schedule_end) <=0){
                             if (doctorScheduleArrayList.get(k).getApp_id() != 0){ // co hen
-                                table[i][j] = "patient app|" + doctorScheduleArrayList.get(k).getApp_id() + "|" + doctorScheduleArrayList.get(k).getStatus() + "|" + doctorScheduleArrayList.get(k).id;
+                                table[i][j] = "patient app|" + doctorScheduleArrayList.get(k).getApp_id() + "|" + doctorScheduleArrayList.get(k).getStatus_app() + "|" + doctorScheduleArrayList.get(k).id;
                                 // patient app|1|finished|1
                             } else {
-                                table[i][j] = "doctor schedule|" + doctorScheduleArrayList.get(k).id;
+                                table[i][j] = "doctor schedule|" + doctorScheduleArrayList.get(k).id+ "|" + doctorScheduleArrayList.get(k).getStatus();
                             }
                         }
                     }
@@ -114,7 +114,7 @@ public class Table {
 
     public static String[][] createTablePatientWithDoctor(int year, int week, int doctor_id, int patient_id) throws SQLException, ClassNotFoundException {
         String[][] table = new String[11][8];
-        table[0] = new String[]{"Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        table[0] = new String[]{"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         String[] dateArray = getDateOfWeek(year, week);
         table[1] = dateArray;
         String first_date_week = dateArray[1];

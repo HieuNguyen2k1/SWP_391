@@ -70,7 +70,10 @@ public class AppointmentDao {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = currentDateTime.format(formatter);
-        String sql = "select * from doctor_schedule left join appointments on doctor_schedule.id = appointments.doctor_schedule_id where appointments.id is null and doctor_schedule.start > ? and doctor_schedule.doctor_id = ? order by doctor_schedule.start; select doctors.*, speciality.name as speciality_name from doctors JOIN speciality on doctors.speciality_id = speciality.id where doctors.id = ?;";
+        String sql = "select * from doctor_schedule left join appointments on doctor_schedule.id = appointments.doctor_schedule_id"
+                + " where appointments.id is null and doctor_schedule.start > ? and doctor_schedule.doctor_id = ? order by doctor_schedule.start;"
+                + " select doctors.*, speciality.name as speciality_name from doctors JOIN speciality on doctors.speciality_id = speciality.id"
+                + " where doctors.id = ?;";
         connection = ContactDB.makeConnection();
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, formattedDateTime);

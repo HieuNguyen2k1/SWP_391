@@ -52,6 +52,20 @@ public class Doctor {
         this.gender = gender;
         this.address = address;
     }
+     
+       public Doctor(int id, String name, String email, String degree, int experience, String speciality_name,  String phone, String dob, boolean gender, String address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.degree = degree;
+        this.experience = experience;
+        this.speciality_name = speciality_name;
+       
+        this.phone = phone;
+        this.dob = dob;
+        this.gender = gender;
+        this.address = address;
+    }
 
     public Doctor(int id, String name, String email, String degree, int experience, String speciality_name, String image, String phone, String dob, boolean gender, String address) {
         this.id = id;

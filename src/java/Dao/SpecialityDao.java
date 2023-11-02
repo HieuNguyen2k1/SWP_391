@@ -15,6 +15,24 @@ public class SpecialityDao {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    public ArrayList<Speciality_doctor> getAllSpeciality1() {
+        ArrayList<Speciality_doctor> list = new ArrayList<>();
+
+        String sql = " select * from specialities";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                list.add(new Speciality_doctor(resultSet.getInt("speciality_id"), resultSet.getString("speciality_name")));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public ArrayList<Speciality_doctor> getAllSpeciality() {
         ArrayList<Speciality_doctor> list = new ArrayList<>();
 
