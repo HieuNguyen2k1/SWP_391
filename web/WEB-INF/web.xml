@@ -4,6 +4,22 @@
         <servlet-name>ApproveScheduleDoctor</servlet-name>
         <servlet-class>Control.Admin.ApproveScheduleDoctor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewsServlet</servlet-name>
+        <servlet-class>Control.NewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailNewsServlet</servlet-name>
+        <servlet-class>Control.DetailNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchNews</servlet-name>
+        <servlet-class>Control.SearchNews</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateNews</servlet-name>
+        <servlet-class>Control.Admin.UpdateNews</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StatusDoctor</servlet-name>
         <url-pattern>/admin/StatusDoctor</url-pattern>
@@ -11,6 +27,22 @@
     <servlet-mapping>
         <servlet-name>ApproveScheduleDoctor</servlet-name>
         <url-pattern>/admin/approve</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewsServlet</servlet-name>
+        <url-pattern>/news</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailNewsServlet</servlet-name>
+        <url-pattern>/DetailNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchNews</servlet-name>
+        <url-pattern>/SearchNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateNews</servlet-name>
+        <url-pattern>/UpdateNews</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
