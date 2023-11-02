@@ -72,7 +72,9 @@
 
                             </div>
                         </c:forEach>
-                    </div>                    
+                    </div>  
+                    <button class="button-style" onclick="history.back()">Trở Về</button>
+
                 </div>
             </div>
         </div>
@@ -95,9 +97,9 @@
         background-color: #234821;
         color: #ffffff;
         border: none;
-        padding: 10px 20px;
+        padding: 10px 30px;
         border-radius: 7px;
-        font-size: 15px;
+        font-size: 20px;
         font-weight: bold;
         cursor: pointer;
     }

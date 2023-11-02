@@ -51,7 +51,9 @@
             </div>
         </div>
         <input class="form-control" type="hidden" name="_method" value="">
+        
         <button class="button-style" type="submit">Cập Nhật</button>
+        <button class="button-style" onclick="history.back()" >Hủy</button>
     </form>
 
 </div>
@@ -75,13 +77,15 @@
         font-size: 15px;
         font-weight: bold;
         cursor: pointer;
+        margin-left: 30px;
+        margin-right: 100px;
     }
     .row{
         margin-top: 25px;
     }
     img{    
         margin-top: 10px;
-        width:490px;
-        height: 120px;
+        width:400px;
+        height: 100px;
     }
 </style>

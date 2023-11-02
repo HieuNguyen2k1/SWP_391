@@ -47,7 +47,7 @@
                             <c:forEach items="${news}" var="news">
                                 <div class="news_item_img">
                                     <a href="news-detail?nid=${news.getNewsid()}" class="news_item_date">
-                                        <h2 class="news-head" style="color: #ff0000d9;">${news.getTitle()}</h2>                                        
+                                        <h2 class="news-head" style="color: #000000;">${news.getTitle()}</h2>                                        
                                         <p>${news.getTime()}</p>
                                         <img class="card-img rounded-0" src="${news.getImage()}" alt="" > 
                                     </a>
@@ -59,7 +59,7 @@
                             <c:forEach items="${SearchNews}" var="news">
                                 <div class="news_item_img">
                                     <a href="news-detail?nid=${news.getNewsid()}" class="news_item_date">
-                                        <h2 class="news-head" style="color: #ff0000d9;">${news.getTitle()}</h2>                                        
+                                        <h2 class="news-head" style="color: #000000;">${news.getTitle()}</h2>                                        
                                         <p>${news.getTime()}</p>
                                         <img class="card-img rounded-0" src="${news.getImage()}" alt="" > 
                                     </a>
@@ -72,7 +72,7 @@
                 <div class="col-lg-4">
                     <div class="news_right_sidebar">
                         <aside class="single_sidebar_widget search_widget">
-                            <form action="search-news">
+                            <form action="search-news"  style="margin-left: 40px;">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" placeholder='Search Keyword'
@@ -112,6 +112,9 @@
     }
     p{
         color: #000000;
+    }
+    .card-img, .card-img-bottom{
+        max-height: 300px;
     }
 </style>
 
