@@ -132,13 +132,13 @@ public String generateUniqueFileName(String originalFileName) {
             String fileName = getFileName(filePart);
             assert fileName != null;
             String newFileName = generateUniqueFileName(fileName);
-            String uploadDir = request.getServletContext().getRealPath("/") + "uploadNews";
+            String uploadDir = request.getServletContext().getRealPath("/") + "News";
             Path filePath = Paths.get(uploadDir, newFileName);
             try ( InputStream fileContent = filePart.getInputStream()) {
                 Files.copy(fileContent, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
-            if (newsDao.UpdateNewsImg(id, time, title, scriptS, scriptF, "/uploadNews/" + newFileName)) {
-                response.sendRedirect(request.getContextPath() + "/admin/news-control");
+            if (newsDao.UpdateNewsImg(id, time, title, scriptS, scriptF, "News/" + newFileName)) {
+                response.sendRedirect(request.getContextPath() + "/admin/newscontrol");
             } else { // thay đổi lỗi
                 request.setAttribute("error", "đã có lỗi xảy ra");
                 String news_id = request.getParameter("news_id");
@@ -152,7 +152,7 @@ public String generateUniqueFileName(String originalFileName) {
             }
         } else {
             if (newsDao.UpdateNewsNoImg(id, time, title, scriptS, scriptF)) {
-                response.sendRedirect(request.getContextPath() + "/admin/news-control");
+                response.sendRedirect(request.getContextPath() + "/admin/newscontrol");
             } else { // thay đổi lỗi
                 request.setAttribute("error", "đã có lỗi xảy ra");
                 String news_id = request.getParameter("news_id");

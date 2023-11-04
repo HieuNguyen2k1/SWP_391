@@ -31,6 +31,7 @@
                 <a href="${pageContext.request.contextPath}/admin/doctor-control"><i class="fas fa-users"></i> Quản lý bác sĩ</a><br>
                 <a href="${pageContext.request.contextPath}/admin/patients-control"><i class="fas fa-users"></i> Quản lý bệnh nhân</a><br>
                 <a href="${pageContext.request.contextPath}/admin/doctor-schedule-control"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý lịch của bác sĩ</a><br>
+                <a href="${pageContext.request.contextPath}/admin/NewsControl"><i class="fa fa-calendar" aria-hidden="true"></i> Quản tin tức của bác sĩ</a><br>
             </div>
         </div>
 
@@ -38,48 +39,56 @@
             <c:if test="${status == \"error\"}"><p class="text-danger">${mess}</p><br></c:if>
             <c:if test="${status == \"success\"}"><p class="text-success">${mess}</p><br></c:if>
             <%--        Form Start--%>
-            <form action="${pageContext.request.contextPath}/admin/patients-control" method="post" class="bd-example">
 
-                <div class="form-row">
-                    <div class="form-group col-md-5">
-                        <label for="inputEmail4">Email</label>
-                        <input type="email" class="form-control custom-input" name="email" id="inputEmail4" placeholder="Email">
-                    </div>
-                    <div class="form-group col-md-5">
-                        <label for="inputPassword4">Mật khẩu</label>
-                        <input type="password" class="form-control custom-input" name="password" id="inputPassword4" placeholder="Password">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-5">
-                        <label for="inputName">Tên</label>
-                        <input type="text" class="form-control custom-input" name="name" id="inputName" placeholder="Name">
-                    </div>
-                    <div class="form-group col-md-5">
-                        <label for="inputPhone">Số điện thoại</label>
-                        <input type="text" class="form-control custom-input" name="phone" id="inputPhone" placeholder="Phone">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-5">
-                        <label for="inputDoB">Ngày sinh</label>
-                        <input type="date" class="form-control custom-input" name="dob" id="inputDoB">
-                    </div>
+            <form action="patients-control" method="post"">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div>
+                            <div class="form-group">
+                                <label for="name">Nhập tên bệnh nhân</label>
+                                <input class="form-control" type="text" id="name" name="name" placeholder="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="mail">Email</label>
+                                <input class="form-control" type="email" id="email" name="email" placeholder="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mật khẩu</label>
+                                <input class="form-control" type="password" id="password" name="password" placeholder="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Số điện thoại</label>
+                                <input class="form-control" type="tel" id="phone" name="phone" placeholder="phone">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="dob">Ngày sinh</label>
+                                <input class="form-control" type="date" id="dob" name="dob">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Nhập địa chỉ</label>
+                                <input class="form-control" type="text" id="address" name="address" placeholder="address">
+                            </div>
 
-                    <div class="form-group col-md-5">
-                        <label for="address">Địa chỉ</label>
-                        <input type="text" class="form-control custom-input" name="address" id="address" placeholder="Address">
-                    </div>
-                    <div class="form-group col-md-5">
-                        <h4>Chọn giới tính</h4>
-                        <select id="gender" name="gender" >
-                            <option value="0">Nữ</option>
-                            <option value="1">Nam</option>
-                        </select>
+                            <div class="form-group">
+                                <div class="row ml-2">
+                                    <h4 class="mr-2 mt-4">Chọn giới tính</h4>
+                                    <select name="gender" class="ml-2" id="gender">
+                                        <option value="0">nữ</option>
+                                        <option value="1">nam</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button class="button-style" type="submit">Xác nhận</button> 
+                <input class="form-control" type="hidden" name="_method" value="">
+
+
+                <button style="background-color:#007BFF" class="button-style" type="submit">Xác nhận</button>
             </form>
+
             <button id="showOtherBlockButton">Hiển thị danh sách bệnh nhân</button>
 
         </div>
@@ -98,33 +107,24 @@
 
                             <th>Tên</th>
                             <th>Email</th>
-                            <th>Mật khẩu</th>
                             <th>Số điện thoại</th>
                             <th>Giới tính</th>
                             <th>Ngày sinh</th>
                             <th>Địa chỉ</th>
-                            <th colspan="2"></th>
+
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach items="${list}" var="x" varStatus="status">
                             <tr>
                                 <td>${status.index + 1}</td>
-
                                 <td>${x.name}</td>
                                 <td>${x.email}</td>
-                                <td>${x.password}</td>
                                 <td>${x.phone}</td>
                                 <td>${x.gender ? "Nam" : "Nữ"} </td>
                                 <td>${x.dob}</td>
                                 <td>${x.address}</td>
-                                <td>
-                                    <a role="button" class="fa fa-edit" title="Chỉnh sửa" 
-                                       style="color:black; margin-top: 10px; border:none;" 
-                                       href="${pageContext.request.contextPath}/admin/update-patients?pid=${x.id}"> Chỉnh sửa</a><br>
-<!--                                    <a role="button" class="fas fa fa-trash" title="Xóa"style="color:red; margin-top: 10px; border:none;" 
-                                       href="${pageContext.request.contextPath}/admin/delete-patients?pid=${x.id}">   Xóa</a>-->
-                                </td>
+
                             </tr>
                         </c:forEach>
                     </tbody>

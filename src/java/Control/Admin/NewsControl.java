@@ -8,13 +8,14 @@ import Dao.NewsDao;
 import Model.News;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
-import java.util.UUID;
 import java.util.ArrayList;
+import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -23,15 +24,40 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024, // 1 MB
         maxFileSize = 1024 * 1024 * 10, // 10 MB
         maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
-
 public class NewsControl extends HttpServlet {
 
-    public String generateUniqueFileName(String originalFileName) {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet NewsControl</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet NewsControl at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+      public String generateUniqueFileName(String originalFileName) {
 
         /*nếu originalFileName là "file.txt", biến extension sẽ được gán giá trị "txt". 
         Nếu không có dấu chấm trong tên tệp, biến extension sẽ vẫn giữ giá trị rỗng.*/
@@ -59,6 +85,7 @@ public class NewsControl extends HttpServlet {
         }
         return null;
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -96,10 +123,11 @@ public class NewsControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        if (request.getParameter("_method").equals("DELETE")) {
+         String method =request.getParameter("_method");
+        
+           if (method.equals("DELETE")) {
             this.doDelete(request, response);
-        } else {
+           }else {
 
             String time = request.getParameter("time");
             String title = request.getParameter("title");
@@ -115,28 +143,33 @@ public class NewsControl extends HttpServlet {
             String fileName = getFileName(filePart);
             assert fileName != null;
             String newFileName = generateUniqueFileName(fileName);
-            String uploadDir = request.getServletContext().getRealPath("/") + "uploadNews";
+            String uploadDir = request.getServletContext().getRealPath("/") + "News";
             Path filePath = Paths.get(uploadDir, newFileName);
             try ( InputStream fileContent = filePart.getInputStream()) {
                 Files.copy(fileContent, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
             NewsDao newsDao = new NewsDao();
-            boolean check = newsDao.createNews(time, title, scriptshort, scriptfull, "uploadNews/" + newFileName);
+            boolean check = newsDao.createNews(time, title, scriptshort, scriptfull, "News/" + newFileName);
             if (check) {
-                response.sendRedirect("news-control");
+                response.sendRedirect("newscontrol");
             } else {
                 request.setAttribute("message", "Error");
                 request.getRequestDispatcher("/WEB-INF/views/admin/news-control.jsp").forward(request, response);
             }
-        }
+        
+    }
     }
 
-    @Override
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         NewsDao newsDao = new NewsDao();
         int id = Integer.parseInt(request.getParameter("id"));
         newsDao.deleteNews(id);
-        response.sendRedirect("news-control");
+        response.sendRedirect("newscontrol");
     }
-
 }

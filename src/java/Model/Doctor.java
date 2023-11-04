@@ -66,7 +66,7 @@ public class Doctor {
         this.gender = gender;
         this.address = address;
     }
-
+//===================================================== chính
     public Doctor(int id, String name, String email, String degree, int experience, String speciality_name, String image, String phone, String dob, boolean gender, String address) {
         this.id = id;
         this.name = name;
@@ -80,6 +80,9 @@ public class Doctor {
         this.gender = gender;
         this.address = address;
     }
+    
+  
+
 
     public Doctor(int id, String name, String email, String password, String degree, int experience, int speciality_id, String image, String phone, String dob, boolean gender, String address) {
         this.id = id;
@@ -108,17 +111,14 @@ public class Doctor {
         this.gender = gender;
         this.address = address;
     }
-
-    public Doctor(int id, String name, String email, String password, String degree, int experience, int speciality_id, String speciality_name, String image, String phone, String dob, boolean gender, String address) {
+//======================================= Update
+    public Doctor(int id, String name, String email, String password, String degree, int experience, String phone, String dob, boolean gender, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.degree = degree;
         this.experience = experience;
-        this.speciality_id = speciality_id;
-        this.speciality_name = speciality_name;
-        this.image = image;
         this.phone = phone;
         this.dob = dob;
         this.gender = gender;

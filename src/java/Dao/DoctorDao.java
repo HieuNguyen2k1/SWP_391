@@ -252,10 +252,11 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
 
     public Doctor findById(int id) {
         // lấy
-        String sql = "SELECT doctors.* , specialities.speciality_name, specialities.speciality_id  FROM doctors "
-                + "JOIN speciality_doctor ON doctors.id = speciality_doctor.doctor_id	"
-                + "JOIN specialities ON speciality_doctor.speciality_id = specialities.speciality_id "
-                + "where doctors.id = ?;";
+//        String sql = "SELECT doctors.* , specialities.speciality_name, specialities.speciality_id  FROM doctors "
+//                + "JOIN speciality_doctor ON doctors.id = speciality_doctor.doctor_id	"
+//                + "JOIN specialities ON speciality_doctor.speciality_id = specialities.speciality_id "
+//                + "where doctors.id = ?;";
+        String sql = "select * from doctors where id = ?";
         try {
             connection = new ContactDB().makeConnection();
             preparedStatement = connection.prepareStatement(sql);
@@ -270,9 +271,6 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
                         resultSet.getString("password"),
                         resultSet.getString("degree"),
                         resultSet.getInt("experience"),
-                        resultSet.getInt("speciality_id"),
-                        resultSet.getString("speciality_name"),
-                        resultSet.getString("image"),
                         resultSet.getString("phone"),
                         resultSet.getString("dob"),
                         resultSet.getBoolean("gender"),
@@ -310,6 +308,7 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
         }
     }
 
+    //============================================ Update doctor
     public boolean UpdateDoctorImg(int id, String name, String email, String password, String degree, int experience, int speciality_id, String phone, String dob, boolean gender, String address, String img) {
         try {
             String sql = "update doctors set name = ?, email = ?, password = ?, degree = ?, experience = ?, speciality_id = ?, phone = ?, dob = ?, gender = ?, address = ?,image = ?  where id = ? ;";
@@ -327,6 +326,29 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
             preparedStatement.setString(10, address);
             preparedStatement.setString(11, img);
             preparedStatement.setInt(12, id);
+            preparedStatement.execute();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean UpdateDoctor(int id, String name, String email, String degree, int experience, String phone, String dob, boolean gender, String address) {
+        try {
+            String sql = "update doctors set name = ?, email = ?, degree = ?, experience = ?,  phone = ?, dob = ?, gender = ?, address = ?, where id = ? ;";
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, degree);
+            preparedStatement.setInt(4, experience);
+            preparedStatement.setString(5, phone);
+            preparedStatement.setString(6, dob);
+            preparedStatement.setBoolean(7, gender);
+            preparedStatement.setString(8, address);
+            preparedStatement.setInt(9, id);
             preparedStatement.execute();
             return true;
 
@@ -367,7 +389,7 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, degree);
             preparedStatement.setInt(3, experience);
-            
+
             preparedStatement.setString(4, phone);
             preparedStatement.setString(5, dob);
             preparedStatement.setBoolean(6, gender);

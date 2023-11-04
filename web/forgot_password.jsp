@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<!--<body>
 
     <div class="login-form" style=" margin-top: 50px;">
         <h2>Quên mật khẩu</h2>
@@ -30,6 +30,6 @@
     </div>
     </div>
     
-</body>
+</body>-->
 </html>
 <%@ include file="/include/footer.jsp" %>

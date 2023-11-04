@@ -32,6 +32,7 @@
                     <a href="${pageContext.request.contextPath}/admin/doctor-control"><i class="fas fa-users"></i> Quản lý bác sĩ</a><br>
                     <a href="${pageContext.request.contextPath}/admin/patients-control"><i class="fas fa-users"></i> Quản lý bệnh nhân</a><br>
                     <a href="${pageContext.request.contextPath}/admin/doctor-schedule-control"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý lịch của bác sĩ</a><br>
+                    <a href="${pageContext.request.contextPath}/admin/NewsControl"><i class="fa fa-calendar" aria-hidden="true"></i> Quản tin tức của bác sĩ</a><br>
                 </div>
             </div>
             <div class="col-md-8 border-right">
@@ -50,10 +51,7 @@
                                 <label for="mail">Email</label>
                                 <input class="form-control" type="email" id="mail" name="update_email" placeholder="email" value="${doctor.email}">
                             </div>
-                            <div class="form-group">
-                                <label for="password">Mật khẩu</label>
-                                <input class="form-control" type="password" id="password" name="update_password" placeholder="password" value="${doctor.password}" >
-                            </div>
+
                             <div class="form-group">
                                 <label for="degree">Bằng cấp</label>
                                 <input class="form-control" type="text" id="degree" name="update_degree" placeholder="degree" value="${doctor.degree}">
@@ -65,12 +63,42 @@
                             <div class="form-group">
                                 <div class="row ml-2">
                                     <h4 class="mr-2 mt-4">Chuyên môn</h4>
-                                    <select class="ml-2" name="update_speciality_id" id="speciality_id">
-                                        <option value="0" selected>Chuyên môn</option>
-                                        <c:forEach var="item" items="${speciality_list}">
-                                            <option ${item.id == doctor.speciality_id ? "selected" : ""} value="${item.id}">${item.getName()}</option>
+                                    <div>
+                                        <c:forEach var = "item" items="${speciality_lists}">
+                                            <c:forEach var="item1" items="${speciality_doctor}">
+                                               
+                                                <c:if test="${item.getDoctor_id() eq item1.getId()}">
+                                                    <input type="checkbox" id="myCheckbox" name="myCheckbox" value="${item.getDoctor_id()}">
+                                                    <label for="myCheckbox">${item.getName_special()}</label><br>
+                                                    <p>hello</p>
+                                                </c:if>
+                                                 <c:if test="${item.getDoctor_id()!= item1.getId()}">
+                                                    <input type="checkbox" id="myCheckbox" name="myCheckbox" value="${item.getDoctor_id()}">
+                                                    <label for="myCheckbox">${item.getName_special()}</label><br>
+                                                     <p>hello</p>
+                                                </c:if>
+                          
+<!--                                        <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
+                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="1">
+                                        <label for="myCheckbox">Khoa Tim Mạch</label><br>
+                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
+                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="2">
+                                        <label for="myCheckbox">Khoa Da Liễu</label><br>
+                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
+                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="3">
+                                        <label for="myCheckbox">Khoa Thần Kinh</label><br>
+                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
+                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="4">
+                                        <label for="myCheckbox">Khoa Tai Mũi Họng</label><br>
+                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
+                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="5">
+                                        <label for="myCheckbox">Khoa Sản</label><br>
+                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
+                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="6">
+                                        <label for="myCheckbox">Khoa Chỉnh Hình</label><br>-->
+                                            </c:forEach>
                                         </c:forEach>
-                                    </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -83,11 +111,11 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-<!--                                            <div class="form-group">
-                                                <label for="file">Ảnh</label>
-                                                <input class="form-control" type="file" id="file" name="update_image">
-                                                <img style="max-width: 100%; object-fit: cover" src="${pageContext.request.contextPath}/${doctor.image}" alt="">
-                                            </div>-->
+                            <!--                                            <div class="form-group">
+                                                                            <label for="file">Ảnh</label>
+                                                                            <input class="form-control" type="file" id="file" name="update_image">
+                                                                            <img style="max-width: 100%; object-fit: cover" src="${pageContext.request.contextPath}/${doctor.image}" alt="">
+                                                                        </div>-->
                             <div class="form-group">
                                 <div class="row ml-2">
                                     <h4 class="mr-2 mt-4">Chọn giới tính</h4>

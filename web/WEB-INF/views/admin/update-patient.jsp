@@ -12,8 +12,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/home.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
     </head>
+<!--    </head>
 <form action="${pageContext.request.contextPath}/admin/patients-control" method="post" class="bd-example">
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -50,4 +50,4 @@
     </div>
     <a role="button" class="btn btn-primary text-white" type="submit">Xác nhận</a>
     <a role="button" class="btn btn-warning text-white" type="reset">Hủy</a>
-</form>
+</form>-->

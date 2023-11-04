@@ -37,11 +37,11 @@
                 <form action="" method="post" class="bd-example">
                     <div class="container">
                         <div class="form-group col-md-6">
-                            <div class="form-group ">
+<!--                            <div class="form-group ">
                                 <label for="inputEmail4">Email</label>
                                 <input type="email" class="form-control" name="email" value="${x.email}" id="inputEmail4" placeholder="Email" readonly="">
-                            </div>
-                            <div class="form-group">
+                            </div>-->
+<!--                            <div class="form-group">
                                 <label for="inputPassword4">Mật khẩu</label>
                                 <input type="password" class="form-control" name="password" value="${x.password}" id="inputPassword4" placeholder="Password" readonly="">
                             </div>
@@ -80,7 +80,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <style>
         .button-style{

@@ -24,39 +24,42 @@ import java.util.UUID;
         maxRequestSize = 1024 * 1024 * 100  // 100 MB
 )
 public class UpdateDoctor extends HttpServlet {
-    public String generateUniqueFileName(String originalFileName) {
-        // Get the file extension from the original filename
-        String extension = "";
-        int dotIndex = originalFileName.lastIndexOf('.');
-        if (dotIndex >= 0 && dotIndex < originalFileName.length() - 1) {
-            extension = originalFileName.substring(dotIndex + 1);
-        }
-
-        // Generate a random UUID as the unique part of the filename
-        String uniquePart = UUID.randomUUID().toString();
-
-        // Combine the unique part and file extension to create the unique filename
-        String uniqueFileName = uniquePart + "." + extension;
-
-        return uniqueFileName;
-    }
-    private String getFileName(Part part) {
-        String contentDisposition = part.getHeader("content-disposition");
-        String[] tokens = contentDisposition.split(";");
-        for (String token : tokens) {
-            if (token.trim().startsWith("filename")) {
-                return token.substring(token.indexOf('=') + 1).trim()
-                        .replace("\"", "");
-            }
-        }
-        return null;
-    }
+//    public String generateUniqueFileName(String originalFileName) {
+//        // Get the file extension from the original filename
+//        String extension = "";
+//        int dotIndex = originalFileName.lastIndexOf('.');
+//        if (dotIndex >= 0 && dotIndex < originalFileName.length() - 1) {
+//            extension = originalFileName.substring(dotIndex + 1);
+//        }
+//
+//        // Generate a random UUID as the unique part of the filename
+//        String uniquePart = UUID.randomUUID().toString();
+//
+//        // Combine the unique part and file extension to create the unique filename
+//        String uniqueFileName = uniquePart + "." + extension;
+//
+//        return uniqueFileName;
+//    }
+//    private String getFileName(Part part) {
+//        String contentDisposition = part.getHeader("content-disposition");
+//        String[] tokens = contentDisposition.split(";");
+//        for (String token : tokens) {
+//            if (token.trim().startsWith("filename")) {
+//                return token.substring(token.indexOf('=') + 1).trim()
+//                        .replace("\"", "");
+//            }
+//        }
+//        return null;
+//    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int doc_id = Integer.parseInt(req.getParameter("doc_id"));
+        int doc_id = Integer.parseInt(req.getParameter("did"));
+        
         Doctor doctor = new DoctorDao().findById(doc_id);
+        
         req.setAttribute("doctor", doctor);
-        req.setAttribute("speciality_list", new SpecialityDao().getAllSpeciality());
+        req.setAttribute("speciality_doctor",new SpecialityDao().getAllSpecialityOfDoctor(doc_id));
+        req.setAttribute("speciality_lists",new SpecialityDao().getAllSpeciality1() );
         req.getRequestDispatcher("/WEB-INF/views/admin/update-doctor.jsp").forward(req,resp);
     }
 
@@ -68,17 +71,21 @@ public class UpdateDoctor extends HttpServlet {
         String password = req.getParameter("update_password");
         String degree = req.getParameter("update_degree");
         int experience = Integer.parseInt(req.getParameter("update_experience"));
-        int speciality_id = Integer.parseInt(req.getParameter("update_speciality_id"));
         String phone = req.getParameter("update_phone");
         String dob = req.getParameter("update_dob");
         boolean gender = false;
+        try{
         if(req.getParameter("update_gender").equals("1")){
             gender = true;
         }
         String address = req.getParameter("update_address");
 //        Part filePart = req.getPart("update_image");
         DoctorDao doctorDao = new DoctorDao();
-
+        doctorDao.UpdateDoctor(id, name, email, degree, experience, phone, dob, gender, address);
+        resp.sendRedirect("update-doctor");
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
 //        if (filePart != null && filePart.getSize() > 0) {
 //            String fileName = getFileName(filePart);
 //            assert fileName != null;
@@ -100,16 +107,16 @@ public class UpdateDoctor extends HttpServlet {
 //            }
 
       //  } else {
-            if (doctorDao.UpdateDoctorNoImg(id,name,email,password,degree,experience,speciality_id,phone,dob,gender,address)){
-                resp.sendRedirect(req.getContextPath() + "/admin/doctor-control");
-            } else { // thay đổi lỗi
-                req.setAttribute("error", "đã có lỗi xảy ra");
-                int doc_id = Integer.parseInt(req.getParameter("doc_id"));
-                Doctor doctor = new DoctorDao().findById(doc_id);
-                req.setAttribute("doctor", doctor);
-                req.setAttribute("speciality_list", new SpecialityDao().getAllSpeciality());
-                req.getRequestDispatcher("/WEB-INF/views/admin/update-doctor.jsp").forward(req,resp);
-            }
+//            if (doctorDao.UpdateDoctorNoImg(id,name,email,password,degree,experience,speciality_id,phone,dob,gender,address)){
+//                resp.sendRedirect(req.getContextPath() + "/admin/doctor-control");
+//            } else { // thay đổi lỗi
+//                req.setAttribute("error", "đã có lỗi xảy ra");
+//                int doc_id = Integer.parseInt(req.getParameter("doc_id"));
+//                Doctor doctor = new DoctorDao().findById(doc_id);
+//                req.setAttribute("doctor", doctor);
+//                req.setAttribute("speciality_list", new SpecialityDao().getAllSpeciality());
+//                req.getRequestDispatcher("/WEB-INF/views/admin/update-doctor.jsp").forward(req,resp);
+//            }
         //}
     }
 }

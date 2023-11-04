@@ -32,6 +32,7 @@
                 <a href="${pageContext.request.contextPath}/admin/doctor-control"><i class="fas fa-users"></i> Quản lý bác sĩ</a><br>
                 <a href="${pageContext.request.contextPath}/admin/patients-control"><i class="fas fa-users"></i> Quản lý bệnh nhân</a><br>
                 <a href="${pageContext.request.contextPath}/admin/doctor-schedule-control"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý lịch của bác sĩ</a><br>
+                <a href="${pageContext.request.contextPath}/admin/NewsControl"><i class="fa fa-calendar" aria-hidden="true"></i> Quản tin tức của bác sĩ</a><br>
             </div>
         </div>
 
@@ -81,7 +82,7 @@
 
 
                                     </div>
-                                    </select>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -117,7 +118,7 @@
                     <input class="form-control" type="hidden" name="_method" value="">
 
 
-                    <button class="button-style" type="submit">Xác nhận</button>
+                    <button style="background-color:#007BFF" class="button-style" type="submit">Xác nhận</button>
                 </form>
                 <button id="showOtherBlockButton">Hiển thị danh sách bác sĩ</button>
 
@@ -173,6 +174,11 @@
                                     <a style="color: red;" href="${pageContext.request.contextPath}/admin/StatusDoctor?doc_id=${item.getId()}&&status=${item.isStatus()}">
                                         <i id="name${item.getId()}"  class="fa fa-toggle-off"  "></i> Trạng Thái</a><br>
                                     </c:if> 
+                                        
+                                       <a  role="button" class="fa fa-edit" title="Chỉnh sửa" 
+                                       style="color:black; margin-top: 10px; border:none;" 
+                                       href="${pageContext.request.contextPath}/admin/update-doctor?did=${item.getId()}"> Chỉnh sửa</a><br>
+<!--                                    
 
 
 

@@ -2,10 +2,14 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.ParseException" %>
 <%@ page import="Model.Doctor" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <head>
-   
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@include file="/include/navbar.jsp" %>    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <title>MEDINOVA - Hospital Website</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
@@ -14,13 +18,14 @@
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <div class="custom-container">
     <div class="row">
         <form action="" >
             <input type="hidden" name="_method" value="choose_doctor">
             <div class="form-group">
                 <div class="row ml-2">
-                    <h4 class="mr-2 mt-4">Chuyên môn</h4>
+                    <h4 class="mr-2 mt-4">Chọn bác sĩ</h4>
                     <select class="ml-2" name="doctor_id" id="speciality_id">
                         <option value="0" selected>Chọn bác sĩ</option>
                         <c:forEach var="item" items="${doctors}">
@@ -29,12 +34,14 @@
                     </select>
                 </div>
             </div>
-            <button class="button-style">Xác nhận</button>
+        <button class="button-style custom-button">Xác nhận</button>
+<a href="${pageContext.request.contextPath}/admin" class="button-style custom-button">Quay lại</a>
+
         </form>
     </div>
     <div class="row">
 
-        <% Doctor doctor = null;%>
+     
         <c:if test="${not empty doctor}" >
             <% doctor = (Doctor) request.getAttribute("doctor");%>
             <p>Bạn đang xem lịch của bác sĩ ${doctor.getName()} </p>
@@ -45,15 +52,18 @@
                 <div class="row">
                     <input value="${current_week}" required class="form-control m-2" name="week" style="width: 200px; height: 30px"
                            type="week">
-                    <button class="button-style">Hiển thị</button>
+                    <button style="background-color:#007BFF" class="button-style">Hiển thị</button>
+                     
                 </div>
                            
             </form>
+                          
             <p class="text-danger ml-5">${error}</p> <p class="text-success">${success}</p>
+             <button style="background-color:#007BFF; margin-bottom: 20px; margin-top: 0px; margin-left: 25%;" class="ml-5mr-5 button-style  custom-button" data-toggle="modal" data-target="#approveModel"  >Duyệt Lịch</button>
         </c:if>
             
         <c:if test="${not empty table}">
-             <button style="background-color:#007BFF" class="ml-5mr-5 button-style" data-toggle="modal" data-target="#approveModel">Duyệt Lịch</button>
+<!--             <button style="background-color:#007BFF; margin-bottom: 10px; margin-left: 25%;" class="ml-5mr-5 button-style  custom-button" data-toggle="modal" data-target="#approveModel"  >Duyệt Lịch</button>-->
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -171,9 +181,7 @@
            
 
         </c:if>
-            <div style="margin-top: 10px; margin-left: 10px;">
-            <a href="${pageContext.request.contextPath}/admin" class="button-style">home</a>
-        </div>
+
            <!-- Phê duyệt Lịch -->
          <div class="modal fade" id="approveModel" tabindex="-1" role="dialog" aria-labelledby="approveModel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -242,12 +250,12 @@
         font-size: 16px;
     }
 
-    /* Loại bỏ gạch chân cho các liên kết */
+   
     a {
         text-decoration: none;
     }
 
-    /* Định dạng nút */
+  
     .button-style {
         background-color: #234821;
         color: #ffffff;
@@ -270,6 +278,18 @@
     .table-sm th {
         padding: 10px; /* Đặt khoảng cách lớn hơn giữa các ô */
     }
+
+    .custom-button {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: #007BFF;
+    padding: 8px 16px; /* Thiết lập padding cho các nút */
+    border: none;
+    border-radius: 5px; /* Kích thước viền cong */
+    margin: 5px; /* Khoảng cách giữa các nút (nếu cần) */
+    box-sizing: border-box; /* Đảm bảo padding và border không làm thay đổi kích thước */
+}
 
 </style>
 

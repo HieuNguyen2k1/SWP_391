@@ -13,10 +13,10 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body >
 
     <!--? Slider Area Start-->
-    <div class="slider-area slider-area2">
+    <div style="margin-top: 100px" class="slider-area slider-area2">
         <div class="slider-active dot-style">
             <!-- Slider Single -->
             <div class="single-slider  d-flex align-items-center slider-height2">
@@ -37,27 +37,35 @@
     </div>
     <!-- Slider Area End -->
     <!--? News Area Start-->
-    <section class="news_area section-padding">
+    <section  class="news_area section-padding">
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-8 mb-5 mb-lg-0">
-                    <div class="news_left_sidebar">
+                <div >
+                    <div >
                         <article class="news_item">
                             <c:forEach items="${news}" var="news">
+                                <br>
                                 <div class="news_item_img">
-                                    <%--<img class="card-img rounded-0" src="${news.getImage()}" alt="">--%>
-                                    <a href="news-detail?nid=${news.getNewsid()}" class="news_item_date">
+                                 
+                                    <a href="${pageContext.request.contextPath}/DetailNewsServlet?nid=${news.getNewsid()}" class="news_item_date">
                                         <h2 class="news-head" style="color: #2d2d2d;">${news.getTitle()}</h2>
-                                        <p>${news.getTime()}</p>
+                                        
                                     </a>
+                                        <p>${news.getTime()}</p>
                                 </div>
-                                <div class="news_details">
-                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
-                                        <img class="card-img rounded-0" src="${news.getImage()}" alt="" >    
-                                    </a>                                    
-                                    <p>${news.getScriptShort()}</p>                                   
+                                <div class="news_details container">
+                                    <div class="row">
+                                                                          
+                                    <div class="col-6 md-0"><p>${news.getScriptShort()}</p>  </div>
+                                    
+                                    <div class="col-6 md-0 left-align" >
+                                            <a class="d-inline-block" href="${pageContext.request.contextPath}/DetailNewsServlet?nid=${news.getNewsid()}">                                        
+                                                <img  width="200px" height="200px" class="card-img rounded-0" src="${news.getImage()}" alt="" >    
+                                    </a> </div> 
+                                    </div>
                                 </div>
+                                     <br>
                             </c:forEach>
                         </article>
                         <article class="news_item">
@@ -68,7 +76,7 @@
                                     
                                 </div>
                                 <div class="news_detail">
-                                    <a class="d-inline-block" href="news-detail?nid=${news.getNewsid()}">                                        
+                                    <a class="d-inline-block" href="${pageContext.request.contextPath}/DetailNewsServlet?nid=${news.getNewsid()}">                                        
                                     </a>
                                     <p>${news.getScriptShort()}</p>
                                    <%-- <p>${news.getScriptFull()}</p>  --%>
@@ -78,7 +86,7 @@
                         </article>
                     </div>
                 </div>
-                <div class="col-lg-4">
+<!--                <div class="col-lg-4">
                     <div class="news_right_sidebar">
                         <aside class="single_sidebar_widget search_widget">
                             <form action="search-news">
@@ -95,7 +103,7 @@
                             </form>
                         </aside>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>

@@ -14,10 +14,26 @@ import java.util.ArrayList;
 public class DoctorViewFinishedAppointment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Doctor doctor = (Doctor) req.getSession().getAttribute("doctor");
+        String status = req.getParameter("method");
+        if(status==null){
+              Doctor doctor = (Doctor) req.getSession().getAttribute("doctor");
         ArrayList<Appointment> appointments = new AppointmentDao().getAllAppointmentOfDoctor(doctor.id);
         req.setAttribute("appointments", appointments);
         System.out.println(appointments);
-        req.getRequestDispatcher("/WEB-INF/views/doctor/view-all-finished-appointment.jsp").forward(req, resp);
+        }else
+        if(status.equals("finished")){
+            Doctor doctor = (Doctor) req.getSession().getAttribute("doctor");
+        ArrayList<Appointment> appointments = new AppointmentDao().getAllAppointmentOfDoctorfinished(doctor.id);
+        req.setAttribute("appointments", appointments);
+        System.out.println(appointments);
+            
+        }else if(status.equals("not-yet")){
+            Doctor doctor = (Doctor) req.getSession().getAttribute("doctor");
+        ArrayList<Appointment> appointments = new AppointmentDao().getAllAppointmentOfDoctorNotYet(doctor.id);
+        req.setAttribute("appointments", appointments);
+        System.out.println(appointments);
+           
+        }
+         req.getRequestDispatcher("/WEB-INF/views/doctor/view-all-finished-appointment.jsp").forward(req, resp);
     }
 }

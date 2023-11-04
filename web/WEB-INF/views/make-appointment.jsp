@@ -77,10 +77,10 @@
                 <div class="row">
                                     
                     <div class="col-md-10 text-left">
-                        <label for="note">Lời nhắn</label><br>
+                        <label for="note">Mô tả triệu chứng</label><br>
                         <textarea required class="form-control" name="note" id="note" rows="5" style="resize: none; border-radius: 16px; outline: none; font-size: 18px; padding: 12px; height: 150px;"></textarea>
                         <br><br>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label style="display: block; margin-bottom: 10px; font-size: 18px;">Thời gian bạn chọn</label><br>
                             Từ
                             <input class="form-control" readonly type="datetime-local" id="selected_time_start" style="display: block; width: 100%; padding: 10px; font-size: 16px; line-height: 1.5; color: #495057; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: 4px; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); font-weight: bold;" readonly>
@@ -98,7 +98,7 @@
                 </div>
                     <div style="width: 40%" class="m-2">
                         <div class="form-group ">
-                            <label for="dateInput">Chọn ngày</label>
+                            <label for="dateInput">Chọn khum giờ khám bệnh</label>
                             <input type="date" id="dateInput">
                         </div>
                         <div id="available">

@@ -3,65 +3,41 @@
 <!DOCTYPE html>
 
 
-    <head>
-        <%@page contentType="text/html" pageEncoding="UTF-8"%>
-        <%@include file="/include/navbar.jsp" %>
-        <title>MEDINOVA - Hospital Website</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/home.css">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <script>
-            if (window.performance && window.performance.navigation.type === 2) {
-                // Trang được chuyển hướng từ servlet LogoutServlet
-                history.replaceState(null, '', 'login.jsp');
-                window.addEventListener('popstate', function (event) {
-                    window.location.href = 'login.jsp';
-                });
-            }
-        </script>
-    </head>
-<!--<div class="custom-container" style="margin-bottom: 200px; margin-top: 200px">
-    ${message}
-    <c:if test="${not empty error}">
-        <p style="color: red">${error}</p>
-    </c:if>
-    <table class="table" border="1" id="table">
-        <thead>
-            <tr>
-                <th>Trạng thái</th>
-                <th>Lời nhắn</th>
-                <th>Thời gian bắt đầu</th>
-                <th>Thời gian kết thúc</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${appointments}" var="item">
-                <tr>
-                    <td>${item.getStatus()}</td>
-                    <td>${item.getNote()}</td>
-                    <td>${item.getStart()}</td>
-                    <td>${item.getEnd()}</td>
-                    <td class="button-container">
-                        <a href="${pageContext.request.contextPath}/patient/appointment-detail?app_id=${item.id}&doc_id=${item.getDoctor_id()}">Nhấn để xem chi tiết</a>
-                    </td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+<head>
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@include file="/include/navbar.jsp" %>
+    <title>MEDINOVA - Hospital Website</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        if (window.performance && window.performance.navigation.type === 2) {
+            // Trang được chuyển hướng từ servlet LogoutServlet
+            history.replaceState(null, '', 'login.jsp');
+            window.addEventListener('popstate', function (event) {
+                window.location.href = 'login.jsp';
+            });
+        }
+    </script>
+</head>
 
-</div>-->
-    
-    <div class="custom-container" style="margin-bottom: 200px; margin-top: 200px">
+
+<div class="custom-container" style="margin-bottom: 200px; margin-top: 200px">
     ${message}
+
+
     <c:if test="${not empty error}">
         <p style="color: red">${error}</p>
     </c:if>
+    <div>
+        <a href="${pageContext.request.contextPath}/patient/view-appointments?method=finished" class="button-style custom-button">Lịch sử khám</a>
+        <a href="${pageContext.request.contextPath}/patient/view-appointments?method=not-yet" class="button-style custom-button">Cuộc hẹn chưa khám</a>
+    </div>
     <table class="table table-bordered table-striped" id="table">
         <thead class="thead-dark">
             <tr>

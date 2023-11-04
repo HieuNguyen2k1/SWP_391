@@ -25,44 +25,7 @@
     </script>
     
 </head>
-<!--? Slider Area Start-->
-<!--<div class="slider-area slider-area2">
-    <div class="slider-active dot-style">
-         Slider Single 
-        <div class="single-slider  d-flex align-items-center slider-height2">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-7 col-lg-8 col-md-10 ">
-                        <div class="hero-wrapper">
-                            <div class="hero__caption">
-                                <h1 data-animation="fadeInUp" data-delay=".3s" style="font-family: Arial">Đội Ngũ Bác
-                                    Sĩ</h1>
-                                <p data-animation="fadeInUp" data-delay=".6s" style="font-family: Arial">Chuyên nghiệp,
-                                    tận tâm<br></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="header-search">  Added a container for search form 
-    <form action="" method="post">
-        <input type="hidden" value="0" name="speciality">
-        <c:if test="${not empty search_name}">
-            <input type="text" value="${search_name}" name="name">
-        </c:if>
-        <c:if test="${empty search_name}">
-            <input type="text" placeholder="Tìm kiếm ..." name="name">
-        </c:if>
-        <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-</div>
-<br><br>
-<div class="header-search" style="font-size: 2.0em; color: red">${none}</div>
-<br> <br> <br>-->
-<!----------------------------------------------------------------------->
+
 
 
 

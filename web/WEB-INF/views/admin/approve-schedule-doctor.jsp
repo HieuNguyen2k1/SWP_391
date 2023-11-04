@@ -33,12 +33,12 @@
         font-size: 16px;
     }
     
-    /* Loại bỏ gạch chân cho các liên kết */
+ 
     a {
         text-decoration: none;
     }
 
-    /* Định dạng nút */
+  
     .button-style {
         background-color: #234821;
         color: #ffffff;
@@ -48,10 +48,10 @@
         font-size: 16px;
         font-weight: bold;
         cursor: pointer;
-        text-decoration: none; /* Loại bỏ gạch chân cho nút */
+        text-decoration: none; 
     }
 
-    /* Định dạng bảng */
+   
     .table-bordered td,
     .table-bordered th {
         border: 2px solid #dee2e6;
@@ -59,7 +59,7 @@
 
     .table-sm td,
     .table-sm th {
-        padding: 10px; /* Đặt khoảng cách lớn hơn giữa các ô */
+        padding: 10px; 
     }
 </style>
 
@@ -111,14 +111,14 @@
                     if (j == 0 || i == 1){
                         out.print("<td>"+table[i][j].replaceAll("(\\d{1,2}:\\d{2}):\\d{2}->(\\d{1,2}:\\d{2}):\\d{2}", "$1-$2")+"</td>");
                     }
-                    if (table[i][j] != null){ //  date
-                        if(compare > 0){// nếu như là ngày của quá khứ!
-                            if (table[i][j].startsWith("patient app|")){ // có hẹn
+                    if (table[i][j] != null){
+                        if(compare > 0){
+                            if (table[i][j].startsWith("patient app|")){ 
                                 String status = table[i][j].split("\\|")[2];
-                                if (status.equals("not_yet")){// chưa khám xanh dương
+                                if (status.equals("not_yet")){
                                     style = "style='background-color: #1FF0FF'";
                                     out.print("<td " + style + "><a title='Nhấn để xem' href='"+request.getContextPath()+"/doctor/appointment-detail?app_id="+table[i][j].split("\\|")[1]+"'>Có hẹn</a></td>");
-                                } else if (status.equals("canceled")) { // đã huỷ, đỏ
+                                } else if (status.equals("canceled")) { 
                                     style = "style='background-color: #FF515B'";
                                     out.print("<td " + style + "><a title='Nhấn để xem' href='"+request.getContextPath()+"/doctor/appointment-detail?app_id="+table[i][j].split("\\|")[1]+"'>Đã huỷ</a></td>");
                                 } else if (status.equals("finished")) {
@@ -126,22 +126,22 @@
                                     out.print("<td " + style + "><a title='Nhấn để xem' href='"+request.getContextPath()+"/doctor/appointment-detail?app_id="+table[i][j].split("\\|")[1]+"'>Đã khám</a></td>");
                                 }
                             } else {
-                                style = "style='background-color: #B8B6B4'";// xam
+                                style = "style='background-color: #B8B6B4'";
                                 out.print("<td " + style + ">chưa có hẹn</td>");
                             }
                         } else {
-                            if (table[i][j].startsWith("doctor schedule|")){ // có lịch chuwa có hẹn camm
+                            if (table[i][j].startsWith("doctor schedule|")){ 
                                 style = "style='background-color: #FFA500';color : black;";
 //                                        out.print("<td " + style + "><a href=''></a>chưa có hẹn</td>");
                                 out.print("<td title='nhấn để xoá'" + style + "><a href='"+request.getContextPath()+"/doctor/delete-schedule?id="+table[i][j].split("\\|")[1]+"'>chưa có hẹn</a></td>");
 //                                        out.print("<td " + style + "><a href='"+request.getContextPath()+"/doctor/delete-schedule?id="+ table[i][j].split("\\|")[3] +"'></a>chưa có hẹn</td>");
 
-                            } else if (table[i][j].startsWith("patient app|")){ // có hẹn
+                            } else if (table[i][j].startsWith("patient app|")){
                                 String status = table[i][j].split("\\|")[2];
-                                if (status.equals("not_yet")){// chưa khám xanh dương
+                                if (status.equals("not_yet")){
                                     style = "style='background-color: #1FF0FF'";
                                     out.print("<td " + style + "><a title='Nhấn để xem' href='"+request.getContextPath()+"/doctor/appointment-detail?app_id="+table[i][j].split("\\|")[1]+"'>Chưa khám</a></td>");
-                                } else if (status.equals("canceled")) { // đã huỷ, đỏ
+                                } else if (status.equals("canceled")) { 
                                     style = "style='background-color: #FF515B'";
                                     out.print("<td " + style + "><a title='Nhấn để xem' href='"+request.getContextPath()+"/doctor/appointment-detail?app_id="+table[i][j].split("\\|")[1]+"'>Đã huỷ</a></td>");
                                 } else if (status.equals("finished")) {

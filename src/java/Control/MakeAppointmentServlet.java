@@ -32,7 +32,7 @@ public class MakeAppointmentServlet extends HttpServlet {
         List<Review> review; // Khai báo biến review ở đầu phương thức
         try {
             data = appointmentDao.getAvailableAppointment(doc_id);
-            review = doctordao.getReviewByIdDoctor(doc_id);
+//            review = doctordao.getReviewByIdDoctor(doc_id);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +51,7 @@ public class MakeAppointmentServlet extends HttpServlet {
         app_json += "]";
         req.setAttribute("doctor", data.object2);
         req.setAttribute("available", app_json);
-        req.setAttribute("review", review);
+//        req.setAttribute("review", review);
         req.getRequestDispatcher("/WEB-INF/views/make-appointment.jsp").forward(req, resp);
     }
 

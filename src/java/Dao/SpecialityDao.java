@@ -15,6 +15,7 @@ public class SpecialityDao {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    //======================= get all speciality================//
     public ArrayList<Speciality_doctor> getAllSpeciality1() {
         ArrayList<Speciality_doctor> list = new ArrayList<>();
 
@@ -33,6 +34,7 @@ public class SpecialityDao {
         }
     }
     
+    //================================== get all doctor and speciality of doctor
     public ArrayList<Speciality_doctor> getAllSpeciality() {
         ArrayList<Speciality_doctor> list = new ArrayList<>();
 
@@ -44,6 +46,27 @@ public class SpecialityDao {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 list.add(new Speciality_doctor(resultSet.getInt("id"), resultSet.getString("speciality_name")));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    //================================= get all specialy of doctor
+    public ArrayList<Speciality> getAllSpecialityOfDoctor(int id) {
+        ArrayList<Speciality> list = new ArrayList<>();
+
+        String sql = " select doctors.id, specialities.* from doctors join speciality_doctor on doctors.id = speciality_doctor.doctor_id join specialities on speciality_doctor.speciality_id =specialities.speciality_id"
+                + " where id=?;";
+        try {
+            connection = ContactDB.makeConnection();
+            
+            preparedStatement = connection.prepareStatement(sql);
+             preparedStatement.setInt(1,id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                list.add(new Speciality(resultSet.getInt("speciality_id"), resultSet.getString("speciality_name")));
             }
             return list;
         } catch (Exception e) {

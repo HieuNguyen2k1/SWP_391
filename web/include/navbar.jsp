@@ -60,14 +60,7 @@
                     <a href="about.jsp" class="nav-item nav-link">Chúng tôi</a>
                      <a href="${pageContext.request.contextPath}/news" class="nav-item nav-link">Tin Tức</a>
 
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-
-                            <a href="appointment.jsp" class="dropdown-item">Appointment</a>
-                            <a href="search.jsp" class="dropdown-item">Tìm kiếm</a>
-                        </div>
-                    </div>
+                    
                     <a href="contact.jsp" class="nav-item nav-link">Liên Hệ</a>
 
 
@@ -119,7 +112,6 @@
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/doctor/profile">Trang Cá Nhân</a>
                                     <a  class="dropdown-item" href="${pageContext.request.contextPath}/doctor/schedule">Lịch Làm Việc</a>
                                     <a  class="dropdown-item" href="${pageContext.request.contextPath}/doctor/view-finished-appointment">Lịch sử cuộc hẹn</a>
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/doctor-view-rating">Xem Đánh Giá</a>
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
                                 </div>
                             </li>

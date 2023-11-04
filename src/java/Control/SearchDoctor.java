@@ -16,7 +16,7 @@ public class SearchDoctor extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SpecialityDao specialityDao = new SpecialityDao();
-        req.setAttribute("speciality_list", specialityDao.getAllSpeciality());
+        req.setAttribute("speciality_list", specialityDao.getAllSpeciality1());
         DoctorDao doctordao = new DoctorDao();
         try {
              ArrayList<Doctor> showall = doctordao.getAllDoctorOn();
@@ -44,7 +44,7 @@ public class SearchDoctor extends HttpServlet {
         SpecialityDao specialityDao = new SpecialityDao();
         req.setAttribute("current_spe_id", spe_id);
         req.setAttribute("search_name", name);
-        req.setAttribute("speciality_list", specialityDao.getAllSpeciality());
+        req.setAttribute("speciality_list", specialityDao.getAllSpeciality1());
         req.getRequestDispatcher("/WEB-INF/views/Bacsifull.jsp").forward(req,resp);
     }
 }

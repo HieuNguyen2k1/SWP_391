@@ -70,10 +70,10 @@ public class AppointmentDao {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = currentDateTime.format(formatter);
-        String sql = "select * from doctor_schedule left join appointments on doctor_schedule.id = appointments.doctor_schedule_id"
-                + " where appointments.id is null and doctor_schedule.start > ? and doctor_schedule.doctor_id = ? order by doctor_schedule.start;"
-                + " select doctors.*, speciality.name as speciality_name from doctors JOIN speciality on doctors.speciality_id = speciality.id"
-                + " where doctors.id = ?;";
+        String sql = "select * from doctor_schedule left join appointments on doctor_schedule.id = appointments.doctor_schedule_id "
+                + " where appointments.id is null and doctor_schedule.start > ? and doctor_schedule.status_schedule ='approve'  and doctor_schedule.doctor_id = ? order by doctor_schedule.start;"
+                + "SELECT doctors.* , specialities.speciality_name  FROM doctors JOIN speciality_doctor ON doctors.id = speciality_doctor.doctor_id "
+                + "JOIN specialities ON speciality_doctor.speciality_id = specialities.speciality_id where doctors.id = ?";
         connection = ContactDB.makeConnection();
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, formattedDateTime);
@@ -102,7 +102,7 @@ public class AppointmentDao {
                             resultSet.getString("degree"),
                             resultSet.getInt("experience"),
                             resultSet.getString("speciality_name"),
-                            resultSet.getString("image"),
+                           
                             resultSet.getString("phone"),
                             resultSet.getString("dob"),
                             resultSet.getBoolean("gender"),
@@ -115,7 +115,8 @@ public class AppointmentDao {
         return data;
     }
     public boolean addAppointment(int patient_id, String note, int doctor_schedule_id) throws SQLException, ClassNotFoundException {
-        String sql = "insert into appointments(patient_id, note, status, doctor_schedule_id) values(?, ?, ?, ?)";
+        String sql = "insert into appointments(patient_id, note, status, doctor_schedule_id) values(?, ?, ?, ?);";
+//                + "update doctor_schedule set status_schedule = ? where id=?";
         connection = ContactDB.makeConnection();
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, patient_id);
@@ -147,7 +148,9 @@ public class AppointmentDao {
         return appointments;
     }
     public Data getDetail(int id, int doc_id) throws SQLException, ClassNotFoundException {
-        String sql = "select appointments.*, patients.*, doctor_schedule.* from appointments inner join patients on patients.id = appointments.patient_id inner join doctor_schedule on doctor_schedule.id = appointments.doctor_schedule_id where appointments.id = ?;";
+        String sql = "select appointments.*, patients.id,patients.name,patients.email,patients.password,patients.phone,patients.dob,patients.gender,patients.address"
+                + ",patients.is_admin,patients.verify_key,patients.is_verified, doctor_schedule.* from appointments inner join patients on "
+                + "patients.id = appointments.patient_id inner join doctor_schedule on doctor_schedule.id = appointments.doctor_schedule_id where appointments.id = ?;";
         connection = ContactDB.makeConnection();
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
@@ -164,6 +167,7 @@ public class AppointmentDao {
                         resultSet.getString(4),
                         resultSet.getInt(5)
                 );
+                //int id, int patient_id, String status, String note, int doctor_schedule_id
                 User user = new User(
                         resultSet.getInt(6),
                         resultSet.getString(7),
@@ -177,14 +181,18 @@ public class AppointmentDao {
                         resultSet.getString(15),
                         resultSet.getBoolean(16)
                 );
+                //int id, String name, String email, String password, String phone,String dob,  boolean gender, String address, boolean is_admin, String verify_key, boolean is_verified
                 Data data = new Data(appointment, user, new String[]{resultSet.getString("start"), resultSet.getString("end")});
                 return data;
             }
+             
         }
         return null;
     }
     public Data adminGetDetail(int id) throws SQLException, ClassNotFoundException {
-        String sql = "select appointments.*, patients.*, doctor_schedule.* from appointments inner join patients on patients.id = appointments.patient_id inner join doctor_schedule on doctor_schedule.id = appointments.doctor_schedule_id where appointments.id = ?;";
+        String sql = "select appointments.*, patients.id,patients.name,patients.email,patients.password,patients.phone,patients.dob,patients.gender,patients.address"
+                + ",patients.is_admin,patients.verify_key,patients.is_verified, doctor_schedule.* from appointments inner join patients on "
+                + "patients.id = appointments.patient_id inner join doctor_schedule on doctor_schedule.id = appointments.doctor_schedule_id where appointments.id = ?;";
         connection = ContactDB.makeConnection();
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
@@ -204,12 +212,12 @@ public class AppointmentDao {
                         resultSet.getString(8),
                         resultSet.getString(9),
                         resultSet.getString(10),
-                        resultSet.getString(11),
-                        resultSet.getBoolean(12),
+                        resultSet.getString(15),
+                        resultSet.getBoolean(16),
                         resultSet.getString(13),
                         resultSet.getBoolean(14),
-                        resultSet.getString(15),
-                        resultSet.getBoolean(16)
+                        resultSet.getString(11),
+                        resultSet.getBoolean(12)
                 );
                 Data data = new Data(appointment, user, new String[]{resultSet.getString("start"), resultSet.getString("end")});
                 return data;
@@ -279,9 +287,128 @@ public class AppointmentDao {
         }
         return appointments;
     }
+   //==================================================== finished
+     public ArrayList<Appointment> getAllAppointmentsOfPatientFinish(int user_id){
+        ArrayList<Appointment> appointments = new ArrayList<>();
+        try{
+            String sql = "select appointments.*, doctor_schedule.*, patients.* from appointments inner join"
+                    + " patients on patients.id = appointments.patient_id inner join doctor_schedule on"
+                    + " doctor_schedule.id = appointments.doctor_schedule_id where appointments.patient_id = ? and status='finished';";
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,user_id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                appointments.add(new Appointment(
+                    resultSet.getInt(1),
+                    resultSet.getInt(2),
+                    Status.valueOf(resultSet.getString(3)).getDetail(),
+                    resultSet.getString(4),
+                    resultSet.getInt(5),
+                    resultSet.getInt("doctor_id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("start"),
+                    resultSet.getString("end")
+                ));
+            }
+            return appointments;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+     //========================================== not yet
+      public ArrayList<Appointment> getAllAppointmentsOfPatientNotYet(int user_id){
+        ArrayList<Appointment> appointments = new ArrayList<>();
+        try{
+            String sql = "select appointments.*, doctor_schedule.*, patients.* from appointments inner join "
+                    + "patients on patients.id = appointments.patient_id inner join doctor_schedule on "
+                    + "doctor_schedule.id = appointments.doctor_schedule_id where appointments.patient_id = ? and status='not_yet';";
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,user_id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                appointments.add(new Appointment(
+                    resultSet.getInt(1),
+                    resultSet.getInt(2),
+                    Status.valueOf(resultSet.getString(3)).getDetail(),
+                    resultSet.getString(4),
+                    resultSet.getInt(5),
+                    resultSet.getInt("doctor_id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("start"),
+                    resultSet.getString("end")
+                ));
+            }
+            return appointments;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+    
     public ArrayList<Appointment> getAllAppointmentOfDoctor(int doc_id){
         ArrayList<Appointment> appointments = new ArrayList<>();
-        String sql = "select *, patients.name as username from appointments inner join doctor_schedule on appointments.doctor_schedule_id = doctor_schedule.id inner join patients on appointments.patient_id = patients.id where doctor_schedule.doctor_id = ? and appointments.status = 'finished'";
+        String sql = "select *, patients.name as username from appointments inner join doctor_schedule on "
+                + "appointments.doctor_schedule_id = doctor_schedule.id inner join patients on "
+                + "appointments.patient_id = patients.id where doctor_schedule.doctor_id = ? ;";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, doc_id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                appointments.add(new Appointment(
+                        resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5),
+                        resultSet.getString("start"),
+                        resultSet.getString("end"),
+                        resultSet.getString("username")
+                ));
+            }
+            return appointments;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public ArrayList<Appointment> getAllAppointmentOfDoctorfinished(int doc_id){
+        ArrayList<Appointment> appointments = new ArrayList<>();
+        String sql = "select *, patients.name as username from appointments inner join doctor_schedule on "
+                + "appointments.doctor_schedule_id = doctor_schedule.id inner join patients on "
+                + "appointments.patient_id = patients.id where doctor_schedule.doctor_id = ? and appointments.status = 'finished';";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, doc_id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                appointments.add(new Appointment(
+                        resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5),
+                        resultSet.getString("start"),
+                        resultSet.getString("end"),
+                        resultSet.getString("username")
+                ));
+            }
+            return appointments;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+     public ArrayList<Appointment> getAllAppointmentOfDoctorNotYet(int doc_id){
+        ArrayList<Appointment> appointments = new ArrayList<>();
+        String sql = "select *, patients.name as username from appointments inner join doctor_schedule on "
+                + "appointments.doctor_schedule_id = doctor_schedule.id inner join patients on "
+                + "appointments.patient_id = patients.id where doctor_schedule.doctor_id = ? and appointments.status = 'not_yet';";
         try {
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);

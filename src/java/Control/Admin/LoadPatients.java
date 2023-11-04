@@ -61,17 +61,7 @@ public class LoadPatients extends HttpServlet {
             return;
         }
 
-        // Kiểm tra mật khẩu
-        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,50}$";
-        if (!password.matches(passwordRegex)) {
-            request.setAttribute("mess", "Mật khẩu phải có từ 8 đến 50 ký tự, bao gồm ít nhất một chữ hoa, một chữ thường và một số!");
-            request.setAttribute("status", "error");
-            List<User> list = dao1.getPatientsList();
-            request.setAttribute("list", list);
-            request.getRequestDispatcher("/WEB-INF/views/admin/patient-control.jsp").forward(request, response);
-            return;
-        }
-
+        
         // Kiểm tra ngày tháng năm sinh
         LocalDate currentDate = LocalDate.now();
         LocalDate dobDate = LocalDate.parse(dob);
@@ -86,7 +76,7 @@ public class LoadPatients extends HttpServlet {
         }
 
         try {
-            dao.createPatients(name, email, password, phone, dob, gender, address, verify_key);
+            dao.createPatient(name, email, password, phone, dob, gender, address);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(LoadPatients.class.getName()).log(Level.SEVERE, null, ex);
         }

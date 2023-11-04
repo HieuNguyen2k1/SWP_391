@@ -85,6 +85,29 @@ public class AuthDao {
         }
         return true;
     }
+    
+    //=============== Add Patient by admin
+      public boolean createPatient(String name, String email, String password,String phone, String dob, boolean gender, String address) throws ClassNotFoundException {
+        String sql = "insert into patients(name, email, password, phone,dob, gender, address, is_verified,is_admin) values(?, ?, ?, ?, ?,?,?, ?,?);";
+        try {
+            this.connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, password);
+            preparedStatement.setString(4, phone);
+            preparedStatement.setString(5, dob);
+            preparedStatement.setBoolean(6, gender);
+            preparedStatement.setString(7, address);
+            preparedStatement.setBoolean(8, true);
+            preparedStatement.setBoolean(9, false);
+            preparedStatement.execute();
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 /*
     public boolean createDoctor(String name,String email, String password, String degree, int experience, int speciality_id,String image, String phone, String dob, boolean gender, String address){
         String sql = "insert into doctors(name,email, password,degree,experience,speciality_id,image,phone, dob, gender,address ) values(?, ?, ?, ?, ?,?,?, ?, ?, ?, ?)";
