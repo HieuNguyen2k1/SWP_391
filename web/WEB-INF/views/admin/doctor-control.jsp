@@ -35,7 +35,7 @@
                 <a href="${pageContext.request.contextPath}/admin/NewsControl"><i class="fa fa-calendar" aria-hidden="true"></i> Quản tin tức của bác sĩ</a><br>
             </div>
         </div>
-
+            <!-- thêm bác sĩ -->
         <div id="doctorFormContainer" class="col-md-8 border-right " style="display: none;">
             <c:if test="${status == \"error\"}"><p class="text-danger">${message}</p><br></c:if>
             <c:if test="${status == \"error\"}"><p class="text-danger">${mess}</p><br></c:if>

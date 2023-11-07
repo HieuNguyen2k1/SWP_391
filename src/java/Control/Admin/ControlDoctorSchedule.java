@@ -13,12 +13,13 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.servlet.http.HttpSession;
 
 public class ControlDoctorSchedule extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String url = "";
-        
+        HttpSession session = req.getSession(true);
         if (req.getParameter("_method") != null){
             int year = 0, weekNumber = 0;
             Doctor doctor = null;
@@ -32,6 +33,7 @@ public class ControlDoctorSchedule extends HttpServlet {
             req.setAttribute("doctors", doctors);
             if (req.getParameter("_method").equals("choose_doctor")){
                 int id = Integer.parseInt(req.getParameter("doctor_id"));
+                session.setAttribute("id_dt", id);
                 url += "_method=choose_doctor-doctor_id=" + id;
                 doctor = new DoctorDao().findByIdSchedule(id);
                 req.setAttribute("doctor", doctor);

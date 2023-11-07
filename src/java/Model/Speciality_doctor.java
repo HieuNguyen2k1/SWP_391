@@ -25,7 +25,11 @@ public class Speciality_doctor {
    public Speciality_doctor() {
        
     }
-   
+   public Speciality_doctor(  String name_special) {
+        
+       
+        this.name_special = name_special;
+    } 
    
    public Speciality_doctor( int doctor_id, String name_special) {
         

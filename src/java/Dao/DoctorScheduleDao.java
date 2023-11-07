@@ -276,7 +276,23 @@ public class DoctorScheduleDao {
             return false;
         }
     }
+     // duyệt 1 cell
     public boolean ApproveSchedule(int id) {
+        String sql = "UPDATE doctor_schedule SET status_schedule = 'approve' WHERE id = ?;";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+          
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    // duyệt nhiều cells
+     public boolean ApproveScheduleList(int id) {
         String sql = "UPDATE doctor_schedule SET status_schedule = 'approve' WHERE id = ?;";
         try {
             connection = ContactDB.makeConnection();

@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
     <head>
@@ -64,39 +65,20 @@
                                 <div class="row ml-2">
                                     <h4 class="mr-2 mt-4">Chuyên môn</h4>
                                     <div>
-                                        <c:forEach var = "item" items="${speciality_lists}">
-                                            <c:forEach var="item1" items="${speciality_doctor}">
-                                               
-                                                <c:if test="${item.getDoctor_id() eq item1.getId()}">
-                                                    <input type="checkbox" id="myCheckbox" name="myCheckbox" value="${item.getDoctor_id()}">
-                                                    <label for="myCheckbox">${item.getName_special()}</label><br>
-                                                    <p>hello</p>
+                                        <c:forEach var="item" items="${SpecialityList}">
+                                            <% boolean tick = false; %>
+                                            <c:forEach var="item1" items="${doctorSpeciality}">
+                                                <c:if test="${item.getName() eq item1.getName_special()}">  
+                                                    <%
+                                                        tick = true;
+                                                        
+                                                    %>
                                                 </c:if>
-                                                 <c:if test="${item.getDoctor_id()!= item1.getId()}">
-                                                    <input type="checkbox" id="myCheckbox" name="myCheckbox" value="${item.getDoctor_id()}">
-                                                    <label for="myCheckbox">${item.getName_special()}</label><br>
-                                                     <p>hello</p>
-                                                </c:if>
-                          
-<!--                                        <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
-                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="1">
-                                        <label for="myCheckbox">Khoa Tim Mạch</label><br>
-                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
-                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="2">
-                                        <label for="myCheckbox">Khoa Da Liễu</label><br>
-                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
-                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="3">
-                                        <label for="myCheckbox">Khoa Thần Kinh</label><br>
-                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
-                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="4">
-                                        <label for="myCheckbox">Khoa Tai Mũi Họng</label><br>
-                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
-                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="5">
-                                        <label for="myCheckbox">Khoa Sản</label><br>
-                                         <input type="checkbox" name="myCheckbox" ${item ? 'checked' : ''} />
-                                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="6">
-                                        <label for="myCheckbox">Khoa Chỉnh Hình</label><br>-->
                                             </c:forEach>
+                                            <input type="checkbox" name="updatecheckbox" value="${item.getId()}"
+                                                   <%= tick ? "checked" : ""%>/>
+                                            <label>${item.getName()}</label>
+                                            <br/>
                                         </c:forEach>
                                     </div>
                                 </div>

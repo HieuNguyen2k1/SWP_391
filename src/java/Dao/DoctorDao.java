@@ -70,6 +70,30 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
         }
         return true;
     }
+// update doctor
+    public boolean UpdateDoctor(int id, String name, String email, String degree, int experience, String phone, String dob, boolean gender, String address) {
+        String sql = "Update doctors set name = ?,email=?,degree=?,experience=?,phone=?, dob=?, gender=?,address=? where id=? ;";
+        
+        
+        try {
+            this.connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, degree);
+            preparedStatement.setInt(4, experience);
+            preparedStatement.setString(5, phone);
+            preparedStatement.setString(6, dob);
+            preparedStatement.setBoolean(7, gender);
+            preparedStatement.setString(8, address);
+            preparedStatement.setInt(9, id);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
     public boolean createDoctornoImage(String name, String email, String password, String degree, int experience, int speciality_id, String phone, String dob, boolean gender, String address) {
         String sql = "insert into doctors(name,email, password,degree,experience,speciality_id,phone, dob, gender,address ) values(?, ?, ?, ?, ?,?, ?, ?, ?, ?)";
@@ -335,28 +359,7 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
         }
     }
 
-    public boolean UpdateDoctor(int id, String name, String email, String degree, int experience, String phone, String dob, boolean gender, String address) {
-        try {
-            String sql = "update doctors set name = ?, email = ?, degree = ?, experience = ?,  phone = ?, dob = ?, gender = ?, address = ?, where id = ? ;";
-            connection = ContactDB.makeConnection();
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, email);
-            preparedStatement.setString(3, degree);
-            preparedStatement.setInt(4, experience);
-            preparedStatement.setString(5, phone);
-            preparedStatement.setString(6, dob);
-            preparedStatement.setBoolean(7, gender);
-            preparedStatement.setString(8, address);
-            preparedStatement.setInt(9, id);
-            preparedStatement.execute();
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+  
 
     public ArrayList<Review> getReviewByIdDoctor(int doctorid) throws ClassNotFoundException, SQLException {
         ArrayList<Review> reviewArray = new ArrayList<>();

@@ -12,12 +12,14 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -64,20 +66,21 @@ public class ApproveScheduleDoctor extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("doctor_id"));
-      
+         String method = request.getParameter("_method") ;
+        HttpSession session = request.getSession(false);
+         int iddt = (int) request.getSession().getAttribute("id_dt");
         String name = request.getParameter("name");
         DoctorScheduleDao doctorScheduleDao = new DoctorScheduleDao();
         try {
             if (name == null) {
                 doctorScheduleDao.ApproveSchedule(id);
-                    response.sendRedirect(request.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + id);
-                   
-                    //_method=choose_doctor&doctor_id=15
-                 
-            }else {
-                    doctorScheduleDao.YetSchedule(id);
-                    response.sendRedirect(request.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + id);
-                }
+                response.sendRedirect(request.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + iddt);
+
+                //_method=choose_doctor&doctor_id=15
+            } else {
+                doctorScheduleDao.YetSchedule(id);
+                response.sendRedirect(request.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + iddt);
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -92,9 +95,36 @@ public class ApproveScheduleDoctor extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest requestuest, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(requestuest, response);
+        String method = request.getParameter("_method") ;
+          HttpSession session = request.getSession(false);
+         int iddt = (int) request.getSession().getAttribute("id_dt");
+        String inputValue = request.getParameter("listcellids");
+        DoctorScheduleDao doctorScheduleDao = new DoctorScheduleDao();
+        List<String> myList = Arrays.asList(inputValue.split(","));
+        List<Integer> intList = new ArrayList<>();
+        System.out.println("Danh sách số nguyên: " + myList);
+        for (String str : myList) {
+            try {
+                int intValue = Integer.parseInt(str);
+                intList.add(intValue);
+                System.out.println("Danh sách số nguyên: " + intList);
+            } catch (NumberFormatException e) {
+                System.out.println("Chuỗi không hợp lệ: " + str);
+            }
+        }
+
+        System.out.println("Danh sách số nguyên: " + intList);
+        for (int id : intList) {
+            try {
+                doctorScheduleDao.ApproveSchedule(id);
+            } catch (NumberFormatException e) {
+                System.out.println("e");
+            }
+        }
+        response.sendRedirect(request.getContextPath() + "/admin/doctor-schedule-control?_method="+method+"&doctor_id="+iddt);
+//admin/doctor-schedule-control?_method=choose_doctor&doctor_id=15
     }
 
     /**

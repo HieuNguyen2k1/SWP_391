@@ -337,7 +337,7 @@
                         <div class="custom-container form-group mt-1 mb-1">
                             <label for="to_date">Đến ngày</label>
                             <input class="form-control" type="date" name="to_date" id="to_date">
-                            <!--                            <p><em>Để trống phần này nếu muốn chọn 1 ngày!</em></p>-->
+                                                        <p><em>Để trống phần này nếu muốn chọn 1 ngày!</em></p>
 
                         </div>
                         <div class="custom-container form-group mt-1 mb-1">

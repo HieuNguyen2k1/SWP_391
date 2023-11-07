@@ -34,14 +34,14 @@
                     </select>
                 </div>
             </div>
-        <button class="button-style custom-button">Xác nhận</button>
-<a href="${pageContext.request.contextPath}/admin" class="button-style custom-button">Quay lại</a>
+            <button class="button-style custom-button">Xác nhận</button>
+            <a href="${pageContext.request.contextPath}/admin" class="button-style custom-button">Quay lại</a>
 
         </form>
     </div>
     <div class="row">
 
-     
+
         <c:if test="${not empty doctor}" >
             <% doctor = (Doctor) request.getAttribute("doctor");%>
             <p>Bạn đang xem lịch của bác sĩ ${doctor.getName()} </p>
@@ -53,17 +53,208 @@
                     <input value="${current_week}" required class="form-control m-2" name="week" style="width: 200px; height: 30px"
                            type="week">
                     <button style="background-color:#007BFF" class="button-style">Hiển thị</button>
-                     
+
                 </div>
-                           
+
             </form>
-                          
+
             <p class="text-danger ml-5">${error}</p> <p class="text-success">${success}</p>
-             <button style="background-color:#007BFF; margin-bottom: 20px; margin-top: 0px; margin-left: 25%;" class="ml-5mr-5 button-style  custom-button" data-toggle="modal" data-target="#approveModel"  >Duyệt Lịch</button>
+            <div id="function" style="display:block;">
+                <button style="background-color:#007BFF" class="ml-5mr-5 button-style" data-toggle="modal" data-target="#addModel">Thêm lịch</button>
+                <button style="background-color:#007BFF; margin-bottom: 20px; margin-top: 0px; margin-left: 25%;" 
+                        class="ml-5mr-5 button-style  custom-button " id="btnapprove"  >Duyệt Lịch</button>
+            </div>
+
+
+
+            <!-- gửi list cell -->
+            <div id="functionConform" style="display: none;">
+                <form class="ml-5 mr-5" action="approve" method="post">
+                    <div>
+                         <input type="hidden" name="doctor_id" value="choose_doctor">
+                        <input type="hidden" name="_method" value="choose_doctor">
+                        <input type="hidden" id="listcellids" name="listcellids">
+
+                        <button style="background-color:#007BFF" class="button-style">Xác nhận</button>
+
+                    </div>
+
+                </form>
+            </div>
         </c:if>
-            
+
+        <!-- schedule table -->
+        <div style="display: block;" id="schedule">
+            <c:if test="${not empty table}">
+                <!--             <button style="background-color:#007BFF; margin-bottom: 10px; margin-left: 25%;" class="ml-5mr-5 button-style  custom-button" data-toggle="modal" data-target="#approveModel"  >Duyệt Lịch</button>-->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <% String[][] table = (String[][]) request.getAttribute("table"); %>
+                            <% for (int i = 0; i < 8; i++) {%>
+                            <th scope="col"><%= table[0][i]%>
+                            </th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <% SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");%>
+                    <% Date current_date = new Date(); %>
+                    <tbody>
+                        <% for (int i = 1; i < 20; i++) { %>
+                        <tr>
+                            <% for (int j = 0; j < 8; j++) { %>
+
+                            <%
+                                Date cell_date = new Date();
+                                try {
+                                    if (i >= 2 && j >= 1) {
+                                        cell_date = simpleDateFormat.parse(table[1][j] + " " + table[i][0].split("->")[1]);
+                                    }
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }%>
+                            <%--                        <% String style = ""; style= table[i][j] != null ? (table[i][j].equals("doctor schedule") ? "style='background-color: #FF515B'" : "") : ""; %>--%>
+                            <% String style = "";%>
+                            <%
+                                int compare = current_date.compareTo(cell_date);
+                                if (j == 0 || i == 1) {
+                                    out.print("<td>" + table[i][j].replaceAll("(\\d{1,2}:\\d{2}):\\d{2}->(\\d{1,2}:\\d{2}):\\d{2}", "$1-$2") + "</td>");
+                                }
+                                if (table[i][j] != null) { //  date
+                                    if (compare > 0) {// nếu như là ngày của quá khứ!
+                                        if (table[i][j].startsWith("patient app|")) { // có hẹn
+                                            String status = table[i][j].split("\\|")[2];
+                                            if (status.equals("not_yet")) {// chưa khám xanh dương
+                                                style = "style='background-color: #1FF0FF'";
+                                                out.print("<td " + style + "><input  title='Nhấn để xem' href='" + request.getContextPath() + "/doctor/appointment-detail?app_id=" + table[i][j].split("\\|")[1] + "'>Có hẹn</a></td>");
+                                            } else if (status.equals("canceled")) { // đã huỷ, đỏ
+                                                style = "style='background-color: #FF515B'";
+                                                out.print("<td " + style + "> được nghỉ</a></td>");
+                                            } else if (status.equals("finished")) {
+                                                style = "style='background-color: #84FF3C'";
+                                                out.print("<td " + style + "> Đã duyệt</a></td>");
+                                            }
+                                        } else {
+                                            style = "style='background-color: #B8B6B4'";// xam
+                                            out.print("<td " + style + ">chưa có hẹn</td>");
+                                        }
+                                    } else {
+                                        if (table[i][j].startsWith("doctor schedule|")) {
+                                            String status_schedule = table[i][j].split("\\|")[2];
+                                            if (status_schedule.equals("approve")) {
+                                                style = "style='background-color: #84FF3C';color : black;";
+                                                //                                        out.print("<td " + style + "><a href=''></a>chưa có hẹn</td>");
+                                                out.print("<td title='nhấn để xoá'" + style + "><a href='" + request.getContextPath() + "/admin/approve?doctor_id=" + table[i][j].split("\\|")[1] + "&name=yet" + table[i][j].split("\\|")[1] + "&_method=choose_doctor'>approved</a></td>");
+                                                //                                        out.print("<td " + style + "><a href='"+request.getContextPath()+"/doctor/delete-schedule?id="+ table[i][j].split("\\|")[3] +"'></a>chưa có hẹn</td>");
+                                            } else {
+                                                style = "style='background-color: #FFA500';color : black;";
+                                                //                                        out.print("<td " + style + "><a href=''></a>chưa có hẹn</td>");
+                                                out.print("<td title='nhấn để duyệt'" + style + "><a href='" + request.getContextPath() + "/admin/approve?doctor_id=" + table[i][j].split("\\|")[1] + "&_method=choose_doctor'>awaiting approve</a></td>");
+                                                //                                        out.print("<td " + style + "><a href='"+request.getContextPath()+"/doctor/delete-schedule?id="+ table[i][j].split("\\|")[3] +"'></a>chưa có hẹn</td>");
+                                            }
+                                        } else if (table[i][j].startsWith("patient app|")) { // có hẹn
+                                            String status = table[i][j].split("\\|")[2];
+                                            if (status.equals("not_yet")) {// chưa khám xanh dương
+                                                style = "style='background-color: #1FF0FF'";
+                                                out.print("<td " + style + "> chưa duyệt</a></td>");
+                                            } else if (status.equals("canceled")) { // đã huỷ, đỏ
+                                                style = "style='background-color: #FF515B'";
+                                                out.print("<td " + style + "> được nghỉ</a></td>");
+                                            } else if (status.equals("approved")) {
+                                                style = "style='background-color: #84FF3C'";
+                                                out.print("<td " + style + "> Đã duyệt</a></td>");
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    out.print("<td title='Nhấn để đặt lịch.'></td>");
+                                }
+                            %>
+                            <%--                        <td <%=style%> ><%=table[i][j] == null ? "" : table[i][j]%></td>--%>
+                            <% } %>
+                        </tr>
+                        <% }%>
+                    </tbody>
+                </table>
+                <table>
+                    <tr>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">
+                            <span style="color: #FF515B; font-size: 70px;">&#9632;</span>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">Đã huỷ</td>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">
+                            <span style="color: #84FF3C; font-size: 70px;">&#9632;</span>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">Đã khám</td>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">
+                            <span style="color: #1FF0FF; font-size: 70px;">&#9632;</span>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">Chưa khám</td>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">
+                            <span style="color: #B8B6B4; font-size: 70px;">&#9632;</span>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">Quá giờ</td>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">
+                            <span style="color: #FFA500; font-size: 70px;">&#9632;</span>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; padding: 10px;">Chưa có lịch hẹn</td>
+                    </tr>
+                </table>
+
+
+
+            </c:if>
+        </div>
+
+        <!-- modal Thêm duyệt Lịch -->
+        <div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-labelledby="addModel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="addschedule" method="post">
+                        <input type="hidden" name="_method" value="add_schedule">
+                         <input type="hidden" name="id" value="add_schedule">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Thêm lịch làm việc</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="custom-container form-group mb-1">
+                                <label for="from_date">Từ ngày</label>
+                                <input class="form-control" required type="date" name="from_date" id="from_date">
+                            </div>
+                            <div class="custom-container form-group mt-1 mb-1">
+                                <label for="to_date">Đến ngày</label>
+                                <input class="form-control" type="date" name="to_date" id="to_date">
+                                <!--                            <p><em>Để trống phần này nếu muốn chọn 1 ngày!</em></p>-->
+
+                            </div>
+                            <div class="custom-container form-group mt-1 mb-1">
+                                <label for="from">Từ (8h-17h)</label>
+                                <input class="form-control" min="8" max="17" step="0.5" required type="number" name="from" id="from">
+                            </div>
+                            <div class="custom-container form-group mt-1">
+                                <label for="to">Đến (8h-17h)</label>
+                                <input class="form-control" min="8" max="17" step="0.5" required type="number" name="to" id="to">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" style="background-color:#007BFF" class="button-style" data-dismiss="modal">Đóng</button>
+                            <button type="submit" style="background-color:#007BFF" class="button-style">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div> 
+    <!-- Phê duyệt Lịch table -->
+    <div style="display: none;" id="approve"> 
+        <p>hello</p>
         <c:if test="${not empty table}">
-<!--             <button style="background-color:#007BFF; margin-bottom: 10px; margin-left: 25%;" class="ml-5mr-5 button-style  custom-button" data-toggle="modal" data-target="#approveModel"  >Duyệt Lịch</button>-->
+            <!--             <button style="background-color:#007BFF; margin-bottom: 10px; margin-left: 25%;" class="ml-5mr-5 button-style  custom-button" data-toggle="modal" data-target="#approveModel"  >Duyệt Lịch</button>-->
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -103,17 +294,17 @@
                                         String status = table[i][j].split("\\|")[2];
                                         if (status.equals("not_yet")) {// chưa khám xanh dương
                                             style = "style='background-color: #1FF0FF'";
-                                            out.print("<td " + style + "><a title='Nhấn để xem' href='" + request.getContextPath() + "/doctor/appointment-detail?app_id=" + table[i][j].split("\\|")[1] + "'>Có hẹn</a></td>");
+                                            out.print("<td id= '" + table[i][j].split("\\|")[1] + "' " + style + ">Có hẹn</td>");
                                         } else if (status.equals("canceled")) { // đã huỷ, đỏ
                                             style = "style='background-color: #FF515B'";
-                                            out.print("<td " + style + "><a title='Nhấn để xem' href='" + request.getContextPath() + "/doctor/appointment-detail?app_id=" + table[i][j].split("\\|")[1] + "'>được nghỉ</a></td>");
+                                            out.print("<td id= '" + table[i][j].split("\\|")[1] + "'" + style + "> được nghỉ</td>");
                                         } else if (status.equals("finished")) {
                                             style = "style='background-color: #84FF3C'";
-                                            out.print("<td " + style + "><a title='Nhấn để xem' href='" + request.getContextPath() + "/doctor/appointment-detail?app_id=" + table[i][j].split("\\|")[1] + "'>Đã duyệt</a></td>");
+                                            out.print("<td id= '" + table[i][j].split("\\|")[1] + "' title='nhấn để xoá'" + style + ">Đã duyệt</td>");
                                         }
                                     } else {
                                         style = "style='background-color: #B8B6B4'";// xam
-                                        out.print("<td " + style + ">chưa có hẹn</td>");
+                                        out.print("<td id= '" + table[i][j].split("\\|")[1] + "' title='nhấn để xoá'" + style + ">chưa có hẹn</td>");
                                     }
                                 } else {
                                     if (table[i][j].startsWith("doctor schedule|")) {
@@ -121,25 +312,25 @@
                                         if (status_schedule.equals("approve")) {
                                             style = "style='background-color: #84FF3C';color : black;";
 //                                        out.print("<td " + style + "><a href=''></a>chưa có hẹn</td>");
-                                            out.print("<td title='nhấn để xoá'" + style + "><a href='" + request.getContextPath() + "/admin/approve?doctor_id=" + table[i][j].split("\\|")[1] + "&name=yet"+table[i][j].split("\\|")[1] +"'>approved</a></td>");
+                                            out.print("<td id= '" + table[i][j].split("\\|")[1] + "' title='nhấn để xoá'" + style + ">approved</td>");
 //                                        out.print("<td " + style + "><a href='"+request.getContextPath()+"/doctor/delete-schedule?id="+ table[i][j].split("\\|")[3] +"'></a>chưa có hẹn</td>");
                                         } else {
                                             style = "style='background-color: #FFA500';color : black;";
 //                                        out.print("<td " + style + "><a href=''></a>chưa có hẹn</td>");
-                                            out.print("<td title='nhấn để duyệt'" + style + "><a href='" + request.getContextPath() + "/admin/approve?doctor_id=" + table[i][j].split("\\|")[1] + "'>awaiting approve</a></td>");
+                                            out.print("<td id= '" + table[i][j].split("\\|")[1] + "' title='nhấn để xoá'" + style + ">awaiting approve</a></td>");
 //                                        out.print("<td " + style + "><a href='"+request.getContextPath()+"/doctor/delete-schedule?id="+ table[i][j].split("\\|")[3] +"'></a>chưa có hẹn</td>");
                                         }
                                     } else if (table[i][j].startsWith("patient app|")) { // có hẹn
                                         String status = table[i][j].split("\\|")[2];
                                         if (status.equals("not_yet")) {// chưa khám xanh dương
                                             style = "style='background-color: #1FF0FF'";
-                                            out.print("<td " + style + "><a title='Nhấn để xem' href='" + request.getContextPath() + "/doctor/appointment-detail?app_id=" + table[i][j].split("\\|")[1] + "'>chưa duyệt</a></td>");
+                                            out.print("<td id= '" + table[i][j].split("\\|")[1] + "' title='nhấn để xoá'" + style + "> chưa duyệt</td>");
                                         } else if (status.equals("canceled")) { // đã huỷ, đỏ
                                             style = "style='background-color: #FF515B'";
-                                            out.print("<td " + style + "><a title='Nhấn để xem' href='" + request.getContextPath() + "/doctor/appointment-detail?app_id=" + table[i][j].split("\\|")[1] + "'>được nghỉ</a></td>");
+                                            out.print("<td id= '" + table[i][j].split("\\|")[1] + "' title='nhấn để xoá'" + style + "> được nghỉ</td>");
                                         } else if (status.equals("approved")) {
                                             style = "style='background-color: #84FF3C'";
-                                            out.print("<td " + style + "><a title='Nhấn để xem' href='" + request.getContextPath() + "/doctor/appointment-detail?app_id=" + table[i][j].split("\\|")[1] + "'>Đã duyệt</a></td>");
+                                            out.print("<td id= '" + table[i][j].split("\\|")[1] + "' title='nhấn để xoá'" + style + "> Đã duyệt</td>");
                                         }
                                     }
                                 }
@@ -177,58 +368,16 @@
                     <td style="text-align: center; vertical-align: middle; padding: 10px;">Chưa có lịch hẹn</td>
                 </tr>
             </table>
-
-           
-
         </c:if>
-
-           <!-- Phê duyệt Lịch -->
-         <div class="modal fade" id="approveModel" tabindex="-1" role="dialog" aria-labelledby="approveModel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="approve" method="post">
-                    <input type="hidden" name="_method" value="approve_schedule">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Duyệt lịch làm việc</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="custom-container form-group mb-1">
-                            <label for="from_date">Từ ngày</label>
-                            <input class="form-control" required type="date" name="from_date" id="from_date">
-                        </div>
-                        <div class="custom-container form-group mt-1 mb-1">
-                            <label for="to_date">Đến ngày</label>
-                            <input class="form-control" type="date" name="to_date" id="to_date">
-                            <!--                            <p><em>Để trống phần này nếu muốn chọn 1 ngày!</em></p>-->
-
-                        </div>
-                        <div class="custom-container form-group mt-1 mb-1">
-                            <label for="from">Từ (8h-17h)</label>
-                            <input class="form-control" min="8" max="17" step="0.5" required type="number" name="from" id="from">
-                        </div>
-                        <div class="custom-container form-group mt-1">
-                            <label for="to">Đến (8h-17h)</label>
-                            <input class="form-control" min="8" max="17" step="0.5" required type="number" name="to" id="to">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" style="background-color:#007BFF" class="button-style" data-dismiss="modal">Đóng</button>
-                        <button type="submit" style="background-color:#007BFF" class="button-style">Lưu</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
-    </div>
-        
-        
-       
 
 </div>
-      
+
+
+
+
+
+
 
 <style>
     .button-style{
@@ -250,12 +399,12 @@
         font-size: 16px;
     }
 
-   
+
     a {
         text-decoration: none;
     }
 
-  
+
     .button-style {
         background-color: #234821;
         color: #ffffff;
@@ -280,32 +429,55 @@
     }
 
     .custom-button {
-    display: inline-block;
-    text-decoration: none;
-    color: white;
-    background-color: #007BFF;
-    padding: 8px 16px; /* Thiết lập padding cho các nút */
-    border: none;
-    border-radius: 5px; /* Kích thước viền cong */
-    margin: 5px; /* Khoảng cách giữa các nút (nếu cần) */
-    box-sizing: border-box; /* Đảm bảo padding và border không làm thay đổi kích thước */
-}
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        background-color: #007BFF;
+        padding: 8px 16px; /* Thiết lập padding cho các nút */
+        border: none;
+        border-radius: 5px; /* Kích thước viền cong */
+        margin: 5px; /* Khoảng cách giữa các nút (nếu cần) */
+        box-sizing: border-box; /* Đảm bảo padding và border không làm thay đổi kích thước */
+    }
 
 </style>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        const schedule = document.getElementById("schedule");
         const approve = document.getElementById("approve");
-        const option = document.getElementById("optionApprove");
-        const btnApprove = document.getElementById("approve3");
-        btnApprove.addEventListener("click", function () {
-            approve.style.display = "none";
-            option.style.display = "block";
-        })
+        const func = document.getElementById("function");
+        const func1 = document.getElementById("functionConform");
+        const btnapprove1 = document.getElementById("btnapprove");
+        btnapprove1.addEventListener("click", function () {
+            schedule.style.display = "none";
+            approve.style.display = "block";
+            func.style.display = "none";
+            func1.style.display = "block";
+        });
+        var cells = document.getElementsByTagName("td");
+        var listapprove = [];
+        for (var i = 0; i < cells.length; i++) {
+            var cell = cells[i];
+            cell.addEventListener("click", function () {
+                listapprove.push(this.id);
+//                 var index = listapprove .indexOf(cell);
+//                if (index === -1) {
+//                    // Nếu chưa được chọn, thêm cellId vào danh sách
+//                    listapprove.push(this.id);
+//                } else {
+//                    // Nếu đã được chọn, xóa cellId khỏi danh sách
+//                    listapprove.splice(index, 1);
+//                }
+                var myInput = document.getElementById("listcellids");
+                myInput.value = listapprove.join(",");
+            });
+        }
+
 
     });
 
-
+//   
 
 </script>
 

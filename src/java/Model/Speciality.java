@@ -24,4 +24,8 @@ public class Speciality {
         this.id = id;
         this.name = name;
     }
+     public Speciality( String name) {
+        
+        this.name = name;
+    }
 }

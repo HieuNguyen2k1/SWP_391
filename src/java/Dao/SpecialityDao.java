@@ -15,6 +15,25 @@ public class SpecialityDao {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    
+     //======================= get all speciality================//
+    public ArrayList<Speciality> getAllSpecialityUpdate() {
+        ArrayList<Speciality> list = new ArrayList<>();
+
+        String sql = " select * from specialities";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                list.add(new Speciality(resultSet.getInt("speciality_id"), resultSet.getString("speciality_name")));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     //======================= get all speciality================//
     public ArrayList<Speciality_doctor> getAllSpeciality1() {
         ArrayList<Speciality_doctor> list = new ArrayList<>();
@@ -74,6 +93,28 @@ public class SpecialityDao {
             return null;
         }
     }
+    
+     //================================= get all specialy of doctor
+    public ArrayList<Speciality_doctor> getAllSpecialityOfDoctorUpdate(int id) {
+        ArrayList<Speciality_doctor> list = new ArrayList<>();
+
+        String sql = " select doctors.id, specialities.* from doctors join speciality_doctor on doctors.id = speciality_doctor.doctor_id join specialities on speciality_doctor.speciality_id =specialities.speciality_id"
+                + " where id=?;";
+        try {
+            connection = ContactDB.makeConnection();
+            
+            preparedStatement = connection.prepareStatement(sql);
+             preparedStatement.setInt(1,id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                list.add(new Speciality_doctor(resultSet.getInt("speciality_id"), resultSet.getString("speciality_name")));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public boolean createSpecialityDoctor(int id_doctor, int id_speciality) {
         String sql = "insert into speciality_doctor(doctor_id,speciality_id) values(?,?)";
@@ -89,7 +130,36 @@ public class SpecialityDao {
             return false;
         }
     }
-
+    
+    public boolean UpdateSpecialityDoctor(int id_doctor, int id_speciality) {
+        String sql = "insert into speciality_doctor(doctor_id,speciality_id) values(?,?);";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setInt(1, id_doctor);
+            preparedStatement.setInt(2, id_speciality);
+            preparedStatement.execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+public boolean DeleteSpecialityDoctor(int id_doctor) {
+        String sql = "DELETE FROM speciality_doctor WHERE doctor_id=?;";
+               
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id_doctor);
+            preparedStatement.execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public boolean deleteSpeciality(int id) {
         String sql = "DELETE FROM speciality WHERE id = ?";
         try {
