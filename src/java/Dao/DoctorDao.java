@@ -178,7 +178,7 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
         }
         return doctorArrayList;
     }
-
+// ============================== on
     public boolean deleteDoctor(int id) {
         String sql = " UPDATE doctors SET status = ? WHERE id = ?";
         try {
@@ -194,7 +194,7 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
         }
     }
     //================================== Cập Nhật trạng thái hoạt động
-
+//================================= on
     public boolean onStatus(int id) {
         String sql = " UPDATE doctors SET status = ? WHERE id = ?";
         try {
@@ -210,7 +210,7 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
         }
     }
     //==================================Search Doctor 
-
+//====================================== on
     public ArrayList<Doctor> searchDoctor(String name, int spe_id) throws SQLException, ClassNotFoundException {
         ArrayList<Doctor> doctorArrayList = new ArrayList<>();
         connection = ContactDB.makeConnection();
@@ -360,11 +360,10 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
     }
 
   
-
+//========================== on
     public ArrayList<Review> getReviewByIdDoctor(int doctorid) throws ClassNotFoundException, SQLException {
         ArrayList<Review> reviewArray = new ArrayList<>();
-        String sql = "select r.* , p.name from review r, patients p \n"
-                + "where r.patientid = p.id and r.doctorid = ?";
+        String sql = "select review.* , patients.name from review JOIN patients ON doctor_id =? and review.patient_id = patients.id ;";
         connection = new ContactDB().makeConnection();
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, doctorid);
@@ -381,23 +380,19 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
         }
         return reviewArray;
     }
-
-    public boolean updateDoctor(String name, String degree, int experience,
-            int speciality_id, String phone, String dob, boolean gender, String address, int id) {
-        String sql = "update doctors set name = ?, degree = ?, experience = ?,"
+//======================== on
+    public boolean updateDoctor(String name, String degree, String phone, String dob, boolean gender, String address, int id) {
+        String sql = "update doctors set name = ?,"
                 + "phone = ?,  dob = ?, gender = ?, address = ? where id = ?";
         try {
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, degree);
-            preparedStatement.setInt(3, experience);
-
-            preparedStatement.setString(4, phone);
-            preparedStatement.setString(5, dob);
-            preparedStatement.setBoolean(6, gender);
-            preparedStatement.setString(7, address);
-            preparedStatement.setInt(8, id);
+            preparedStatement.setString(3, dob);
+            preparedStatement.setBoolean(4, gender);
+            preparedStatement.setString(5, address);
+            preparedStatement.setInt(6, id);
             preparedStatement.execute();
             return true;
         } catch (ClassNotFoundException | SQLException e) {
@@ -458,7 +453,7 @@ JOIN specialities  ON speciality_doctor.speciality_id = specialities.speciality_
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         DoctorDao a = new DoctorDao();
-        a.updateDoctor("son", "thac si", 10, 2, "099921232", "2012/12/30", true, "Quang nam", 1);
+       
 
     }
 }

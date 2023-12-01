@@ -31,8 +31,8 @@
             <div class="custom-menu">
                 <a href="${pageContext.request.contextPath}/admin/doctor-control"><i class="fas fa-users"></i> Quản lý bác sĩ</a><br>
                 <a href="${pageContext.request.contextPath}/admin/patients-control"><i class="fas fa-users"></i> Quản lý bệnh nhân</a><br>
-                <a href="${pageContext.request.contextPath}/admin/news-control"><i class="fas fa-users"></i> Quản lý tin tức</a><br>
                 <a href="${pageContext.request.contextPath}/admin/doctor-schedule-control"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý lịch của bác sĩ</a><br>
+                <a href="${pageContext.request.contextPath}/admin/NewsControl"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý tin tức </a><br>
 
             </div>
         </div>
@@ -72,7 +72,7 @@
     </div>
                 </div>
                 <input class="form-control" type="hidden" name="_method" value="">
-                <button class="button-style" style="background-color:#007BFF" type="submit">Xác Nhận</button>
+                <button class=" button-style" style="background-color:#095c68"  type="submit">Xác Nhận</button>
             </form>
 
             <br>
@@ -107,7 +107,7 @@
     </div>
 
 </div>
-<style>
+<!--<style>
     body {
         font-size: 19px; /* Set the desired font size */
     }
@@ -127,7 +127,41 @@
         font-weight: bold;
         cursor: pointer;
     }
+</style>-->
+<style>
+     body {
+        font-size: 19px; /* Set the desired font size */
+    }
+    .custom-container {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+    .custom-menu a {
+        color: #333;
+        text-decoration: none;
+        display: block;
+    }
+    .custom-menu a:hover {
+        background-color: #13C5DD;
+        border-radius: 5px;
+        padding: 2px 2px;
+    }
+    .form-control{
+        font-size: 12px;
+    }
+    .button-style {
+        background-color: #0f9bae;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 </style>
 
 
-
+<%@ include file="/include/footer.jsp" %>

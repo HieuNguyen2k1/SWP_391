@@ -46,8 +46,10 @@
             <div class="col-md-5" >
                 <div class="row">
                     <div class="col-md-4" style="position: relative;">
-                        <img style="border-radius: 50%;width: 200px; height: 200px; object-fit: cover"
-                             src="${pageContext.request.contextPath}/${doctor.image}" alt="">
+                 <!--       <img style="border-radius: 50%;width: 200px; height: 200px; object-fit: cover"
+                             src="${pageContext.request.contextPath}/${doctor.image}" alt="">-->
+                                                                     <img class="rounded-circle" width="150px" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png">
+
                     </div>
                     <div class="col-md-8">
                         <div class="row">

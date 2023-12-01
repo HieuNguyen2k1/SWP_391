@@ -140,6 +140,11 @@
             <button class="button">Huỷ lịch</button>
         </a>
     </c:if>
+    <c:if test="${app.getStatus() == 'finished'}">
+        <a href="${pageContext.request.contextPath}/PatientViewRecord?id_patient=${patient.getId()}&id_app=${app.getId()}&id_pre=${id_pre}">
+            <button class="button">view Record</button>
+        </a>
+    </c:if>
     <br><br>
     <c:if test="${app.getStatus() == 'finished'}">
         <form action="review" method="">

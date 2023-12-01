@@ -175,9 +175,9 @@ body {
     position: absolute;
     width: 500px;
     height: 500px;
-    border-radius: 50%;
-    background-color: #1ed3ec;
-    box-shadow: inset 8px 8px 12px #d1d9e6, inset -8px -8px 12px #f9f9f9;
+/*    border-radius: 50%;*/
+    background-color: #f9f9f9;
+/*    box-shadow: inset 8px 8px 12px #d1d9e6, inset -8px -8px 12px #f9f9f9;*/
     bottom: -60%;
     left: -60%;
     transition: 1.25s;

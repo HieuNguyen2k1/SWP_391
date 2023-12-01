@@ -31,11 +31,13 @@
                 <a href="${pageContext.request.contextPath}/admin/doctor-control"><i class="fas fa-users"></i> Quản lý bác sĩ</a><br>
                 <a href="${pageContext.request.contextPath}/admin/patients-control"><i class="fas fa-users"></i> Quản lý bệnh nhân</a><br>
                 <a href="${pageContext.request.contextPath}/admin/doctor-schedule-control"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý lịch của bác sĩ</a><br>
-                <a href="${pageContext.request.contextPath}/admin/NewsControl"><i class="fa fa-calendar" aria-hidden="true"></i> Quản tin tức của bác sĩ</a><br>
+                <a href="${pageContext.request.contextPath}/admin/NewsControl"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý tin tức</a><br>
             </div>
         </div>
 
         <div id="doctorFormContainer" class="col-md-8 border-right " style="display: none;">
+            <button id="showOtherBlockButton" class=" button-style">Hiển thị danh sách bệnh nhân</button>
+
             <c:if test="${status == \"error\"}"><p class="text-danger">${mess}</p><br></c:if>
             <c:if test="${status == \"success\"}"><p class="text-success">${mess}</p><br></c:if>
             <%--        Form Start--%>
@@ -86,10 +88,9 @@
                 <input class="form-control" type="hidden" name="_method" value="">
 
 
-                <button style="background-color:#007BFF" class="button-style" type="submit">Xác nhận</button>
+                <button style="background-color:#095c68" class="button-style" type="submit">Xác nhận</button>
             </form>
 
-            <button id="showOtherBlockButton">Hiển thị danh sách bệnh nhân</button>
 
         </div>
 
@@ -97,7 +98,7 @@
 
 
         <div id="otherBlockContainer" class="col-md-8 border-right">
-            <button id="showDoctorFormButton">Tạo mới bệnh nhân</button>
+            <button id="showDoctorFormButton" class=" button-style">Tạo mới bệnh nhân</button>
 
             <div class="p-3 py-5">
                 <table class="table" border="1" id="table">
@@ -135,9 +136,36 @@
     </div>
 </div>
 
-<style>
+<!--<style>
     .button-style{
         background-color: #234821;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>-->
+
+<style>
+
+    .custom-menu a {
+        color: #333;
+        text-decoration: none;
+        display: block;
+    }
+    .custom-menu a:hover {
+        background-color: #13C5DD;
+        border-radius: 5px;
+        padding: 2px 2px;
+    }
+    .form-control{
+        font-size: 12px;
+    }
+    .button-style {
+        background-color: #0f9bae;
         color: #ffffff;
         border: none;
         padding: 10px 20px;
@@ -175,3 +203,4 @@
         }
     });
 </script>
+<%@ include file="/include/footer.jsp" %>

@@ -38,6 +38,23 @@ public class PatientDao {
         }
         return true;
     }
+    //============================
+     public boolean UpdateBloodPatient(int id, String group_blood) {
+        String sql = "update patients set blood_group = ? where id = ?";
+        try {
+            connection = ContactDB.makeConnection();
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, group_blood);
+            preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 
     public boolean emailExist(String email) throws SQLException, ClassNotFoundException {
         String sql = "select count(id) from patients where email = ?";
@@ -81,7 +98,8 @@ public class PatientDao {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getBoolean(7), resultSet.getString(8), resultSet.getBoolean(9), resultSet.getString(10), resultSet.getBoolean(11));
+                User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(7), resultSet.getBoolean(8),
+                        resultSet.getString(6), resultSet.getBoolean(12), resultSet.getString(9), resultSet.getBoolean(10),resultSet.getString(13));
                 return user;
             }
         } catch (Exception e) {
@@ -99,7 +117,10 @@ public class PatientDao {
             preparedStatement.setString(1, key);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getBoolean(7), resultSet.getString(8), resultSet.getBoolean(9), resultSet.getString(10), resultSet.getBoolean(11));
+              //  int id, String name, String email, String password, String phone,7String dob, 8 boolean gender,
+              //6 String address, 11boolean is_admin, 9String verify_key,10 boolean is_verified
+                User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(7), resultSet.getBoolean(8),
+                        resultSet.getString(6), resultSet.getBoolean(12), resultSet.getString(9), resultSet.getBoolean(10),resultSet.getString(13));
                 return user;
             }
         } catch (Exception e) {
@@ -129,13 +150,13 @@ public class PatientDao {
             return false;
         }
     }
-
+//================ ọn
     public void insertReview(String cmt, int rating, int doctorid, int patientID) {
         LocalDateTime currentDate = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDate = currentDate.format(formatter);
 
-        String query = "insert into review(cmt, rating, dateUp ,doctorid, patientID)\n"
+        String query = "insert into review(cmt, rating, dateUp ,doctor_id, patient_id)\n"
                 + " values(?,?,?,?,?);";
         try {
             connection = ContactDB.makeConnection();
@@ -151,7 +172,7 @@ public class PatientDao {
     }
 
     public void getReviewbyId(int patientID) {
-        String query = "select * from Review where patientid = ?";
+        String query = "select * from review where patient_id = ?";
         try {
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(query);

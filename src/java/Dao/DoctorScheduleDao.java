@@ -46,7 +46,7 @@ public class DoctorScheduleDao {
         String end_time = date + " " + generateTime(end);
         String sql = "";
         for (float i = start; i < end; i += 0.5) {
-            sql += "insert into doctor_schedule(doctor_id, start, [end],status_schedule) values (?, ?, ?,?);";
+            sql += "insert into doctor_schedule(doctor_id, start, [end]) values (?, ?, ?);";
         }
         try {
             connection = ContactDB.makeConnection();
@@ -56,8 +56,8 @@ public class DoctorScheduleDao {
                 preparedStatement.setInt(paraNum, doctor_id);
                 preparedStatement.setString(paraNum + 1, date + " " + generateTime(i));
                 preparedStatement.setString(paraNum + 2, date + " " + generateTime((float) (i + 0.5)));
-                preparedStatement.setString(paraNum + 3, "yet");
-                paraNum += 4;
+                
+                paraNum += 3;
             }
             preparedStatement.execute();
             return true;
@@ -129,7 +129,7 @@ public class DoctorScheduleDao {
         String sql = "";
         for (LocalDate date : datesInRange) {
             for (float i = start; i < end; i += 0.5) {
-                sql += "insert into doctor_schedule(doctor_id, start, [end],status_schedule) values (?, ?, ?,?);";
+                sql += "insert into doctor_schedule(doctor_id, start, [end]) values (?, ?, ?);";
             }
         }
         try {
@@ -141,8 +141,8 @@ public class DoctorScheduleDao {
                     preparedStatement.setInt(paraNum, doctor_id);
                     preparedStatement.setString(paraNum + 1, date + " " + generateTime(i));
                     preparedStatement.setString(paraNum + 2, date + " " + generateTime((float) (i + 0.5)));
-                    preparedStatement.setString(paraNum + 3, "yet");
-                    paraNum += 4;
+                    
+                    paraNum += 3;
                 }
             }
             preparedStatement.execute();
@@ -178,7 +178,7 @@ public class DoctorScheduleDao {
         last_date_week = last_date_week + " 18:00:00";
         String sql = "  SELECT doctor_schedule.*, appointments.id as app_id,"
                 + " appointments.* from doctor_schedule left join appointments on doctor_schedule.id = appointments.doctor_schedule_id"
-                + " where doctor_id = ? and start > ? and [end] < ?;";
+                + " where doctor_schedule.doctor_id = ? and start > ? and [end] < ?;";
         try {
             connection = ContactDB.makeConnection();
             preparedStatement = connection.prepareStatement(sql);
@@ -194,12 +194,12 @@ public class DoctorScheduleDao {
                         resultSet.getString("end"),
                         resultSet.getInt("app_id"),
                         resultSet.getInt("patient_id"),
-                        resultSet.getString("status_schedule"),
                         resultSet.getString("status"),
                         resultSet.getString("note")
                 )
                 );
             }
+           
             return doctorScheduleArrayList;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -228,7 +228,6 @@ public class DoctorScheduleDao {
                         resultSet.getString("end"),
                         resultSet.getInt("app_id"),
                         resultSet.getInt("patient_id"),
-                        resultSet.getString("status_schedule"),
                         resultSet.getString("status"),
                         resultSet.getString("note")
                 )
@@ -262,48 +261,5 @@ public class DoctorScheduleDao {
     }
 
     
-     public boolean YetSchedule(int id) {
-        String sql = "UPDATE doctor_schedule SET status_schedule = 'yet' WHERE id = ?;";
-        try {
-            connection = ContactDB.makeConnection();
-            preparedStatement = connection.prepareStatement(sql);
-          
-            preparedStatement.setInt(1, id);
-            preparedStatement.execute();
-            return true;
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-     // duyệt 1 cell
-    public boolean ApproveSchedule(int id) {
-        String sql = "UPDATE doctor_schedule SET status_schedule = 'approve' WHERE id = ?;";
-        try {
-            connection = ContactDB.makeConnection();
-            preparedStatement = connection.prepareStatement(sql);
-          
-            preparedStatement.setInt(1, id);
-            preparedStatement.execute();
-            return true;
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    // duyệt nhiều cells
-     public boolean ApproveScheduleList(int id) {
-        String sql = "UPDATE doctor_schedule SET status_schedule = 'approve' WHERE id = ?;";
-        try {
-            connection = ContactDB.makeConnection();
-            preparedStatement = connection.prepareStatement(sql);
-          
-            preparedStatement.setInt(1, id);
-            preparedStatement.execute();
-            return true;
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+   
 }

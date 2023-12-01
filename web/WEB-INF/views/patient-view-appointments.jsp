@@ -1,5 +1,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 <!DOCTYPE html>
 
 
@@ -35,33 +36,56 @@
         <p style="color: red">${error}</p>
     </c:if>
     <div>
-        <a href="${pageContext.request.contextPath}/patient/view-appointments?method=finished" class="button-style custom-button">Lịch sử khám</a>
-        <a href="${pageContext.request.contextPath}/patient/view-appointments?method=not-yet" class="button-style custom-button">Cuộc hẹn chưa khám</a>
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/patient/view-appointments?method=finished" class="button-style custom-button">Lịch sử khám</a>
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/patient/view-appointments?method=not-yet" class="button-style custom-button">Cuộc hẹn chưa khám</a>
     </div>
     <table class="table table-bordered table-striped" id="table">
         <thead class="thead-dark">
             <tr>
                 <th>Trạng thái</th>
                 <th>Lời nhắn</th>
-                <th>Thời gian bắt đầu</th>
-                <th>Thời gian kết thúc</th>
+                    <c:if test="${records ==null  }">
+                    <th>Thời gian bắt đầu</th>
+                    <th>Thời gian kết thúc</th>
+                    </c:if>
+                    <c:if test="${records !=null  }">
+                    <th>Thời gian khám</th>
+
+                </c:if>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${appointments}" var="item">
-                <tr>
+            
+                <c:forEach items="${appointments}" var="item">
+                    <tr>
+
                     <td>${item.getStatus()}</td>
                     <td>${item.getNote()}</td>
-                    <td>${item.getStart()}</td>
-                    <td>${item.getEnd()}</td>
-                    <td class="button-container">
-                        <a href="${pageContext.request.contextPath}/patient/appointment-detail?app_id=${item.id}&doc_id=${item.getDoctor_id()}" class="btn btn-primary">Nhấn để xem chi tiết</a>
-                    </td>
-                </tr>
-            </c:forEach>
+
+                    <c:if test="${records == null}">
+                        <td>${item.getStart()}</td>
+                        <td>${item.getEnd()}</td>
+                        <td class="button-container">
+                            <a href="${pageContext.request.contextPath}/patient/appointment-detail?app_id=${item.id}&doc_id=${item.getDoctor_id()}" class="btn btn-primary">Nhấn để xem chi tiết</a>
+                        </td>
+                        
+                    </c:if>
+
+
+                </c:forEach>
+                <c:if test="${records != null}">
+                    <c:forEach items="${records}" var="items">
+                        <td>${items.getTime()}</td>
+                        <td class="button-container">
+                            <a href="${pageContext.request.contextPath}/patient/appointment-detail?app_id=${item.id}&doc_id=${item.getDoctor_id()}" class="btn btn-primary">Nhấn để xem chi tiết</a>
+                        </td>
+                    </c:forEach>
+                </c:if>
+            </tr>
         </tbody>
     </table>
+
 </div>
 
 

@@ -86,10 +86,11 @@ public class Table {
             }
             time += 0.5;
         }
+        System.out.println(doctorScheduleArrayList);
         if (doctorScheduleArrayList == null) {
             return table;
         } else {
-            for (int i = 2; i < 20; i++) {
+           for (int i = 2; i < 20; i++) {
                 for (int j = 1; j < 8; j++) {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date cell_time_start = simpleDateFormat.parse(table[1][j] + " " + table[i][0].split("->")[0]);
@@ -99,15 +100,16 @@ public class Table {
                         Date doctor_schedule_end = simpleDateFormat.parse(doctorScheduleArrayList.get(k).end);
                         if (cell_time_start.compareTo(doctor_schedule_start) >=0 && cell_time_end.compareTo(doctor_schedule_end) <=0){
                             if (doctorScheduleArrayList.get(k).getApp_id() != 0){ // co hen
-                                table[i][j] = "patient app|" + doctorScheduleArrayList.get(k).getApp_id() + "|" + doctorScheduleArrayList.get(k).getStatus_app() + "|" + doctorScheduleArrayList.get(k).id;
+                                table[i][j] = "patient app|" + doctorScheduleArrayList.get(k).getApp_id() + "|" + doctorScheduleArrayList.get(k).getStatus() + "|" + doctorScheduleArrayList.get(k).id;
                                 // patient app|1|finished|1
                             } else {
-                                table[i][j] = "doctor schedule|" + doctorScheduleArrayList.get(k).id+ "|" + doctorScheduleArrayList.get(k).getStatus();
+                                table[i][j] = "doctor schedule|" + doctorScheduleArrayList.get(k).id;
                             }
                         }
                     }
                 }
             }
+            //==
         }
         return table;
     }

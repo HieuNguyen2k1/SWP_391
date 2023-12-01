@@ -32,11 +32,12 @@
                 <a href="${pageContext.request.contextPath}/admin/doctor-control"><i class="fas fa-users"></i> Quản lý bác sĩ</a><br>
                 <a href="${pageContext.request.contextPath}/admin/patients-control"><i class="fas fa-users"></i> Quản lý bệnh nhân</a><br>
                 <a href="${pageContext.request.contextPath}/admin/doctor-schedule-control"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý lịch của bác sĩ</a><br>
-                <a href="${pageContext.request.contextPath}/admin/NewsControl"><i class="fa fa-calendar" aria-hidden="true"></i> Quản tin tức của bác sĩ</a><br>
+                <a href="${pageContext.request.contextPath}/admin/NewsControl"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý tin tức </a><br>
             </div>
         </div>
-            <!-- thêm bác sĩ -->
+        <!-- thêm bác sĩ -->
         <div id="doctorFormContainer" class="col-md-8 border-right " style="display: none;">
+            <button id="showOtherBlockButton" class=" button-style">Hiển thị danh sách bác sĩ</button>
             <c:if test="${status == \"error\"}"><p class="text-danger">${message}</p><br></c:if>
             <c:if test="${status == \"error\"}"><p class="text-danger">${mess}</p><br></c:if>
             <c:if test="${status == \"success\"}"><p class="text-success">${mess}</p><br></c:if>
@@ -82,7 +83,7 @@
 
 
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -118,15 +119,14 @@
                     <input class="form-control" type="hidden" name="_method" value="">
 
 
-                    <button style="background-color:#007BFF" class="button-style" type="submit">Xác nhận</button>
+                    <button style="background-color:#095c68" class="button-style" type="submit">Xác nhận</button>
                 </form>
-                <button id="showOtherBlockButton">Hiển thị danh sách bác sĩ</button>
 
             </div>
             <!--        <div class="col-md-4">-->
             <div id="otherBlockContainer" class="col-md-8 border-right">
-                <button id="showDoctorFormButton">Tạo mới bác sĩ</button>
 
+                <button id="showDoctorFormButton" class=" button-style" type="submit">Tạo mới bác sĩ</button>                     
                 <div class="p-3 py-5">
                     <table class="table" border="1">
                         <tr>
@@ -166,7 +166,7 @@
                             <td>${item.getDob()}</td>
                             <td>${item.getAddresses()}</td>
                             <th>
-                                     <c:if test="${item.isStatus() eq true}" >
+                                <c:if test="${item.isStatus() eq true}" >
                                     <a style="color: green;" href="${pageContext.request.contextPath}/admin/StatusDoctor?doc_id=${item.getId()}&&status=${item.isStatus()}">
                                         <i id="name${item.getId()}"  class="fa fa-toggle-on"  "></i> Trạng Thái</a><br>
                                     </c:if>
@@ -174,18 +174,18 @@
                                     <a style="color: red;" href="${pageContext.request.contextPath}/admin/StatusDoctor?doc_id=${item.getId()}&&status=${item.isStatus()}">
                                         <i id="name${item.getId()}"  class="fa fa-toggle-off"  "></i> Trạng Thái</a><br>
                                     </c:if> 
-                                        
-                                       <a  role="button" class="fa fa-edit" title="Chỉnh sửa" 
-                                       style="color:black; margin-top: 10px; border:none;" 
-                                       href="${pageContext.request.contextPath}/admin/update-doctor?did=${item.getId()}"> Chỉnh sửa</a><br>
-<!--                                    
 
-
-
-                                <form action="" method="post">
-                                    <!--<input class="form-control" type="hidden" name="_method" value="DELETE">-->
-                                    <!--<input class="form-control" type="hidden" name="_method" value="STATUSD">-->
-                                    <input class="form-control" type="hidden" name="id" value="${item.id}">
+                                <a  role="button" class="fa fa-edit" title="Chỉnh sửa" 
+                                    style="color:black; margin-top: 10px; border:none;" 
+                                    href="${pageContext.request.contextPath}/admin/update-doctor?did=${item.getId()}"> Chỉnh sửa</a><br>
+                                <!--                                    
+                                
+                                
+                                
+                                                                <form action="" method="post">
+                                <!--<input class="form-control" type="hidden" name="_method" value="DELETE">-->
+                                <!--<input class="form-control" type="hidden" name="_method" value="STATUSD">-->
+                                <input class="form-control" type="hidden" name="id" value="${item.id}">
 
                                 </form>
 <!--                                <a href="${pageContext.request.contextPath}/admin/update-doctor?doc_id=${item.id}"><button class="fa fa-edit" title="Chỉnh sửa" 
@@ -203,9 +203,40 @@
 
 <script src="../../../assets/js/crudDoctor.js" type="text/javascript"></script>
 
-<style>
+<!--<style>
     .button-style{
         background-color: #234821;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>-->
+
+<style>.custom-menu {
+
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .custom-menu a {
+        color: #333;
+        text-decoration: none;
+        display: block;
+    }
+    .custom-menu a:hover {
+        background-color: #13C5DD;
+        border-radius: 5px;
+        padding: 2px 2px;
+    }
+    .form-control{
+        font-size: 12px;
+    }
+    .button-style {
+        background-color: #0f9bae;
         color: #ffffff;
         border: none;
         padding: 10px 20px;
@@ -245,11 +276,6 @@
             doctorFormContainer.style.display = "block";
         }
     });
-
-
-
-
-
 
 </script>
 

@@ -49,14 +49,14 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
             <a href="${pageContext.request.contextPath}" class="navbar-brand">
-                <h1 class="m-0 text-uppercase text-primary"><i class="fa fa-clinic-medical me-2"></i>Medinova</h1>
+                <h1 class="m-0 text-uppercase  "style="color: #5475e3;"><i class="fa fa-clinic-medical me-2" style="color: #5475e3;"></i>Medinova</h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="index.jsp" class="nav-item nav-link active">Trang Chủ</a>
+                    <a href="${pageContext.request.contextPath}" class="nav-item nav-link active">Trang Chủ</a>
                     <a href="about.jsp" class="nav-item nav-link">Chúng tôi</a>
                      <a href="${pageContext.request.contextPath}/news" class="nav-item nav-link">Tin Tức</a>
 
@@ -128,3 +128,6 @@
     </div>
 </div>
 <!-- Navbar End -->
+<style>
+    
+</style>

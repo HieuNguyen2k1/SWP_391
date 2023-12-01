@@ -100,7 +100,7 @@
         font-size: 12px;
     }
     .button-style {
-        background-color: #234821;
+        background-color:  #5475e3;
         color: #ffffff;
         border: none;
         padding: 10px 20px;

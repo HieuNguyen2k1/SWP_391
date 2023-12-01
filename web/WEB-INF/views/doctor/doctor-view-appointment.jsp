@@ -13,8 +13,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/home.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
-    <div class="custom-container">
+    <div id="1" class="custom-container" style="display:block;">
+        <p class="text-danger" style="text-align: center">${mess}</p>
         <p class="text-danger">${error != null ? error : ""}</p>
         <p class="text-success">${success != null ? success : ""}</p>
         <ul>
@@ -29,69 +31,125 @@
         <form action="" method="post">
             <div class="row ml-1">
                 <li>Tình trạng</li>
-                <select name="status" id="">
-                    <option value="finished" ${app.getStatus() == "finished" ? "selected" : ""}>Đã khám</option>
-                    <option value="canceled" ${app.getStatus() == "canceled" ? "selected" : ""}>Đã huỷ</option>
-                    <option value="not_yet" ${app.getStatus() == "not_yet" ? "selected" : ""}>Chưa khám</option>
+                <select name="status" id="select">
+                    <option value="finished" ${ (Update == 'update' || app.getStatus() == "finished") ? "selected" : ""}>Đã khám</option>
+                    <option id="canceled" value="canceled" ${app.getStatus() == "canceled" ? "selected" : ""}>Đã huỷ</option>
+                    <option value="not_yet" ${app.getStatus() == "not_yet" && Update == 'null'  ? "selected" : ""}>Chưa khám</option>
                 </select>
             </div>
-            <button class="button">Cập nhật</button>
+            <c:if test="${app.getStatus() eq 'not_yet' || app.getStatus() eq 'canceled'}">
+                <a class="btn btn-primary" id="record" href="${pageContext.request.getContextPath()}/doctor/MedicalRecord?id_patient=${patient.getId()}&id_app=${app.getId()}&id_doctor=${id_doctor}">Tạo bệnh án</a>
 
+                <button type="submit" id="submit" class="button"  onclick="handleButtonClick()" >Cập nhật</button>
+            </c:if>
+            <c:if test="${app.getStatus() eq 'finished'}">
+                <a class="btn btn-primary" id="record" href="${pageContext.request.getContextPath()}/PatientViewRecord?id_patient=${patient.getId()}&id_app=${app.getId()}&id_doctor=${id_doctor}&id_pre=${id_pre}">Xem bệnh án</a>
 
+            </c:if>
         </form>
-     
+
 
     </div>
-    <div>
-        <div class="container">
-            <h1>Form Hồ sơ bệnh án</h1>
 
-            <form action="MedicalRecord" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="patientName">Họ và tên:</label>
-                    <input type="text" id="patientName" name="patientName" class="form-control" required>
-                </div>
 
-                <div class="form-group">
-                    <label for="age">Tuổi:</label>
-                    <input type="number" id="age" name="age" class="form-control" required>
-                </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var button = document.getElementById("submit");
+            var optioncancel = document.getElementById("select");
+            var the_a = document.getElementById("record");
+            var update1 = '${Update}';
+            console.log(update1);
+            if (update1 === "null") {
+                button.disabled = true;
+            } else if (update1 === "update") {
+                button.disabled = false;
+                //============== click button cần tương tác từ người dùng
+                
+               document.getElementById("submit").click();
 
-                <div class="form-group">
-                    <label for="gender">Giới tính:</label>
-                    <select id="gender" name="gender" class="form-control" required>
-                        <option value="Nam">Nam</option>
-                        <option value="Nữ">Nữ</option>
-                    </select>
-                </div>
+                // kích hoạt nút update
 
-                <div class="form-group">
-                    <label for="symptoms">Triệu chứng:</label>
-                    <textarea id="symptoms" name="trieuchung" rows="5" class="form-control" required></textarea>
-                </div>
+//                window.onload = function () {
+//                    var xhr = new XMLHttpRequest();
+//                    xhr.open("POST", "appointment-details", true);
+//                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//                    xhr.send();
+//                };
 
-                <div class="form-group">
-                    <label for="diagnosis">Chuẩn đoán:</label>
-                    <textarea id="diagnosis" name="chuandoan" rows="5" class="form-control" required></textarea>
-                </div>
+//                $(document).ready(function () {
+//                    $.ajax({
+//                        url: "appointment-details",
+//                        type: "POST",
+//                        success: function (response) {
+//                            console.log("Button activated!");
+//                        }
+//                    });
+//                });
 
-                <div class="form-group">
-                    <label for="fileUpload">Tệp tin:</label>
-                    <input type="file" id="fileUpload" name="fileUpload" class="form-control-file">
-                </div>
+            }
+            //========================
+            function handleButtonClick() {
+                // Gửi yêu cầu đến servlet
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "appointment-details", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send();
+            }
 
-                <div class="form-group">
-                    <label for="imageUpload">Hình ảnh:</label>
-                    <input type="file" id="imageUpload" name="imageUpload" class="form-control-file">
-                </div>
+            //===ẩn nút cập nhật
+            the_a.classList.add("disabled");
+            the_a.setAttribute("aria-disabled", "true");
+            the_a.removeAttribute("href");
 
-                <button type="submit" class="btn btn-primary">Gửi</button>
-            </form>
-        </div>
-    </div>
+            optioncancel.addEventListener("click", function () {
 
+                var selectElement = document.getElementById("select");
+                var selectedValue = selectElement.value;
+
+
+
+                if (selectedValue === "canceled") {
+                    button.disabled = false;
+                    the_a.classList.add("disabled");
+                    the_a.setAttribute("aria-disabled", "true");
+                    the_a.removeAttribute("href");
+                } else if (selectedValue === "finished") {
+                    button.disabled = true;
+                    the_a.classList.remove("disabled");
+                    the_a.removeAttribute("aria-disabled");
+                    the_a.setAttribute("href", "${pageContext.request.getContextPath()}/doctor/MedicalRecord?id_patient=${patient.getId()}&id_app=${app.getId()}&id_doctor=${id_doctor}");
+                                } else if (selectedValue === "not_yet") {
+                                    button.disabled = true;
+                                    the_a.classList.add("disabled");
+                                    the_a.setAttribute("aria-disabled", "true");
+                                    the_a.removeAttribute("href");
+                                } else if (selectedValue === "finished" && update1 === "update") {
+                                    button.disabled = false;
+                                    the_a.classList.add("disabled");
+                                    the_a.setAttribute("aria-disabled", "true");
+                                    the_a.removeAttribute("href");
+                                }
+                            });
+
+
+
+
+                        });
+    </script>
 
     <style>
+        a.disabled {
+            pointer-events: none;
+            cursor: not-allowed;
+            color: gray;
+            text-decoration: none;
+        }
+        .button[disabled] {
+            opacity: 0.5; /* Đặt độ mờ */
+            pointer-events: none; /* Vô hiệu hóa tương tác */
+            cursor: not-allowed; /* Thay đổi kiểu con trỏ */
+        }
+
         .custom-container {
             background-color: #f5f5f5;
             padding: 20px;

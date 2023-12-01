@@ -18,7 +18,7 @@ public class DoctorProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Doctor doctor = (Doctor) req.getAttribute("doctor");
         req.setAttribute("doctor", doctor);
-        req.setAttribute("speciality_list", new SpecialityDao().getAllSpeciality());
+//        req.setAttribute("speciality_list", new SpecialityDao().getAllSpeciality());
         req.getRequestDispatcher("/WEB-INF/views/doctor/profile.jsp").forward(req, resp);
     }
 
@@ -29,8 +29,6 @@ public class DoctorProfileServlet extends HttpServlet {
         int id = doctor.getId();
         String name = req.getParameter("name");
         String degree = req.getParameter("degree");
-        int experience = Integer.parseInt(req.getParameter("experience"));
-        int specialty = Integer.parseInt(req.getParameter("specialty"));
         String phone = req.getParameter("phone");
         String dob = req.getParameter("DOB");
         boolean gender = false;
@@ -61,7 +59,7 @@ public class DoctorProfileServlet extends HttpServlet {
             return;
         }
 
-        if (doctorDao.updateDoctor(name, degree, experience, specialty, phone, dob, gender, address, id)) {
+        if (doctorDao.updateDoctor(name, degree, phone, dob, gender, address, id)) {
             Doctor updatedDoctor = doctorDao.findById(id);
             session.setAttribute("doctor", updatedDoctor);
             session.setAttribute("mess", "Cập nhật thông tin thành công!");

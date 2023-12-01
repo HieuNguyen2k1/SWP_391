@@ -66,35 +66,7 @@ public class AddSchedule extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-//        int year, weekNumber;
-//        if (req.getSession().getAttribute("week_and_year_url") != null) {
-//            String current_week = (String) req.getSession().getAttribute("week_and_year_url");
-//            String[] arr = current_week.split("-W");
-//            year = Integer.parseInt(arr[0]);
-//            weekNumber = Integer.parseInt(arr[1]);
-//            req.getSession().removeAttribute("week_and_year_url");
-//        } else {
-//            Calendar calendar = Calendar.getInstance();
-//            weekNumber = calendar.get(Calendar.WEEK_OF_YEAR);
-//            year = calendar.get(Calendar.YEAR);
-//        }
-//        String current_week = year + "-W" + weekNumber;
-//        int doctor_id = ((Doctor) req.getSession().getAttribute("doctor")).getId();
-//        if (req.getSession().getAttribute("url_mess") != null){
-//            String session_message = (String)req.getSession().getAttribute("url_mess");
-//            req.setAttribute(session_message.split("\\|")[0], session_message.split("\\|")[1]);
-//            req.getSession().removeAttribute("url_mess");
-//        }
-//       
-//        req.setAttribute("current_week", current_week);
-//        try {
-//            req.setAttribute("table", Table.createScheduleTableForDoctorTest(year, weekNumber,doctor_id));
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
-//        req.getRequestDispatcher("/WEB-INF/views/admin/control-doctor-schedule.jsp").forward(req, resp);
     }
-//
      public ArrayList<String> generateArrayStringOfTime(String date, float start, float end){
         ArrayList<String> arrayList = new ArrayList<>();
         for (float i = start; i < end; i += 0.5){
@@ -117,6 +89,7 @@ public class AddSchedule extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        
        if (req.getParameter("_method").equals("get_date")) {
             String week_and_year = req.getParameter("week");
             req.getSession().setAttribute("week_and_year_url", week_and_year);
@@ -131,35 +104,35 @@ public class AddSchedule extends HttpServlet {
             DoctorScheduleDao doctorScheduleDao = new DoctorScheduleDao();
             if (end < start || start < 8 || end > 17) {
                 req.getSession().setAttribute("url_mess", "error|Thời gian kết thúc phải nhỏ hơn thời gian bắt đầu, thời gian nằm trong khoảng từ 8h đến 17h!");
-                resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control");
+                resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + doctor_id);
             } else {
                 if (req.getParameter("to_date").isEmpty()){
                     ArrayList<String> arrayList = generateArrayStringOfTime(from_date, start, end);
                     if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)){ // check date co valid k
                         if (doctorScheduleDao.addScheduleOneDay(doctor_id, from_date, start, end)) {
                             req.getSession().setAttribute("url_mess", "success|Đăng ký thành công.");
-                            resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control");
+                            resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + doctor_id);
                         } else {
                             req.getSession().setAttribute("url_mess", "error|Đã có lỗi!");
-                            resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control");
+                            resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + doctor_id);
                         }
                     } else {
                         req.getSession().setAttribute("url_mess", "error|Bạn đã đặt trùng lịch hoặc lịch của quá khứ!");
-                        resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control");
+                        resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + doctor_id);
                     }
                 } else {
                     ArrayList<String> arrayList = generateArrayStringOfTime(from_date,to_date, start, end);
                     if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)){ // check date co valid k
                         if (doctorScheduleDao.addManyDays(doctor_id, from_date, to_date, start, end)){
                             req.getSession().setAttribute("url_mess", "success|Thêm thành công!");
-                            resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control");
+                            resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + doctor_id);
                         } else {
                             req.getSession().setAttribute("url_mess", "error|Đã có lỗi!");
-                            resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control");
+                            resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + doctor_id);
                         }
                     } else {
                         req.getSession().setAttribute("url_mess", "error|Bạn đã đặt trùng lịch hoặc lịch của quá khứ!");
-                        resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control");
+                        resp.sendRedirect(req.getContextPath() + "/admin/doctor-schedule-control?_method=choose_doctor&doctor_id=" + doctor_id);
                     }
 
                 }

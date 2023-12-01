@@ -15,9 +15,32 @@ public class User {
     public boolean is_admin;
     public String dob;
     public boolean gender;
+    public String group_blood;
+
+    public String getGroup_blood() {
+        return group_blood;
+    }
+
+    public void setGroup_blood(String group_blood) {
+        this.group_blood = group_blood;
+    }
 
     public User() {
 
+    }
+     public User(int id, String name, String email, String password, String phone,String dob,  boolean gender, String address, boolean is_admin, String verify_key, boolean is_verified,String group_blood) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.verify_key = verify_key;
+        this.is_verified = is_verified;
+        this.address = address;
+        this.is_admin = is_admin;
+        this.dob = dob;
+        this.gender = gender;
+        this.group_blood = group_blood;
     }
     public User(int id, String name, String email, String password, String phone,String dob,  boolean gender, String address, boolean is_admin, String verify_key, boolean is_verified) {
         this.id = id;

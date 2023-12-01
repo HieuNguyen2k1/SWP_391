@@ -1,4 +1,4 @@
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
     <head>
         <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/home.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        
 
     </head>
     <div class="container rounded bg-white mt-5 mb-5">
@@ -54,57 +55,22 @@
                             session.removeAttribute("status");
                         %>
                         <div class="row mt-3">
-
-
-
                             <div class="col-md-12">
                                 <label class="labels">Họ và tên</label>
                                 <input type="text" class="form-control" value="${doctor.name}" name="name">
                             </div>
-
-
                             <div class="col-md-12">
                                 <label class="labels">Email</label>
                                 <input type="text" class="form-control" value="${doctor.email}" name="email" readonly="">
                             </div>
-
-
-                            <div class="col-md-12">
-                                <label class="labels">Bằng cấp</label>
-                                <input type="text" class="form-control" value="${doctor.degree}" name="degree" >
-                            </div>
-
-
-                            <div class="col-md-12">
-                                <label class="labels">Năm kinh nghiệm</label>
-                                <input type="text" class="form-control" value="${doctor.experience}" name="experience" >
-                            </div>
-
-                            <br> <br>
-                            <div class="col-md-12">
-                                <label class="labels">Chuyên khoa</label> <br>
-                                <select class = "form-control"name="specialty" id="speciality_id">
-                                    <option value="0" selected></option>
-                                    <c:forEach var="item" items="${speciality_list}">
-                                        <option ${item.id == doctor.speciality_id ? "selected" : ""} value="${item.id}">${item.getName()}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
-                            <br>
-
                             <div class="col-md-12">
                                 <label class="labels">Số điện thoại</label>
-                                <input type="tel" class="form-control" placeholder="" value="${doctor.phone}" name="phone">
+                                <input type="tel" class="form-control" placeholder="" value="${doctor.getPhone()}" name="phone">
                             </div>
-
-
                             <div class="col-md-12">
                                 <label class="labels">Ngày sinh</label>
                                 <input type="date" class="form-control" value="${doctor.dob}" name="DOB" >
                             </div>
-
-
                             <div class="col-md-12">
                                 <label class="labels">Giới tính</label> <br>
                                 <select class="form-control" name="gender">
@@ -112,16 +78,12 @@
                                     <option value="0" <c:if test="${!doctor.gender}">selected</c:if>>Nữ</option>
                                     </select>
                                 </div>
-
                                 <br>
-
                                 <div class="col-md-12">
                                     <label class="labels">Địa chỉ</label>
                                     <input type="text" class="form-control" value="${doctor.address}" name="address">
                             </div>
-
                         </div>
-
                         <div class="d-flex justify-content-center">
                             <div class="mt-5 text-center">
                                 <button class=" button-style" type="submit">Lưu thay đổi</button>
@@ -153,7 +115,7 @@
             font-size: 12px;
         }
         .button-style {
-            background-color: #234821;
+            background-color:#5475e3;
             color: #ffffff;
             border: none;
             padding: 10px 20px;

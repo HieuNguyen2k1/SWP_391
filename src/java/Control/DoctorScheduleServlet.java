@@ -12,10 +12,15 @@ import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
+import static java.lang.String.format;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DoctorScheduleServlet extends HttpServlet {
 
@@ -35,29 +40,31 @@ public class DoctorScheduleServlet extends HttpServlet {
         }
         String current_week = year + "-W" + weekNumber;
         int doctor_id = ((Doctor) req.getSession().getAttribute("doctor")).getId();
-        if (req.getSession().getAttribute("url_mess") != null){
-            String session_message = (String)req.getSession().getAttribute("url_mess");
+        if (req.getSession().getAttribute("url_mess") != null) {
+            String session_message = (String) req.getSession().getAttribute("url_mess");
             req.setAttribute(session_message.split("\\|")[0], session_message.split("\\|")[1]);
             req.getSession().removeAttribute("url_mess");
         }
-       
+
         req.setAttribute("current_week", current_week);
         try {
-            req.setAttribute("table", Table.createScheduleTableForDoctorTest(year, weekNumber,doctor_id));
+            req.setAttribute("table", Table.createScheduleTableForDoctorTest(year, weekNumber, doctor_id));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         req.getRequestDispatcher("/WEB-INF/views/doctor/schedule.jsp").forward(req, resp);
     }
-    public ArrayList<String> generateArrayStringOfTime(String date, float start, float end){
+
+    public ArrayList<String> generateArrayStringOfTime(String date, float start, float end) {
         ArrayList<String> arrayList = new ArrayList<>();
-        for (float i = start; i < end; i += 0.5){
+        for (float i = start; i < end; i += 0.5) {
             arrayList.add(date + " " + DoctorScheduleDao.generateTime(i));
         }
         System.out.println(arrayList);
         return arrayList;
     }
-    public ArrayList<String> generateArrayStringOfTime(String from_date, String to_date, float start, float end){
+
+    public ArrayList<String> generateArrayStringOfTime(String from_date, String to_date, float start, float end) {
         ArrayList<String> arrayList = new ArrayList<>();
         List<LocalDate> datesInRange = DoctorScheduleDao.getDatesInRange(from_date, to_date);
         for (LocalDate date : datesInRange) {
@@ -67,6 +74,28 @@ public class DoctorScheduleServlet extends HttpServlet {
         }
         System.out.println(arrayList);
         return arrayList;
+    }
+
+    public String CheckTimeOfWeek(String date) throws ParseException {
+        
+        // Tạo đối tượng SimpleDateFormat với định dạng ngày tháng
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+     
+         // Phân tích chuỗi ngày tháng thành đối tượng Date
+        Date date1 = format.parse(date);
+        
+        //Tạo đối tượng Calendar và đặt ngày từ đối tượng Date
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date1);
+
+        // Lấy số tuần trong năm
+        int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+        
+        // Lấy năm từ đối tượng Calendar
+        int year = calendar.get(Calendar.YEAR);
+        
+        String Week = year+"-W" + weekOfYear;
+        return Week;
     }
 
     @Override
@@ -81,16 +110,27 @@ public class DoctorScheduleServlet extends HttpServlet {
             float start = Float.parseFloat(req.getParameter("from"));
             float end = Float.parseFloat(req.getParameter("to"));
             int doctor_id = ((Doctor) req.getSession().getAttribute("doctor")).getId();
+
+            try {
+                //=====================
+                String week_and_year = CheckTimeOfWeek(from_date);
+                req.getSession().setAttribute("week_and_year_url", week_and_year);
+            } catch (ParseException ex) {
+                Logger.getLogger(DoctorScheduleServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //=================
             DoctorScheduleDao doctorScheduleDao = new DoctorScheduleDao();
             if (end < start || start < 8 || end > 17) {
                 req.getSession().setAttribute("url_mess", "error|Thời gian kết thúc phải nhỏ hơn thời gian bắt đầu, thời gian nằm trong khoảng từ 8h đến 17h!");
                 resp.sendRedirect(req.getContextPath() + "/doctor/schedule");
             } else {
-                if (req.getParameter("to_date").isEmpty()){
+                if (req.getParameter("to_date").isEmpty()) {
                     ArrayList<String> arrayList = generateArrayStringOfTime(from_date, start, end);
-                    if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)){ // check date co valid k
+                    if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)) { // check date co valid k
                         if (doctorScheduleDao.addScheduleOneDay(doctor_id, from_date, start, end)) {
-                            req.getSession().setAttribute("url_mess", "success|Đăng ký thành công, chờ phê duyệt!");
+                            req.getSession().setAttribute("url_mess", "success|Đăng ký thành công.");
+                            
                             resp.sendRedirect(req.getContextPath() + "/doctor/schedule");
                         } else {
                             req.getSession().setAttribute("url_mess", "error|Đã có lỗi!");
@@ -101,9 +141,9 @@ public class DoctorScheduleServlet extends HttpServlet {
                         resp.sendRedirect(req.getContextPath() + "/doctor/schedule");
                     }
                 } else {
-                    ArrayList<String> arrayList = generateArrayStringOfTime(from_date,to_date, start, end);
-                    if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)){ // check date co valid k
-                        if (doctorScheduleDao.addManyDays(doctor_id, from_date, to_date, start, end)){
+                    ArrayList<String> arrayList = generateArrayStringOfTime(from_date, to_date, start, end);
+                    if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)) { // check date co valid k
+                        if (doctorScheduleDao.addManyDays(doctor_id, from_date, to_date, start, end)) {
                             req.getSession().setAttribute("url_mess", "success|Thêm thành công!");
                             resp.sendRedirect(req.getContextPath() + "/doctor/schedule");
                         } else {
@@ -128,9 +168,9 @@ public class DoctorScheduleServlet extends HttpServlet {
                 req.getSession().setAttribute("url_mess", "error|Thời gian kết thúc phải nhỏ hơn thời gian bắt đầu, thời gian nằm trong khoảng từ 8h đến 17h!");
                 resp.sendRedirect(req.getContextPath() + "/doctor/schedule");
             } else {
-                if (req.getParameter("to_date").isEmpty()){
+                if (req.getParameter("to_date").isEmpty()) {
                     ArrayList<String> arrayList = generateArrayStringOfTime(from_date, start, end);
-                    if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)){ // check date co valid k
+                    if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)) { // check date co valid k
                         if (doctorScheduleDao.addScheduleOneDay(doctor_id, from_date, start, end)) {
                             req.getSession().setAttribute("url_mess", "success|Xóa thành công.");
                             resp.sendRedirect(req.getContextPath() + "/doctor/schedule");
@@ -143,9 +183,9 @@ public class DoctorScheduleServlet extends HttpServlet {
                         resp.sendRedirect(req.getContextPath() + "/doctor/schedule");
                     }
                 } else {
-                    ArrayList<String> arrayList = generateArrayStringOfTime(from_date,to_date, start, end);
-                    if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)){ // check date co valid k
-                        if (doctorScheduleDao.addManyDays(doctor_id, from_date, to_date, start, end)){
+                    ArrayList<String> arrayList = generateArrayStringOfTime(from_date, to_date, start, end);
+                    if (doctorScheduleDao.checkValidTIme(arrayList, doctor_id)) { // check date co valid k
+                        if (doctorScheduleDao.addManyDays(doctor_id, from_date, to_date, start, end)) {
                             req.getSession().setAttribute("url_mess", "success|Thêm thành công!");
                             resp.sendRedirect(req.getContextPath() + "/doctor/schedule");
                         } else {

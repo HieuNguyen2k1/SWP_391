@@ -14,16 +14,20 @@
     <url-pattern>/your-servlet-url</url-pattern>
 </servlet-mapping>-->
     <servlet>
-        <servlet-name>ApproveScheduleDoctor</servlet-name>
-        <servlet-class>Control.Admin.ApproveScheduleDoctor</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddSchedule</servlet-name>
         <servlet-class>Control.Admin.AddSchedule</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MedicalRecord</servlet-name>
         <servlet-class>Control.MedicalRecord</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientViewRecord</servlet-name>
+        <servlet-class>Control.PatientViewRecord</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DowloadFile</servlet-name>
+        <servlet-class>Control.DowloadFile</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NewsControl</servlet-name>
@@ -54,10 +58,6 @@
         <url-pattern>/admin/StatusDoctor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ApproveScheduleDoctor</servlet-name>
-        <url-pattern>/admin/approve</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>NewsServlet</servlet-name>
         <url-pattern>/news</url-pattern>
     </servlet-mapping>
@@ -84,6 +84,14 @@
     <servlet-mapping>
         <servlet-name>MedicalRecord</servlet-name>
         <url-pattern>/doctor/MedicalRecord</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientViewRecord</servlet-name>
+        <url-pattern>/PatientViewRecord</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DowloadFile</servlet-name>
+        <url-pattern>/DowloadFile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -354,7 +362,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DoctorViewAppointment</servlet-name>
-        <url-pattern>/doctor/appointment-detail</url-pattern>
+        <url-pattern>/doctor/appointment-details</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>DoctorViewFinishedAppointment</servlet-name>

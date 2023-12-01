@@ -132,15 +132,16 @@
         text-decoration: none;
         display: block;
     }
-
+/* doi mau */
     .custom-menu a:hover {
-        background-color: #5aac4e;
+        background-color: #13C5DD;
     }
     .form-control{
         font-size: 12px;
     }
+    /* doi mau background*/
     .button-style {
-        background-color: #234821;
+        background-color: #0f9bae;
         color: #ffffff;
         border: none;
         padding: 10px 20px;

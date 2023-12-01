@@ -15,8 +15,26 @@ public class Record {
     private int id_appointment;
     private int id_patient;
     private String imageRecord;
-    private String file;
+    private byte[] file;
     private String time;
+    private String height;
+    private int weight;
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
     public String getTime() {
         return time;
@@ -28,8 +46,29 @@ public class Record {
 
     public Record() {
     }
+    
+     public Record( int idRecord, int id_appointment, String time,  int id_patient) {
+        this.idRecord = idRecord;
+       
+        this.id_appointment = id_appointment;
+        this.id_patient = id_patient;
+       
+        this.time = time;
+       
+    }
+      public Record( int idRecord, String Record_text, int id_appointment, String imageRecord, String time, byte[] file, int id_patient,String height, int weight) {
+        this.idRecord = idRecord;
+        this.Record_text = Record_text;
+        this.id_appointment = id_appointment;
+        this.id_patient = id_patient;
+        this.imageRecord = imageRecord;
+        this.file = file;
+        this.time = time;
+        this.height = height;
+        this.weight = weight;
+    }
 
-    public Record( int idRecord, String Record_text, int id_appointment, String imageRecord, String time, String file, int id_patient) {
+    public Record( int idRecord, String Record_text, int id_appointment, String imageRecord, String time, byte[] file, int id_patient) {
         this.idRecord = idRecord;
         this.Record_text = Record_text;
         this.id_appointment = id_appointment;
@@ -39,7 +78,7 @@ public class Record {
         this.time = time;
     }
 
-    public Record(int idRecord, String Record_text, int id_appointment, int id_patient, String imageRecord, String file) {
+    public Record(int idRecord, String Record_text, int id_appointment, int id_patient, String imageRecord, byte[] file) {
         this.idRecord = idRecord;
         this.Record_text = Record_text;
         this.id_appointment = id_appointment;
@@ -48,6 +87,7 @@ public class Record {
         this.file = file;
     }
 
+   
     public int getIdRecord() {
         return idRecord;
     }
@@ -88,12 +128,14 @@ public class Record {
         this.imageRecord = imageRecord;
     }
 
-    public String getFile() {
+    public byte[] getFile() {
         return file;
     }
 
-    public void setFile(String file) {
+    public void setFile(byte[] file) {
         this.file = file;
     }
+
+    
     
 }

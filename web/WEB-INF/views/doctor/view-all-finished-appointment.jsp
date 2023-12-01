@@ -54,10 +54,11 @@
                         <td>${item.getStart()}</td>
                         <td>${item.getEnd()}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/doctor/appointment-detail?app_id=${item.getId()}">
+                            <a href="${pageContext.request.contextPath}/doctor/appointment-details?app_id=${item.getId()}">
                                 <button class="custom-button">
                                     <span class="bi bi-eye"></span> Xem chi tiết
                                 </button>
+                                
 
                             </a>
                         </td>
@@ -69,7 +70,7 @@
 </div>
 <style>
     .custom-button {
-        background-color: #5aac4e;
+        background-color: #5475e3;
         color: #fff;
         border: none;
         padding: 10px 20px;
